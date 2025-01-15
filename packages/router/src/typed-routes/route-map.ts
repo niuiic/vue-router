@@ -2,7 +2,7 @@ import type { TypesConfig } from '../config'
 import type {
   RouteMeta,
   RouteParamsGeneric,
-  RouteParamsRawGeneric,
+  RouteParamsRawGeneric
 } from '../types'
 import type { RouteRecord } from '../matcher/types'
 

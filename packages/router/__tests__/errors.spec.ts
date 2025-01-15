@@ -5,13 +5,13 @@ import {
   NavigationFailureType,
   isNavigationFailure,
   createRouterError,
-  ErrorTypes,
+  ErrorTypes
 } from '../src/errors'
 import { components, tick } from './utils'
 import type { RouteRecordRaw, NavigationGuard } from '../src'
 import type {
   RouteLocationRaw,
-  RouteLocationNormalized,
+  RouteLocationNormalized
 } from '../src/typed-routes'
 import { START_LOCATION_NORMALIZED } from '../src/location'
 import { vi, describe, expect, it, beforeEach } from 'vitest'
@@ -23,7 +23,7 @@ const routes: Readonly<RouteRecordRaw>[] = [
   { path: '/foo', component: components.Foo, name: 'Foo' },
   // prevent the log of no match warnings
   { path: '/:pathMatch(.*)', component: components.Home },
-  { path: '/async', component: () => Promise.reject('failed') },
+  { path: '/async', component: () => Promise.reject('failed') }
 ]
 
 const onError = vi.fn()
@@ -32,7 +32,7 @@ function createRouter() {
   const history = createMemoryHistory()
   const router = newRouter({
     history,
-    routes,
+    routes
   })
 
   router.onError(onError)
@@ -51,7 +51,7 @@ describe('Errors & Navigation failures', () => {
     await testNavigation(
       false,
       expect.objectContaining({
-        type: NavigationFailureType.aborted,
+        type: NavigationFailureType.aborted
       })
     )
   })
@@ -64,7 +64,7 @@ describe('Errors & Navigation failures', () => {
     let expectedFailure = expect.objectContaining({
       type: NavigationFailureType.duplicated,
       to: expect.objectContaining({ path: '/' }),
-      from: expect.objectContaining({ path: '/' }),
+      from: expect.objectContaining({ path: '/' })
     })
 
     const { router } = createRouter()
@@ -291,7 +291,7 @@ describe('isNavigationFailure', () => {
       isNavigationFailure(
         createRouterError<NavigationFailure>(ErrorTypes.NAVIGATION_ABORTED, {
           from,
-          to,
+          to
         })
       )
     ).toBe(true)
@@ -302,7 +302,7 @@ describe('isNavigationFailure', () => {
       isNavigationFailure(
         createRouterError<NavigationFailure>(ErrorTypes.NAVIGATION_ABORTED, {
           from,
-          to,
+          to
         }),
         NavigationFailureType.aborted
       )
@@ -314,7 +314,7 @@ describe('isNavigationFailure', () => {
       isNavigationFailure(
         createRouterError<NavigationFailure>(ErrorTypes.NAVIGATION_ABORTED, {
           from,
-          to,
+          to
         }),
         NavigationFailureType.aborted | NavigationFailureType.cancelled
       )
@@ -323,7 +323,7 @@ describe('isNavigationFailure', () => {
       isNavigationFailure(
         createRouterError<NavigationFailure>(ErrorTypes.NAVIGATION_CANCELLED, {
           from,
-          to,
+          to
         }),
         NavigationFailureType.aborted | NavigationFailureType.cancelled
       )
@@ -332,7 +332,7 @@ describe('isNavigationFailure', () => {
       isNavigationFailure(
         createRouterError<NavigationFailure>(ErrorTypes.NAVIGATION_DUPLICATED, {
           from,
-          to,
+          to
         }),
         NavigationFailureType.aborted | NavigationFailureType.cancelled
       )

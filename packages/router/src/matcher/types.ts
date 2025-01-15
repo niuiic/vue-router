@@ -1,12 +1,12 @@
 import type {
   NavigationGuard,
   NavigationGuardNextCallback,
-  _RouteRecordProps,
+  _RouteRecordProps
 } from '../typed-routes'
 import {
   RouteRecordMultipleViews,
   _RouteRecordBase,
-  RouteRecordRaw,
+  RouteRecordRaw
 } from '../types'
 import { ComponentPublicInstance } from 'vue'
 

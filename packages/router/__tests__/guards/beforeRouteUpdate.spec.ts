@@ -15,9 +15,9 @@ const routes: RouteRecordRaw[] = [
     alias: '/guard-alias/:go',
     component: {
       ...Foo,
-      beforeRouteUpdate,
-    },
-  },
+      beforeRouteUpdate
+    }
+  }
 ]
 
 beforeEach(() => {

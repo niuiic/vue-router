@@ -9,7 +9,7 @@ export type {
   LocationQuery,
   LocationQueryRaw,
   LocationQueryValue,
-  LocationQueryValueRaw,
+  LocationQueryValueRaw
 } from './query'
 
 export type { RouterHistory, HistoryState } from './history/common'
@@ -18,7 +18,7 @@ export type { RouteRecord, RouteRecordNormalized } from './matcher/types'
 
 export type {
   PathParserOptions,
-  _PathParserOptions,
+  _PathParserOptions
 } from './matcher/pathParserRanker'
 
 export {
@@ -26,7 +26,7 @@ export {
   routerViewLocationKey,
   routerKey,
   matchedRouteKey,
-  viewDepthKey,
+  viewDepthKey
 } from './injectionSymbols'
 
 export { START_LOCATION_NORMALIZED as START_LOCATION } from './location'
@@ -36,20 +36,16 @@ export type {
   MatcherLocationAsPath,
   LocationAsRelativeRaw,
   RouteQueryAndHash,
-
   // route params
   RouteParamValue,
   RouteParamValueRaw,
-
   // Partial route location
   RouteLocationNamedRaw,
   // exported for backwards compat for old RouteLocationRaw
   RouteLocationPathRaw,
   RouteLocationMatched,
-
   // extra options when navigating
   RouteLocationOptions,
-
   // route records
   _RouteRecordBase,
   RouteRecordRaw,
@@ -63,7 +59,7 @@ export type {
   // RawRouteComponent,
   RouteParamsGeneric,
   RouteParamsRawGeneric,
-  MatcherLocation,
+  MatcherLocation
 } from './types'
 export type { _Awaitable } from './types/utils'
 
@@ -71,32 +67,27 @@ export type { _Awaitable } from './types/utils'
 export type {
   RouteMap,
   RouteMapGeneric,
-
   // route location
   RouteLocationRaw,
   RouteLocation,
   RouteLocationGeneric,
   RouteLocationTyped,
   RouteLocationTypedList,
-
   // RouteLocationNormalized
   RouteLocationNormalizedGeneric,
   RouteLocationNormalized,
   RouteLocationNormalizedTyped,
   RouteLocationNormalizedTypedList,
-
   // RouteLocationNormalizedLoaded
   RouteLocationNormalizedLoadedGeneric,
   RouteLocationNormalizedLoaded,
   RouteLocationNormalizedLoadedTyped,
   RouteLocationNormalizedLoadedTypedList,
-
   // RouteLocationResolved
   RouteLocationResolvedGeneric,
   RouteLocationResolved,
   RouteLocationResolvedTyped,
   RouteLocationResolvedTypedList,
-
   // relative
   RouteLocationAsRelativeGeneric,
   RouteLocationAsRelative,
@@ -111,14 +102,12 @@ export type {
   RouteLocationAsPath,
   RouteLocationAsPathTyped,
   RouteLocationAsPathTypedList,
-
   // route records
   RouteRecordInfo,
   RouteRecordNameGeneric,
   RouteRecordName,
   _RouteRecordProps,
   RouteRecordRedirectOption,
-
   // params
   RouteParams,
   RouteParamsRaw,
@@ -126,14 +115,13 @@ export type {
   ParamValueOneOrMore,
   ParamValueZeroOrMore,
   ParamValueZeroOrOne,
-
   // navigation guards
   NavigationGuard,
   NavigationGuardWithThis,
   NavigationHookAfter,
   NavigationGuardReturn,
   NavigationGuardNext,
-  NavigationGuardNextCallback,
+  NavigationGuardNextCallback
 } from './typed-routes'
 
 export { createRouter } from './router'
@@ -143,20 +131,20 @@ export { NavigationFailureType, isNavigationFailure } from './errors'
 export type {
   NavigationFailure,
   ErrorTypes,
-  NavigationRedirectError,
+  NavigationRedirectError
 } from './errors'
 
 export {
   onBeforeRouteLeave,
   onBeforeRouteUpdate,
-  loadRouteLocation,
+  loadRouteLocation
 } from './navigationGuards'
 export { RouterLink, useLink } from './RouterLink'
 export type {
   _RouterLinkI,
   RouterLinkProps,
   UseLinkOptions,
-  UseLinkReturn,
+  UseLinkReturn
 } from './RouterLink'
 export { RouterView } from './RouterView'
 export type { RouterViewProps } from './RouterView'

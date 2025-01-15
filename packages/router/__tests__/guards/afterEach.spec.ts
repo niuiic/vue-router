@@ -14,9 +14,9 @@ const routes: RouteRecordRaw[] = [
     component: Nested,
     children: [
       { path: '', name: 'nested-default', component: Foo },
-      { path: 'home', name: 'nested-home', component: Home },
-    ],
-  },
+      { path: 'home', name: 'nested-home', component: Home }
+    ]
+  }
 ]
 
 describe('router.afterEach', () => {

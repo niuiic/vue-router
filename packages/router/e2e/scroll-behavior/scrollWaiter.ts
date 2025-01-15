@@ -3,7 +3,7 @@ function createScrollWaiter() {
   let promise: Promise<any> | undefined
 
   function add() {
-    promise = new Promise(r => {
+    promise = new Promise((r) => {
       resolve = r
     })
   }
@@ -17,11 +17,11 @@ function createScrollWaiter() {
   const waiter = {
     promise,
     add,
-    flush,
+    flush
   }
 
   Object.defineProperty(waiter, 'promise', {
-    get: () => promise,
+    get: () => promise
   })
 
   return waiter

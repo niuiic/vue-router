@@ -27,36 +27,36 @@ const outputConfigs = {
   // format being a key of this object
   mjs: {
     file: pkg.module,
-    format: `es`,
+    format: `es`
   },
   cjs: {
     file: 'dist/vue-router.cjs',
-    format: `cjs`,
+    format: `cjs`
   },
   global: {
     file: pkg.unpkg,
-    format: `iife`,
+    format: `iife`
   },
   browser: {
     file: 'dist/vue-router.esm-browser.js',
-    format: `es`,
-  },
+    format: `es`
+  }
 }
 
 const stubs = {
   'dist/vue-router.cjs': 'vue-router.cjs.js',
   'dist/vue-router.mjs': 'vue-router.esm-bundler.js',
-  'dist/vue-router.prod.cjs': 'vue-router.cjs.prod.js',
+  'dist/vue-router.prod.cjs': 'vue-router.cjs.prod.js'
 }
 
 const packageBuilds = Object.keys(outputConfigs)
 // in vue-router there are not that many
-const packageConfigs = packageBuilds.map(buildName =>
+const packageConfigs = packageBuilds.map((buildName) =>
   createConfig(buildName, outputConfigs[buildName])
 )
 
 // only add the production ready if we are bundling the options
-packageBuilds.forEach(buildName => {
+packageBuilds.forEach((buildName) => {
   if (buildName === 'cjs') {
     packageConfigs.push(createProductionConfig(buildName))
   } else if (buildName === 'global' || buildName === 'browser') {
@@ -76,7 +76,7 @@ function createConfig(buildName, output, plugins = []) {
   output.banner = banner
   output.externalLiveBindings = false
   output.globals = {
-    vue: 'Vue',
+    vue: 'Vue'
     // devtools are not global in iife
     // '@vue/devtools-api': 'VueDevtoolsApi',
   }
@@ -99,10 +99,10 @@ function createConfig(buildName, output, plugins = []) {
       compilerOptions: {
         sourceMap: output.sourcemap,
         declaration: shouldEmitDeclarations,
-        declarationMap: shouldEmitDeclarations,
+        declarationMap: shouldEmitDeclarations
       },
-      exclude: ['__tests__', 'test-dts'],
-    },
+      exclude: ['__tests__', 'test-dts']
+    }
   })
   // we only need to check TS and generate declarations once for each build.
   // it also seems to run into weird issues when checking multiple times
@@ -127,7 +127,7 @@ function createConfig(buildName, output, plugins = []) {
     external,
     treeshake: {
       // Ensure @vue/devtools-api can be treeshaken in production builds
-      moduleSideEffects: false,
+      moduleSideEffects: false
     },
     plugins: [
       tsPlugin,
@@ -162,10 +162,10 @@ function createConfig(buildName, output, plugins = []) {
             )
             console.log(`created stub ${chalk.bold(outfile)}`)
           }
-        },
-      },
+        }
+      }
     ],
-    output,
+    output
     // onwarn: (msg, warn) => {
     //   if (!/Circular/.test(msg)) {
     //     warn(msg)
@@ -200,18 +200,18 @@ function createReplacePlugin(
     __BUNDLER__: JSON.stringify(isBundlerESMBuild),
     __GLOBAL__: JSON.stringify(isGlobalBuild),
     // is targeting Node (SSR)?
-    __NODE_JS__: JSON.stringify(isNodeBuild),
+    __NODE_JS__: JSON.stringify(isNodeBuild)
   }
   // allow inline overrides like
   //__RUNTIME_COMPILE__=true yarn build
-  Object.keys(replacements).forEach(key => {
+  Object.keys(replacements).forEach((key) => {
     if (key in process.env) {
       replacements[key] = process.env[key]
     }
   })
   return replace({
     preventAssignment: true,
-    values: replacements,
+    values: replacements
   })
 }
 
@@ -220,7 +220,7 @@ function createProductionConfig(format) {
   const descriptor = format === 'cjs' || format === 'mjs' ? '' : `.${format}`
   return createConfig(format, {
     file: `dist/${name}${descriptor}.prod.${extension}`,
-    format: outputConfigs[format].format,
+    format: outputConfigs[format].format
   })
 }
 
@@ -229,16 +229,16 @@ function createMinifiedConfig(format) {
     format,
     {
       file: outputConfigs[format].file.replace(/.js$/, '.prod.js'),
-      format: outputConfigs[format].format,
+      format: outputConfigs[format].format
     },
     [
       terser({
         module: /^esm/.test(format),
         compress: {
           ecma: 2015,
-          pure_getters: true,
-        },
-      }),
+          pure_getters: true
+        }
+      })
     ]
   )
 }

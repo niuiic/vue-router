@@ -29,8 +29,8 @@ export default defineComponent({
 
     return {
       props,
-      level,
+      level
     }
-  },
+  }
 })
 </script>

@@ -12,14 +12,14 @@ import {
   beforeEach,
   Mock,
   afterAll,
-  afterEach,
+  afterEach
 } from 'vitest'
 
 vi.mock('../../src/history/html5')
 // override the value of isBrowser because the variable is created before JSDOM
 // is created
 vi.mock('../../src/utils/env', () => ({
-  isBrowser: true,
+  isBrowser: true
 }))
 
 describe('History Hash', () => {

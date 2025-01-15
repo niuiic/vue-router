@@ -17,7 +17,6 @@ function getServer() {
     ? null
     : import('./devServer.mjs').then(({ getServer }) => getServer())
 }
-
 ;(async () => {
   const server = await getServer()
 
@@ -40,7 +39,7 @@ BROWSERSTACK_ACCESS_KEY is not set. Did you create the .env file?
 
       bs_local.start(
         { key: process.env.BROWSERSTACK_ACCESS_KEY },
-        async error => {
+        async (error) => {
           if (error) throw error
 
           console.log('Connected. Now testing...')
@@ -66,7 +65,7 @@ BROWSERSTACK_ACCESS_KEY is not set. Did you create the .env file?
 
 function runNightwatchCli() {
   return new Promise((resolve, reject) => {
-    Nightwatch.cli(argv => {
+    Nightwatch.cli((argv) => {
       Nightwatch.CliRunner(argv).setup().runTests().then(resolve).catch(reject)
     })
   })

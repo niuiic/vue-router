@@ -5,7 +5,7 @@ import {
   stripBase,
   isSameRouteLocationParams,
   isSameRouteLocation,
-  resolveRelativePath,
+  resolveRelativePath
 } from '../src/location'
 import { RouteLocationNormalizedLoaded } from 'src'
 import { vi, describe, expect, it } from 'vitest'
@@ -19,7 +19,7 @@ describe('parseURL', () => {
       fullPath: '/foo',
       path: '/foo',
       hash: '',
-      query: {},
+      query: {}
     })
   })
 
@@ -28,7 +28,7 @@ describe('parseURL', () => {
       fullPath: '/foo#hash',
       path: '/foo',
       hash: '#hash',
-      query: {},
+      query: {}
     })
   })
 
@@ -37,7 +37,7 @@ describe('parseURL', () => {
       fullPath: '/foo?f=foo#hash',
       path: '/foo',
       hash: '#hash',
-      query: { f: 'foo' },
+      query: { f: 'foo' }
     })
   })
 
@@ -46,7 +46,7 @@ describe('parseURL', () => {
       fullPath: '/?f=foo',
       path: '/',
       hash: '',
-      query: { f: 'foo' },
+      query: { f: 'foo' }
     })
   })
 
@@ -55,7 +55,7 @@ describe('parseURL', () => {
       fullPath: '/#foo',
       path: '/',
       hash: '#foo',
-      query: {},
+      query: {}
     })
   })
 
@@ -64,7 +64,7 @@ describe('parseURL', () => {
       fullPath: '/parent/foo',
       path: '/parent/foo',
       hash: '',
-      query: {},
+      query: {}
     })
   })
 
@@ -73,7 +73,7 @@ describe('parseURL', () => {
       fullPath: '/parent/foo?f=foo#hash',
       path: '/parent/foo',
       hash: '#hash',
-      query: { f: 'foo' },
+      query: { f: 'foo' }
     })
   })
 
@@ -82,7 +82,7 @@ describe('parseURL', () => {
       fullPath: '/parent/bar?f=foo',
       path: '/parent/bar',
       hash: '',
-      query: { f: 'foo' },
+      query: { f: 'foo' }
     })
   })
 
@@ -91,7 +91,7 @@ describe('parseURL', () => {
       fullPath: '/parent/bar#hash',
       path: '/parent/bar',
       hash: '#hash',
-      query: {},
+      query: {}
     })
   })
 
@@ -102,8 +102,8 @@ describe('parseURL', () => {
       hash: '',
       query: {
         a: 'one',
-        b: 'two',
-      },
+        b: 'two'
+      }
     })
   })
 
@@ -112,7 +112,7 @@ describe('parseURL', () => {
       fullPath: '/foo#bar',
       path: '/foo',
       hash: '#bar',
-      query: {},
+      query: {}
     })
   })
 
@@ -121,7 +121,7 @@ describe('parseURL', () => {
       fullPath: '/foo?a=one#bar',
       path: '/foo',
       hash: '#bar',
-      query: { a: 'one' },
+      query: { a: 'one' }
     })
   })
 
@@ -130,7 +130,7 @@ describe('parseURL', () => {
       fullPath: '/foo?a=one&a=two&a=three',
       path: '/foo',
       hash: '',
-      query: { a: ['one', 'two', 'three'] },
+      query: { a: ['one', 'two', 'three'] }
     })
   })
 
@@ -139,13 +139,13 @@ describe('parseURL', () => {
       fullPath: '/foo#?a=one',
       path: '/foo',
       hash: '#?a=one',
-      query: {},
+      query: {}
     })
     expect(parseURL('/foo/#?a=one')).toEqual({
       fullPath: '/foo/#?a=one',
       path: '/foo/',
       hash: '#?a=one',
-      query: {},
+      query: {}
     })
   })
 
@@ -163,7 +163,7 @@ describe('stringifyURL', () => {
   it('stringifies a path', () => {
     expect(
       stringifyURL({
-        path: '/some-path',
+        path: '/some-path'
       })
     ).toBe('/some-path')
   })
@@ -174,8 +174,8 @@ describe('stringifyURL', () => {
         path: '/path',
         query: {
           foo: ['a1', 'a2'],
-          bar: 'b',
-        },
+          bar: 'b'
+        }
       })
     ).toBe('/path?foo=a1&foo=a2&bar=b')
   })
@@ -186,8 +186,8 @@ describe('stringifyURL', () => {
         path: '/path',
         query: {
           foo: 'a',
-          bar: 'b',
-        },
+          bar: 'b'
+        }
       })
     ).toBe('/path?foo=a&bar=b')
   })
@@ -196,7 +196,7 @@ describe('stringifyURL', () => {
     expect(
       stringifyURL({
         path: '/path',
-        hash: '#hey',
+        hash: '#hey'
       })
     ).toBe('/path#hey')
   })
@@ -207,9 +207,9 @@ describe('stringifyURL', () => {
         path: '/path',
         query: {
           foo: 'a',
-          bar: 'b',
+          bar: 'b'
         },
-        hash: '#hey',
+        hash: '#hey'
       })
     ).toBe('/path?foo=a&bar=b#hey')
   })
@@ -218,7 +218,7 @@ describe('stringifyURL', () => {
     const stringifyQuery = vi.fn()
     originalStringifyURL(stringifyQuery, {
       path: '/',
-      query: { é: 'é', b: 'a' },
+      query: { é: 'é', b: 'a' }
     })
     expect(stringifyQuery).toHaveBeenCalledTimes(1)
     expect(stringifyQuery).toHaveBeenCalledWith({ é: 'é', b: 'a' })
@@ -290,7 +290,7 @@ describe('isSameRouteLocation', () => {
       hash: '',
       meta: {},
       query: {},
-      redirectedFrom: undefined,
+      redirectedFrom: undefined
     }
     expect(
       isSameRouteLocation(

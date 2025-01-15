@@ -6,7 +6,7 @@ export function mockWarn() {
   expect.extend({
     toHaveBeenWarned(received: string | RegExp) {
       asserted.set(received.toString(), received)
-      const passed = warn.mock.calls.some(args =>
+      const passed = warn.mock.calls.some((args) =>
         typeof received === 'string'
           ? args[0].indexOf(received) > -1
           : received.test(args[0])
@@ -14,14 +14,14 @@ export function mockWarn() {
       if (passed) {
         return {
           pass: true,
-          message: () => `expected "${received}" not to have been warned.`,
+          message: () => `expected "${received}" not to have been warned.`
         }
       } else {
-        const msgs = warn.mock.calls.map(args => args[0]).join('\n - ')
+        const msgs = warn.mock.calls.map((args) => args[0]).join('\n - ')
         return {
           pass: false,
           message: () =>
-            `expected "${received}" to have been warned.\n\nActual messages:\n\n - ${msgs}`,
+            `expected "${received}" to have been warned.\n\nActual messages:\n\n - ${msgs}`
         }
       }
     },
@@ -31,7 +31,7 @@ export function mockWarn() {
       if (warn.mock.calls.length === 0) {
         return {
           pass: false,
-          message: () => 'expected console.warn to have been called.',
+          message: () => 'expected console.warn to have been called.'
         }
       }
       const lastCall = warn.mock.calls.at(-1)?.[0]
@@ -42,14 +42,14 @@ export function mockWarn() {
       if (passed) {
         return {
           pass: true,
-          message: () => `expected "${received}" not to have been warned last.`,
+          message: () => `expected "${received}" not to have been warned last.`
         }
       } else {
-        const msgs = warn.mock.calls.map(args => args[0]).join('\n - ')
+        const msgs = warn.mock.calls.map((args) => args[0]).join('\n - ')
         return {
           pass: false,
           message: () =>
-            `expected "${received}" to have been warned last.\n\nActual messages:\n\n - ${msgs}`,
+            `expected "${received}" to have been warned last.\n\nActual messages:\n\n - ${msgs}`
         }
       }
     },
@@ -57,7 +57,7 @@ export function mockWarn() {
     toHaveBeenWarnedTimes(received: string | RegExp, n: number) {
       asserted.set(received.toString(), received)
       let found = 0
-      warn.mock.calls.forEach(args => {
+      warn.mock.calls.forEach((args) => {
         const isFound =
           typeof received === 'string'
             ? args[0].indexOf(received) > -1
@@ -71,16 +71,16 @@ export function mockWarn() {
         return {
           pass: true,
           message: () =>
-            `expected "${received}" to have been warned ${n} times.`,
+            `expected "${received}" to have been warned ${n} times.`
         }
       } else {
         return {
           pass: false,
           message: () =>
-            `expected "${received}" to have been warned ${n} times but got ${found}.`,
+            `expected "${received}" to have been warned ${n} times but got ${found}.`
         }
       }
-    },
+    }
   })
 
   let warn: MockInstance
@@ -95,8 +95,8 @@ export function mockWarn() {
   afterEach(() => {
     const assertedArray = Array.from(asserted)
     const nonAssertedWarnings = warn.mock.calls
-      .map(args => args[0])
-      .filter(received => {
+      .map((args) => args[0])
+      .filter((received) => {
         return !assertedArray.some(([_key, assertedMsg]) => {
           return typeof assertedMsg === 'string'
             ? received.indexOf(assertedMsg) > -1
@@ -105,7 +105,7 @@ export function mockWarn() {
       })
     warn.mockRestore()
     if (nonAssertedWarnings.length) {
-      nonAssertedWarnings.forEach(warning => {
+      nonAssertedWarnings.forEach((warning) => {
         console.warn(warning)
       })
       throw new Error(`test case threw unexpected warnings.`)

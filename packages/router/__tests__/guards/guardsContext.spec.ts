@@ -6,36 +6,39 @@ import { createApp, defineComponent } from 'vue'
 import { vi, describe, expect, it } from 'vitest'
 
 const component = {
-  template: '<div>Generic</div>',
+  template: '<div>Generic</div>'
 }
 
 describe('beforeRouteLeave', () => {
   it('invokes with the component context', async () => {
     expect.assertions(2)
-    const spy = vi
-      .fn()
-      .mockImplementationOnce(function (this: any, to, from, next) {
-        expect(typeof this.counter).toBe('number')
-        next()
-      })
+    const spy = vi.fn().mockImplementationOnce(function (
+      this: any,
+      to,
+      from,
+      next
+    ) {
+      expect(typeof this.counter).toBe('number')
+      next()
+    })
     const WithLeave = defineComponent({
       template: `text`,
       // we use data to check if the context is the right one because saving `this` in a variable logs a few warnings
       data: () => ({ counter: 0 }),
-      beforeRouteLeave: spy,
+      beforeRouteLeave: spy
     })
 
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [
         { path: '/', component },
-        { path: '/leave', component: WithLeave as any },
-      ],
+        { path: '/leave', component: WithLeave as any }
+      ]
     })
     const app = createApp({
       template: `
       <router-view />
-      `,
+      `
     })
     app.use(router)
     const rootEl = document.createElement('div')
@@ -54,23 +57,29 @@ describe('beforeRouteLeave', () => {
       template: `text`,
       // we use data to check if the context is the right one because saving `this` in a variable logs a few warnings
       data: () => ({ counter: 0 }),
-      beforeRouteLeave: vi
-        .fn()
-        .mockImplementationOnce(function (this: any, to, from, next) {
-          expect(typeof this.counter).toBe('number')
-          next()
-        }),
+      beforeRouteLeave: vi.fn().mockImplementationOnce(function (
+        this: any,
+        to,
+        from,
+        next
+      ) {
+        expect(typeof this.counter).toBe('number')
+        next()
+      })
     })
     const WithLeaveTwo = defineComponent({
       template: `text`,
       // we use data to check if the context is the right one because saving `this` in a variable logs a few warnings
       data: () => ({ counter: 0 }),
-      beforeRouteLeave: vi
-        .fn()
-        .mockImplementationOnce(function (this: any, to, from, next) {
-          expect(typeof this.counter).toBe('number')
-          next()
-        }),
+      beforeRouteLeave: vi.fn().mockImplementationOnce(function (
+        this: any,
+        to,
+        from,
+        next
+      ) {
+        expect(typeof this.counter).toBe('number')
+        next()
+      })
     })
 
     const router = createRouter({
@@ -81,16 +90,16 @@ describe('beforeRouteLeave', () => {
           path: '/leave',
           components: {
             one: WithLeaveOne as any,
-            two: WithLeaveTwo as any,
-          },
-        },
-      ],
+            two: WithLeaveTwo as any
+          }
+        }
+      ]
     })
     const app = createApp({
       template: `
       <router-view name="one" />
       <router-view name="two" />
-      `,
+      `
     })
     app.use(router)
     const rootEl = document.createElement('div')
@@ -108,23 +117,29 @@ describe('beforeRouteLeave', () => {
       template: `<router-view/>`,
       // we use data to check if the context is the right one because saving `this` in a variable logs a few warnings
       data: () => ({ counter: 0 }),
-      beforeRouteLeave: vi
-        .fn()
-        .mockImplementationOnce(function (this: any, to, from, next) {
-          expect(typeof this.counter).toBe('number')
-          next()
-        }),
+      beforeRouteLeave: vi.fn().mockImplementationOnce(function (
+        this: any,
+        to,
+        from,
+        next
+      ) {
+        expect(typeof this.counter).toBe('number')
+        next()
+      })
     })
     const WithLeave = defineComponent({
       template: `text`,
       // we use data to check if the context is the right one because saving `this` in a variable logs a few warnings
       data: () => ({ counter: 0 }),
-      beforeRouteLeave: vi
-        .fn()
-        .mockImplementationOnce(function (this: any, to, from, next) {
-          expect(typeof this.counter).toBe('number')
-          next()
-        }),
+      beforeRouteLeave: vi.fn().mockImplementationOnce(function (
+        this: any,
+        to,
+        from,
+        next
+      ) {
+        expect(typeof this.counter).toBe('number')
+        next()
+      })
     })
 
     const router = createRouter({
@@ -137,16 +152,16 @@ describe('beforeRouteLeave', () => {
           children: [
             {
               path: '',
-              component: WithLeave as any,
-            },
-          ],
-        },
-      ],
+              component: WithLeave as any
+            }
+          ]
+        }
+      ]
     })
     const app = createApp({
       template: `
       <router-view />
-      `,
+      `
     })
     app.use(router)
     const rootEl = document.createElement('div')
@@ -167,34 +182,43 @@ describe('beforeRouteLeave', () => {
       `,
       // we use data to check if the context is the right one because saving `this` in a variable logs a few warnings
       data: () => ({ counter: 0 }),
-      beforeRouteLeave: vi
-        .fn()
-        .mockImplementationOnce(function (this: any, to, from, next) {
-          expect(typeof this.counter).toBe('number')
-          next()
-        }),
+      beforeRouteLeave: vi.fn().mockImplementationOnce(function (
+        this: any,
+        to,
+        from,
+        next
+      ) {
+        expect(typeof this.counter).toBe('number')
+        next()
+      })
     })
     const WithLeaveOne = defineComponent({
       template: `text`,
       // we use data to check if the context is the right one because saving `this` in a variable logs a few warnings
       data: () => ({ counter: 0 }),
-      beforeRouteLeave: vi
-        .fn()
-        .mockImplementationOnce(function (this: any, to, from, next) {
-          expect(typeof this.counter).toBe('number')
-          next()
-        }),
+      beforeRouteLeave: vi.fn().mockImplementationOnce(function (
+        this: any,
+        to,
+        from,
+        next
+      ) {
+        expect(typeof this.counter).toBe('number')
+        next()
+      })
     })
     const WithLeaveTwo = defineComponent({
       template: `text`,
       // we use data to check if the context is the right one because saving `this` in a variable logs a few warnings
       data: () => ({ counter: 0 }),
-      beforeRouteLeave: vi
-        .fn()
-        .mockImplementationOnce(function (this: any, to, from, next) {
-          expect(typeof this.counter).toBe('number')
-          next()
-        }),
+      beforeRouteLeave: vi.fn().mockImplementationOnce(function (
+        this: any,
+        to,
+        from,
+        next
+      ) {
+        expect(typeof this.counter).toBe('number')
+        next()
+      })
     })
 
     const router = createRouter({
@@ -209,17 +233,17 @@ describe('beforeRouteLeave', () => {
               path: '',
               components: {
                 one: WithLeaveOne as any,
-                two: WithLeaveTwo as any,
-              },
-            },
-          ],
-        },
-      ],
+                two: WithLeaveTwo as any
+              }
+            }
+          ]
+        }
+      ]
     })
     const app = createApp({
       template: `
       <router-view />
-      `,
+      `
     })
     app.use(router)
     const rootEl = document.createElement('div')
@@ -235,30 +259,33 @@ describe('beforeRouteLeave', () => {
 describe('beforeRouteUpdate', () => {
   it('invokes with the component context', async () => {
     expect.assertions(2)
-    const spy = vi
-      .fn()
-      .mockImplementationOnce(function (this: any, to, from, next) {
-        expect(typeof this.counter).toBe('number')
-        next()
-      })
+    const spy = vi.fn().mockImplementationOnce(function (
+      this: any,
+      to,
+      from,
+      next
+    ) {
+      expect(typeof this.counter).toBe('number')
+      next()
+    })
     const WithParam = defineComponent({
       template: `text`,
       // we use data to check if the context is the right one because saving `this` in a variable logs a few warnings
       data: () => ({ counter: 0 }),
-      beforeRouteUpdate: spy,
+      beforeRouteUpdate: spy
     })
 
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [
         { path: '/', component },
-        { path: '/:id', component: WithParam },
-      ],
+        { path: '/:id', component: WithParam }
+      ]
     })
     const app = createApp({
       template: `
       <router-view />
-      `,
+      `
     })
     app.use(router)
     const rootEl = document.createElement('div')

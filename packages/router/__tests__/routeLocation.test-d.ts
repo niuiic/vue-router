@@ -4,7 +4,7 @@ import type {
   ParamValue,
   ParamValueZeroOrMore,
   RouteRecordInfo,
-  RouteLocationNormalizedTypedList,
+  RouteLocationNormalizedTypedList
 } from '../src'
 
 // TODO: could we move this to an .d.ts file that is only loaded for tests?
@@ -50,13 +50,13 @@ describe('Route Location types', () => {
     ): void
     function withRoute<Name extends RouteRecordName>(...args: unknown[]) {}
 
-    withRoute('/[name]', to => {
+    withRoute('/[name]', (to) => {
       expectTypeOf(to.params).toEqualTypeOf<{ name: string }>()
       expectTypeOf(to.params).not.toEqualTypeOf<{ notExisting: string }>()
       expectTypeOf(to.params).not.toEqualTypeOf<{ other: string }>()
     })
 
-    withRoute('/[name]' as keyof RouteNamedMap, to => {
+    withRoute('/[name]' as keyof RouteNamedMap, (to) => {
       // @ts-expect-error: no all params have this
       to.params.name
       if (to.name === '/[name]') {
@@ -66,7 +66,7 @@ describe('Route Location types', () => {
       }
     })
 
-    withRoute(to => {
+    withRoute((to) => {
       // @ts-expect-error: not all params object have a name
       to.params.name
       // @ts-expect-error: no route named like that

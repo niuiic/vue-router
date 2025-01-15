@@ -8,7 +8,7 @@ import { vi, describe, expect, it, beforeEach } from 'vitest'
 
 const nextCallbacks = {
   Default: vi.fn(),
-  Other: vi.fn(),
+  Other: vi.fn()
 }
 const Default = defineComponent({
   beforeRouteEnter(to, from, next) {
@@ -17,7 +17,7 @@ const Default = defineComponent({
   name: 'Default',
   setup() {
     return () => h('div', 'Default content')
-  },
+  }
 })
 
 const Other = defineComponent({
@@ -27,14 +27,14 @@ const Other = defineComponent({
   name: 'Other',
   setup() {
     return () => h('div', 'Other content')
-  },
+  }
 })
 
 const Third = defineComponent({
   name: 'Third',
   setup() {
     return () => h('div', 'Third content')
-  },
+  }
 })
 
 beforeEach(() => {
@@ -49,7 +49,7 @@ describe('beforeRouteEnter next callback', () => {
     const router = createRouter({
       history,
       routes: [],
-      ...options,
+      ...options
     })
 
     const wrapper = mount(
@@ -59,12 +59,12 @@ describe('beforeRouteEnter next callback', () => {
         <router-view/>
         <router-view name="other"/>
       </div>
-      `,
+      `
       },
       {
         global: {
-          plugins: [router],
-        },
+          plugins: [router]
+        }
       }
     )
 
@@ -79,10 +79,10 @@ describe('beforeRouteEnter next callback', () => {
           components: {
             default: Default,
             other: Other,
-            third: Third,
-          },
-        },
-      ],
+            third: Third
+          }
+        }
+      ]
     })
 
     await router.isReady()

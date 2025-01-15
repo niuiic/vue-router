@@ -9,7 +9,7 @@ const to = START_LOCATION_NORMALIZED
 const from = {
   ...START_LOCATION_NORMALIZED,
   path: '/other',
-  fullPath: '/other',
+  fullPath: '/other'
 }
 
 describe('guardToPromiseFn', () => {
@@ -43,7 +43,7 @@ describe('guardToPromiseFn', () => {
       expect(err).toMatchObject({
         from,
         to,
-        type: ErrorTypes.NAVIGATION_ABORTED,
+        type: ErrorTypes.NAVIGATION_ABORTED
       })
     }
   })
@@ -56,7 +56,7 @@ describe('guardToPromiseFn', () => {
       expect(err).toMatchObject({
         from: to,
         to: '/new',
-        type: ErrorTypes.NAVIGATION_GUARD_REDIRECT,
+        type: ErrorTypes.NAVIGATION_GUARD_REDIRECT
       })
     }
   })
@@ -70,7 +70,7 @@ describe('guardToPromiseFn', () => {
       expect(err).toMatchObject({
         from: to,
         to: redirectTo,
-        type: ErrorTypes.NAVIGATION_GUARD_REDIRECT,
+        type: ErrorTypes.NAVIGATION_GUARD_REDIRECT
       })
     }
   })
@@ -119,7 +119,7 @@ describe('guardToPromiseFn', () => {
         expect(err).toMatchObject({
           from,
           to,
-          type: ErrorTypes.NAVIGATION_ABORTED,
+          type: ErrorTypes.NAVIGATION_ABORTED
         })
       }
     })
@@ -146,7 +146,7 @@ describe('guardToPromiseFn', () => {
         expect(err).toMatchObject({
           from,
           to,
-          type: ErrorTypes.NAVIGATION_ABORTED,
+          type: ErrorTypes.NAVIGATION_ABORTED
         })
       }
     })
@@ -159,7 +159,7 @@ describe('guardToPromiseFn', () => {
         expect(err).toMatchObject({
           from,
           to,
-          type: ErrorTypes.NAVIGATION_ABORTED,
+          type: ErrorTypes.NAVIGATION_ABORTED
         })
       }
     })
@@ -172,7 +172,7 @@ describe('guardToPromiseFn', () => {
         expect(err).toMatchObject({
           from: to,
           to: '/new',
-          type: ErrorTypes.NAVIGATION_GUARD_REDIRECT,
+          type: ErrorTypes.NAVIGATION_GUARD_REDIRECT
         })
       }
     })
@@ -186,7 +186,7 @@ describe('guardToPromiseFn', () => {
         expect(err).toMatchObject({
           from: to,
           to: redirectTo,
-          type: ErrorTypes.NAVIGATION_GUARD_REDIRECT,
+          type: ErrorTypes.NAVIGATION_GUARD_REDIRECT
         })
       }
     })

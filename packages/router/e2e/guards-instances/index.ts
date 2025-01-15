@@ -5,7 +5,7 @@ import {
   onBeforeRouteUpdate,
   onBeforeRouteLeave,
   useRoute,
-  useRouter,
+  useRouter
 } from 'vue-router'
 import { createApp, ref, reactive, defineComponent, computed } from 'vue'
 import { isArray } from '../../src/utils'
@@ -32,7 +32,7 @@ const Home = defineComponent({
     <div>
       <h2>Home</h2>
     </div>
-  `,
+  `
 })
 
 const logs = ref<string[]>([])
@@ -40,7 +40,7 @@ const logs = ref<string[]>([])
 const state = reactive({
   enter: 0,
   update: 0,
-  leave: 0,
+  leave: 0
 })
 
 /**
@@ -66,7 +66,7 @@ function createTestComponent(key: string) {
     beforeRouteEnter(to, from, next) {
       state.enter++
       logs.value.push(`${key}: enter ${from.path} - ${to.path}`)
-      next(vm => {
+      next((vm) => {
         // @ts-expect-error
         vm.enterCallback++
       })
@@ -92,7 +92,7 @@ function createTestComponent(key: string) {
         logs.value.push(`${key}: setup:leave ${from.path} - ${to.path}`)
       })
       return {}
-    },
+    }
   })
 }
 
@@ -102,7 +102,7 @@ const Two = createTestComponent('Two')
 const Aux = createTestComponent('Aux')
 
 const WithId = defineComponent({
-  template: `<p :id="'with-id-' + $route.params.id">id: {{ $route.params.id }}</p>`,
+  template: `<p :id="'with-id-' + $route.params.id">id: {{ $route.params.id }}</p>`
 })
 
 const webHistory = createWebHistory('/guards-instances')
@@ -112,33 +112,33 @@ const router = createRouter({
     { path: '/', component: Home },
     {
       path: '/foo',
-      component: Foo,
+      component: Foo
     },
     {
       path: '/f/:id',
-      component: Foo,
+      component: Foo
     },
     // TODO: test that the onBeforeRouteUpdate isn't kept
     {
       path: '/b/:id',
       name: 'id',
-      component: WithId,
+      component: WithId
     },
     {
       path: '/named-one',
       components: {
         default: One,
-        aux: Aux,
-      },
+        aux: Aux
+      }
     },
     {
       path: '/named-two',
       components: {
         default: Two,
-        aux: Aux,
-      },
-    },
-  ],
+        aux: Aux
+      }
+    }
+  ]
 })
 
 router.beforeEach(async (to, from) => {
@@ -147,30 +147,30 @@ router.beforeEach(async (to, from) => {
     const fromId = Number(from.params.id)
     // only do it when we are going backwards
     if (!Number.isNaN(toId) && !Number.isNaN(fromId) && toId < fromId) {
-      await new Promise(r => setTimeout(r, 250))
+      await new Promise((r) => setTimeout(r, 250))
     }
   }
 })
 
 // preserve existing query
 const originalPush = router.push
-router.push = to => {
+router.push = (to) => {
   if (typeof to === 'string') {
     const resolved = router.resolve(to)
     return router.push({
       path: to,
       query: {
         testCase: router.currentRoute.value.query.testCase,
-        ...resolved.query,
-      },
+        ...resolved.query
+      }
     })
   } else {
     return originalPush({
       ...to,
       query: {
         testCase: router.currentRoute.value.query.testCase,
-        ...to.query,
-      },
+        ...to.query
+      }
     })
   }
 }
@@ -248,11 +248,11 @@ leaves: {{ state.leave }}
       },
       set(testCase) {
         router.push({ query: { ...route.query, testCase } })
-      },
+      }
     })
 
     return { state, logs, testCase }
-  },
+  }
 })
 
 app.use(router)

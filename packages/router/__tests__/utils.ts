@@ -3,7 +3,7 @@ import {
   RouteRecordMultipleViews,
   MatcherLocation,
   RouteComponent,
-  RouteRecordRaw,
+  RouteRecordRaw
 } from '../src/types'
 import { h, ComponentOptions } from 'vue'
 import {
@@ -14,12 +14,12 @@ import {
   RouterView,
   RouteRecordNormalized,
   NavigationGuard,
-  RouteLocationNormalized,
+  RouteLocationNormalized
 } from '../src'
 import { _RouteRecordProps } from '../src/typed-routes'
 
 export const tick = (time?: number) =>
-  new Promise(resolve => {
+  new Promise((resolve) => {
     if (time) setTimeout(resolve, time)
     else process.nextTick(resolve)
   })
@@ -30,7 +30,7 @@ export async function ticks(n: number) {
   }
 }
 
-export const delay = (t: number) => new Promise(r => setTimeout(r, t))
+export const delay = (t: number) => new Promise((r) => setTimeout(r, t))
 
 export function nextNavigation(router: Router) {
   return new Promise((resolve, reject) => {
@@ -39,7 +39,7 @@ export function nextNavigation(router: Router) {
       removeError()
       resolve(failure)
     })
-    let removeError = router.onError(err => {
+    let removeError = router.onError((err) => {
       removeAfter()
       removeError()
       reject(err)
@@ -103,7 +103,7 @@ export function createDom(options?: ConstructorOptions) {
       url: 'https://example.com/',
       referrer: 'https://example.com/',
       contentType: 'text/html',
-      ...options,
+      ...options
     }
   )
 
@@ -131,40 +131,40 @@ export const components = {
   User: {
     props: {
       id: {
-        default: 'default',
-      },
+        default: 'default'
+      }
     },
     render() {
       return h('div', {}, 'User: ' + this.id)
-    },
+    }
   } as ComponentOptions,
   WithProps: {
     props: {
       id: {
-        default: 'default',
+        default: 'default'
       },
       other: {
-        default: 'other',
-      },
+        default: 'other'
+      }
     },
     render() {
       return h('div', {}, `id:${this.id};other:${this.other}`)
-    },
+    }
   } as RouteComponent,
   Nested: {
     render: () => {
       return h('div', {}, [
         h('h2', {}, 'Nested'),
-        RouterView ? h(RouterView) : [],
+        RouterView ? h(RouterView) : []
       ])
-    },
+    }
   },
   BeforeLeave: {
     render: () => h('div', {}, 'before leave'),
     beforeRouteLeave(to, from, next) {
       next()
-    },
-  } as RouteComponent,
+    }
+  } as RouteComponent
 }
 
 export function newRouter(
@@ -172,6 +172,6 @@ export function newRouter(
 ) {
   return createRouter({
     history: options.history || createWebHistory(),
-    ...options,
+    ...options
   })
 }

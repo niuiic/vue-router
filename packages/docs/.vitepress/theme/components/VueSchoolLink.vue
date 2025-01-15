@@ -17,7 +17,7 @@ import { useData } from 'vitepress'
 const { site } = useData()
 const translations = {
   'en-US': 'Watch a free video lesson on Vue School',
-  'zh-CN': '在 Vue School 上观看免费视频课程',
+  'zh-CN': '在 Vue School 上观看免费视频课程'
 }
 defineProps<{ href: string; title: string }>()
 </script>

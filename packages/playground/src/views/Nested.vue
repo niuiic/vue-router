@@ -70,8 +70,8 @@ export default defineComponent({
     provide('level', level + 1)
 
     return {
-      level,
+      level
     }
-  },
+  }
 })
 </script>

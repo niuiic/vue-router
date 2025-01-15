@@ -8,7 +8,7 @@ import {
   createMemoryHistory,
   RouterOptions,
   RouteLocationNormalized,
-  RouteLocationResolved,
+  RouteLocationResolved
 } from '../src'
 import { createMockedRoute } from './mount'
 import { defineComponent, PropType } from 'vue'
@@ -28,13 +28,13 @@ const records = {
   child: {} as RouteRecordNormalized,
   childChild: {} as RouteRecordNormalized,
   parentAlias: {} as RouteRecordNormalized,
-  childAlias: {} as RouteRecordNormalized,
+  childAlias: {} as RouteRecordNormalized
 }
 
 // fix the aliasOf
 records.homeAlias = { aliasOf: records.home } as RouteRecordNormalized
 records.parentAlias = {
-  aliasOf: records.parent,
+  aliasOf: records.parent
 } as RouteRecordNormalized
 records.childAlias = { aliasOf: records.child } as RouteRecordNormalized
 records.childEmptyAlias.aliasOf = records.childEmpty
@@ -66,8 +66,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.home],
       redirectedFrom: undefined,
-      name: 'home',
-    },
+      name: 'home'
+    }
   },
   foo: {
     string: '/foo',
@@ -82,8 +82,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.foo],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   withQuery: {
     string: '/home?foo=a&bar=b',
@@ -98,8 +98,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.home],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   singleStringParams: {
     string: '/p/1',
@@ -113,8 +113,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.home],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   repeatedParams2: {
     string: '/p/1/2',
@@ -128,8 +128,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.home],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   anotherRepeatedParams2: {
     string: '/p/1/3',
@@ -143,8 +143,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.home],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   repeatedParams3: {
     string: '/p/1/2/3',
@@ -158,8 +158,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.home],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   alias: {
     string: '/alias',
@@ -173,8 +173,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.homeAlias],
       redirectedFrom: undefined,
-      name: 'home',
-    },
+      name: 'home'
+    }
   },
 
   // nested routes
@@ -190,8 +190,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.parent],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   parentAlias: {
     string: '/p',
@@ -205,8 +205,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.parentAlias],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
 
   childEmpty: {
@@ -221,8 +221,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.parent, records.childEmpty],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   childEmptyAlias: {
     string: '/parent/alias',
@@ -236,8 +236,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.parent, records.childEmptyAlias],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   child: {
     string: '/parent/child',
@@ -251,8 +251,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.parent, records.child],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   childChild: {
     string: '/parent/child/child',
@@ -266,8 +266,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.parent, records.child, records.childChild],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   childAsAbsolute: {
     string: '/absolute-child',
@@ -281,8 +281,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.parent, records.child],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   childParentAlias: {
     string: '/p/child',
@@ -296,8 +296,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.parentAlias, records.child],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   childAlias: {
     string: '/parent/c',
@@ -311,8 +311,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.parent, records.childAlias],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   childDoubleAlias: {
     string: '/p/c',
@@ -326,8 +326,8 @@ const locations = createLocations({
       hash: '',
       matched: [records.parentAlias, records.childAlias],
       redirectedFrom: undefined,
-      name: undefined,
-    },
+      name: undefined
+    }
   },
   notFound: {
     string: '/not-found',
@@ -341,9 +341,9 @@ const locations = createLocations({
       hash: '',
       matched: [],
       redirectedFrom: undefined,
-      name: undefined,
-    },
-  },
+      name: undefined
+    }
+  }
 })
 
 // add paths to records because they are used to check isActive
@@ -370,7 +370,7 @@ async function factory(
     options: {} as Partial<RouterOptions>,
     resolve: vi.fn(),
     push: vi.fn().mockResolvedValue(resolvedLocation),
-    replace: vi.fn().mockResolvedValue(resolvedLocation),
+    replace: vi.fn().mockResolvedValue(resolvedLocation)
   }
   router.resolve.mockReturnValueOnce(resolvedLocation)
 
@@ -379,10 +379,10 @@ async function factory(
     global: {
       provide: {
         [routerKey as any]: router,
-        ...route.provides,
-      },
+        ...route.provides
+      }
     },
-    slots: { default: slotTemplate },
+    slots: { default: slotTemplate }
   })
 
   return { router, wrapper, route }
@@ -466,7 +466,7 @@ describe('RouterLink', () => {
       {
         to: locations.foo.string,
         activeClass: 'is-active',
-        exactActiveClass: 'is-exact',
+        exactActiveClass: 'is-exact'
       },
       locations.foo.normalized
     )
@@ -823,7 +823,7 @@ describe('RouterLink', () => {
       'router-link-active',
       'router-link-exact-active',
       'custom',
-      'class',
+      'class'
     ])
   })
 
@@ -849,7 +849,7 @@ describe('RouterLink', () => {
       expect.objectContaining({
         // this is the original name but if we push with this location, we will
         // not have the alias on the url
-        name: 'home',
+        name: 'home'
       })
     )
   })
@@ -911,7 +911,7 @@ describe('RouterLink', () => {
         `,
         components: { RouterLink },
         directives: { Directive },
-        name: 'AppLink',
+        name: 'AppLink'
       })
 
       const { wrapper } = await factory(
@@ -948,15 +948,15 @@ describe('RouterLink', () => {
 
         props: {
           ...(RouterLink as any).props,
-          inactiveClass: String as PropType<string>,
+          inactiveClass: String as PropType<string>
         },
 
         computed: {
           isExternalLink(): boolean {
             // @ts-expect-error
             return typeof this.to === 'string' && this.to.startsWith('http')
-          },
-        },
+          }
+        }
       })
 
       it('can extend RouterLink with inactive class', async () => {
@@ -965,7 +965,7 @@ describe('RouterLink', () => {
           {
             to: locations.basic.string,
             inactiveClass: 'inactive',
-            activeClass: 'active',
+            activeClass: 'active'
           },
           locations.foo.normalized,
           undefined,
@@ -979,7 +979,7 @@ describe('RouterLink', () => {
         const { wrapper } = await factory(
           locations.basic.normalized,
           {
-            to: 'https://esm.dev',
+            to: 'https://esm.dev'
           },
           locations.foo.normalized,
           undefined,

@@ -14,8 +14,8 @@ const routes: RouteRecordRaw[] = [
     path: '/fail-lazy',
     component: async () => {
       throw new Error('async')
-    },
-  },
+    }
+  }
 ]
 
 describe('isReady', () => {
@@ -38,11 +38,11 @@ describe('isReady', () => {
 
   it('resolves a redirected navigation', async () => {
     const router = newRouter()
-    router.beforeEach(to => (to.path === '/bar' ? true : '/bar'))
+    router.beforeEach((to) => (to.path === '/bar' ? true : '/bar'))
     router.push('/foo')
     await expect(router.isReady()).resolves.toBe(undefined)
     expect(router.currentRoute.value).toMatchObject({
-      redirectedFrom: expect.objectContaining({ path: '/foo' }),
+      redirectedFrom: expect.objectContaining({ path: '/foo' })
     })
     // can be called again
     await expect(router.isReady()).resolves.toBe(undefined)
@@ -82,7 +82,7 @@ describe('isReady', () => {
     router.push('/foo').catch(() => {})
     await expect(router.isReady()).rejects.toMatchObject({
       to: expect.objectContaining({ path: '/foo' }),
-      from: expect.objectContaining({ path: '/' }),
+      from: expect.objectContaining({ path: '/' })
     })
     expect(errorSpy).toHaveBeenCalledTimes(0)
 
@@ -90,7 +90,7 @@ describe('isReady', () => {
     router.push('/foo').catch(() => {})
     await expect(router.isReady()).rejects.toMatchObject({
       to: expect.objectContaining({ path: '/foo' }),
-      from: expect.objectContaining({ path: '/' }),
+      from: expect.objectContaining({ path: '/' })
     })
     expect(errorSpy).toHaveBeenCalledTimes(0)
 

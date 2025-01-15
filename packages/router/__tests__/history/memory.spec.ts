@@ -100,14 +100,14 @@ describe('Memory history', () => {
     expect(spy).toHaveBeenCalledWith(START, loc, {
       direction: 'back',
       delta: -1,
-      type: 'pop',
+      type: 'pop'
     })
     history.go(1)
     expect(spy).toHaveBeenCalledTimes(2)
     expect(spy).toHaveBeenLastCalledWith(loc, START, {
       direction: 'forward',
       delta: 1,
-      type: 'pop',
+      type: 'pop'
     })
   })
 

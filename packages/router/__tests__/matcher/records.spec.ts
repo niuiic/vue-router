@@ -5,7 +5,7 @@ describe('normalizeRouteRecord', () => {
   it('transforms a single view into multiple views', () => {
     const record = normalizeRouteRecord({
       path: '/home',
-      component: {},
+      component: {}
     })
     expect(record).toMatchObject({
       beforeEnter: undefined,
@@ -18,7 +18,7 @@ describe('normalizeRouteRecord', () => {
       meta: {},
       name: undefined,
       path: '/home',
-      props: { default: false },
+      props: { default: false }
     })
   })
 
@@ -30,7 +30,7 @@ describe('normalizeRouteRecord', () => {
       children: [{ path: '/child' } as any],
       meta: { foo: true },
       name: 'name',
-      component: {},
+      component: {}
     })
     expect(record).toMatchObject({
       beforeEnter,
@@ -42,7 +42,7 @@ describe('normalizeRouteRecord', () => {
       meta: { foo: true },
       name: 'name',
       path: '/home',
-      props: { default: false },
+      props: { default: false }
     })
   })
 
@@ -51,7 +51,7 @@ describe('normalizeRouteRecord', () => {
       path: '/redirect',
       redirect: '/home',
       meta: { foo: true },
-      name: 'name',
+      name: 'name'
     })
 
     expect(record).toMatchObject({
@@ -60,7 +60,7 @@ describe('normalizeRouteRecord', () => {
       meta: { foo: true },
       name: 'name',
       path: '/redirect',
-      redirect: '/home',
+      redirect: '/home'
     })
   })
 
@@ -72,7 +72,7 @@ describe('normalizeRouteRecord', () => {
       children: [{ path: '/child' } as any],
       meta: { foo: true },
       name: 'name',
-      components: { one: {} },
+      components: { one: {} }
     })
     expect(record).toMatchObject({
       beforeEnter,
@@ -84,7 +84,7 @@ describe('normalizeRouteRecord', () => {
       meta: { foo: true },
       name: 'name',
       path: '/home',
-      props: { one: false },
+      props: { one: false }
     })
   })
 })

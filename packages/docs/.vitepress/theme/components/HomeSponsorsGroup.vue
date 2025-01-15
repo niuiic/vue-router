@@ -4,16 +4,16 @@ import { computed } from 'vue'
 import { useData } from 'vitepress'
 
 const { name, size = 140 } = defineProps<{
-    name: 'Gold' | 'Platinum' | 'Silver' | 'Bronze'
-    size?: number | string
-  }>()
+  name: 'Gold' | 'Platinum' | 'Silver' | 'Bronze'
+  size?: number | string
+}>()
 
 const { isDark } = useData()
 
 const list = computed(() =>
-  sponsors[name.toLowerCase()].map(sponsor => ({
+  sponsors[name.toLowerCase()].map((sponsor) => ({
     ...sponsor,
-    imgSrc: isDark.value ? sponsor.imgSrcDark : sponsor.imgSrcLight,
+    imgSrc: isDark.value ? sponsor.imgSrcDark : sponsor.imgSrcLight
   }))
 )
 </script>

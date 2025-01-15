@@ -4,11 +4,10 @@ const config = viteConfig({ prod: false })
 
 /** @type {import('vite').ViteDevServer} */
 let server = null
-
 ;(async () => {
   const app = await createServer({
     configFile: false,
-    ...config,
+    ...config
   })
   server = await app.listen(process.env.PORT || 3000)
   internalResolve(server)

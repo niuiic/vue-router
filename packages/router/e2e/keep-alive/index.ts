@@ -3,7 +3,7 @@ import {
   RouteComponent,
   createRouter,
   createWebHistory,
-  useRouter,
+  useRouter
 } from 'vue-router'
 import { createApp, ref } from 'vue'
 
@@ -17,9 +17,9 @@ const Home: RouteComponent = {
   `,
   setup() {
     return {
-      n: ref(0),
+      n: ref(0)
     }
-  },
+  }
 }
 
 const Foo: RouteComponent = { template: '<div class="foo">foo</div>' }
@@ -34,7 +34,7 @@ const WithGuards: RouteComponent = {
     </div>`,
 
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       ;(vm as any).enterCount++
     })
   },
@@ -68,9 +68,9 @@ const WithGuards: RouteComponent = {
       changeQuery,
       enterCount,
       updateCount,
-      leaveCount,
+      leaveCount
     }
-  },
+  }
 }
 
 const webHistory = createWebHistory('/keep-alive')
@@ -81,9 +81,9 @@ const router = createRouter({
     { path: '/with-guards', component: WithGuards },
     {
       path: '/foo',
-      component: Foo,
-    },
-  ],
+      component: Foo
+    }
+  ]
 })
 const app = createApp({
   template: `
@@ -98,7 +98,7 @@ const app = createApp({
         <component class="view" :is="Component" />
       </keep-alive>
     </router-view>
-  `,
+  `
 })
 app.use(router)
 

@@ -7,7 +7,7 @@ const Foo = { template: `<div>Foo</div>` }
 
 const routes: RouteRecordRaw[] = [
   { path: '/', component: Home },
-  { path: '/foo', component: Foo },
+  { path: '/foo', component: Foo }
 ]
 
 describe('router.beforeEach', () => {

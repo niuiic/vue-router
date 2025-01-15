@@ -104,10 +104,10 @@ export function stringifyQuery(query: LocationQueryRaw): string {
     }
     // keep null values
     const values: LocationQueryValueRaw[] = isArray(value)
-      ? value.map(v => v && encodeQueryValue(v))
+      ? value.map((v) => v && encodeQueryValue(v))
       : [value && encodeQueryValue(value)]
 
-    values.forEach(value => {
+    values.forEach((value) => {
       // skip undefined values in arrays as if they were not present
       // smaller code than using filter
       if (value !== undefined) {
@@ -138,10 +138,10 @@ export function normalizeQuery(
     const value = query[key]
     if (value !== undefined) {
       normalizedQuery[key] = isArray(value)
-        ? value.map(v => (v == null ? null : '' + v))
+        ? value.map((v) => (v == null ? null : '' + v))
         : value == null
-        ? value
-        : '' + value
+          ? value
+          : '' + value
     }
   }
 

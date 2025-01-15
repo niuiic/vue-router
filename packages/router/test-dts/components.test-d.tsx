@@ -3,14 +3,14 @@ import {
   RouterLink,
   RouterView,
   createRouter,
-  createMemoryHistory,
+  createMemoryHistory
 } from './index'
 import { it, describe, expectTypeOf } from 'vitest'
 
 describe('Components', () => {
   let router = createRouter({
     history: createMemoryHistory(),
-    routes: [],
+    routes: []
   })
 
   // TODO: split into multiple tests

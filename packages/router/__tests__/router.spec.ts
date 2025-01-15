@@ -5,7 +5,7 @@ import {
   createWebHistory,
   createWebHashHistory,
   loadRouteLocation,
-  RouteLocationRaw,
+  RouteLocationRaw
 } from '../src'
 import { NavigationFailureType } from '../src/errors'
 import { createDom, components, tick, nextNavigation } from './utils'
@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
     component: components.Home,
     beforeEnter: (to, from, next) => {
       next('/')
-    },
+    }
   },
   { path: '/search', component: components.Home },
   { path: '/foo', component: components.Foo, name: 'Foo' },
@@ -36,7 +36,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/p/:p', name: 'Param', component: components.Bar },
   { path: '/optional/:p?', name: 'optional', component: components.Bar },
   { path: '/repeat/:r+', name: 'repeat', component: components.Bar },
-  { path: '/to-p/:p', redirect: to => `/p/${to.params.p}` },
+  { path: '/to-p/:p', redirect: (to) => `/p/${to.params.p}` },
   { path: '/redirect-with-param/:p', redirect: () => `/` },
   { path: '/before-leave', component: components.BeforeLeave },
   {
@@ -44,21 +44,21 @@ const routes: RouteRecordRaw[] = [
     meta: { fromParent: 'foo' },
     component: components.Foo,
     children: [
-      { path: 'child', meta: { fromChild: 'bar' }, component: components.Foo },
-    ],
+      { path: 'child', meta: { fromChild: 'bar' }, component: components.Foo }
+    ]
   },
   {
     path: '/inc-query-hash',
-    redirect: to => ({
+    redirect: (to) => ({
       name: 'Foo',
       query: { n: to.query.n + '-2' },
-      hash: to.hash + '-2',
-    }),
+      hash: to.hash + '-2'
+    })
   },
   {
     path: '/basic',
     alias: '/basic-alias',
-    component: components.Foo,
+    component: components.Foo
   },
   {
     path: '/aliases',
@@ -70,12 +70,12 @@ const routes: RouteRecordRaw[] = [
         alias: ['o', 'o2'],
         component: components.Foo,
         children: [
-          { path: 'two', alias: ['t', 't2'], component: components.Bar },
-        ],
-      },
-    ],
+          { path: 'two', alias: ['t', 't2'], component: components.Bar }
+        ]
+      }
+    ]
   },
-  { path: '/:pathMatch(.*)', component: components.Home, name: 'catch-all' },
+  { path: '/:pathMatch(.*)', component: components.Home, name: 'catch-all' }
 ]
 
 async function newRouter(
@@ -154,7 +154,7 @@ describe('Router', () => {
     const history = createMemoryHistory()
     const { router } = await newRouter({ history })
     // move somewhere else
-    router.beforeEach(to => {
+    router.beforeEach((to) => {
       if (to.name !== 'Foo') {
         return { name: 'Foo', replace: true }
       }
@@ -170,7 +170,7 @@ describe('Router', () => {
   })
 
   it('allows to customize parseQuery', async () => {
-    const parseQuery = vi.fn(_ => ({}))
+    const parseQuery = vi.fn((_) => ({}))
     const { router } = await newRouter({ parseQuery })
     const to = router.resolve('/foo?bar=baz')
     expect(parseQuery).toHaveBeenCalledWith('bar=baz')
@@ -178,7 +178,7 @@ describe('Router', () => {
   })
 
   it('allows to customize stringifyQuery', async () => {
-    const stringifyQuery = vi.fn(_ => '')
+    const stringifyQuery = vi.fn((_) => '')
     const { router } = await newRouter({ stringifyQuery })
     const to = router.resolve({ query: { foo: 'bar' } })
     expect(stringifyQuery).toHaveBeenCalledWith({ foo: 'bar' })
@@ -187,7 +187,7 @@ describe('Router', () => {
   })
 
   it('creates an empty query with no query', async () => {
-    const stringifyQuery = vi.fn(_ => '')
+    const stringifyQuery = vi.fn((_) => '')
     const { router } = await newRouter({ stringifyQuery })
     const to = router.resolve({ hash: '#a' })
     expect(stringifyQuery).not.toHaveBeenCalled()
@@ -197,10 +197,10 @@ describe('Router', () => {
   it('merges meta properties from parent to child', async () => {
     const { router } = await newRouter()
     expect(router.resolve('/parent')).toMatchObject({
-      meta: { fromParent: 'foo' },
+      meta: { fromParent: 'foo' }
     })
     expect(router.resolve('/parent/child')).toMatchObject({
-      meta: { fromParent: 'foo', fromChild: 'bar' },
+      meta: { fromParent: 'foo', fromChild: 'bar' }
     })
   })
 
@@ -215,23 +215,23 @@ describe('Router', () => {
           path: 'nested',
           component: components.Foo,
           children: [
-            { path: 'a', children: [{ path: 'b', component: components.Foo }] },
-          ],
-        },
-      ],
+            { path: 'a', children: [{ path: 'b', component: components.Foo }] }
+          ]
+        }
+      ]
     })
     expect(router.resolve('/app')).toMatchObject({
-      meta: { parent: true, child: true },
+      meta: { parent: true, child: true }
     })
     expect(router.resolve('/app/nested/a/b')).toMatchObject({
-      meta: { parent: true },
+      meta: { parent: true }
     })
   })
 
   it('can do initial navigation to /', async () => {
     const router = createRouter({
       history: createMemoryHistory(),
-      routes: [{ path: '/', component: components.Home }],
+      routes: [{ path: '/', component: components.Home }]
     })
     expect(router.currentRoute.value).toBe(START_LOCATION_NORMALIZED)
     await router.push('/')
@@ -243,13 +243,13 @@ describe('Router', () => {
     let { router } = await newRouter({ history })
     expect(router.resolve('/foo?bar=baz#hey')).toMatchObject({
       fullPath: '/foo?bar=baz#hey',
-      href: '#/foo?bar=baz#hey',
+      href: '#/foo?bar=baz#hey'
     })
     history = createWebHashHistory('/with/base/')
     ;({ router } = await newRouter({ history }))
     expect(router.resolve('/foo?bar=baz#hey')).toMatchObject({
       fullPath: '/foo?bar=baz#hey',
-      href: '#/foo?bar=baz#hey',
+      href: '#/foo?bar=baz#hey'
     })
   })
 
@@ -302,14 +302,14 @@ describe('Router', () => {
 
     const route1 = router.resolve({
       name: 'optional',
-      params: { p: undefined },
+      params: { p: undefined }
     })
     expect(route1.path).toBe('/optional')
     expect(route1.params).toEqual({})
 
     const route2 = router.resolve({
       name: 'optional',
-      params: { p: null },
+      params: { p: null }
     })
     expect(route2.path).toBe('/optional')
     expect(route2.params).toEqual({})
@@ -324,7 +324,7 @@ describe('Router', () => {
 
     const route1 = router.resolve({
       path: undefined,
-      params: { p: 'a' },
+      params: { p: 'a' }
     })
     expect(route1.path).toBe('/')
     expect(route1.params).toEqual({ p: 'a' })
@@ -431,8 +431,8 @@ describe('Router', () => {
     const router = createRouter({
       history,
       routes: [
-        { name: 'notfound', path: '/:path(.*)+', component: components.Home },
-      ],
+        { name: 'notfound', path: '/:path(.*)+', component: components.Home }
+      ]
     })
     let path = 'not/found%2Fha'
     let href = '/' + path
@@ -440,7 +440,7 @@ describe('Router', () => {
       name: 'notfound',
       fullPath: href,
       path: href,
-      href: href,
+      href: href
     })
     expect(
       router.resolve({
@@ -449,21 +449,21 @@ describe('Router', () => {
           path: path
             .split('/')
             // we need to provide the value unencoded
-            .map(segment => segment.replace('%2F', '/')),
-        },
+            .map((segment) => segment.replace('%2F', '/'))
+        }
       })
     ).toMatchObject({
       name: 'notfound',
       fullPath: href,
       path: href,
-      href: href,
+      href: href
     })
   })
 
   it('can pass a currentLocation to resolve', async () => {
     const { router } = await newRouter()
     expect(router.resolve({ params: { p: 1 } })).toMatchObject({
-      path: '/',
+      path: '/'
     })
     expect(
       router.resolve(
@@ -474,7 +474,7 @@ describe('Router', () => {
       )
     ).toMatchObject({
       name: 'Param',
-      params: { p: '1' },
+      params: { p: '1' }
     })
   })
 
@@ -544,13 +544,13 @@ describe('Router', () => {
         ...router.currentRoute.value,
         // then update some stuff, creating inconsistencies,
         query: { a: '1' },
-        hash: '#a',
+        hash: '#a'
       })
     ).toMatchObject({
       query: { a: '1' },
       path: '/',
       fullPath: '/?a=1#a',
-      hash: '#a',
+      hash: '#a'
     })
   })
 
@@ -584,7 +584,7 @@ describe('Router', () => {
         expect.objectContaining({
           to: expect.objectContaining({ path: '/p/a' }),
           from,
-          type: NavigationFailureType.cancelled,
+          type: NavigationFailureType.cancelled
         })
       )
       expect(router.currentRoute.value.fullPath).toBe('/p/b')
@@ -667,7 +667,7 @@ describe('Router', () => {
       expect(router.currentRoute.value).toMatchObject({
         path: '/',
         name: 'home',
-        redirectedFrom: { path: '/home' },
+        redirectedFrom: { path: '/home' }
       })
     })
 
@@ -679,7 +679,7 @@ describe('Router', () => {
       expect(router.currentRoute.value).toMatchObject({
         path: '/',
         name: 'home',
-        redirectedFrom: { path: '/home-before' },
+        redirectedFrom: { path: '/home-before' }
       })
     })
   })
@@ -692,7 +692,7 @@ describe('Router', () => {
       const loc = router.currentRoute.value
       expect(loc.name).toBe('Foo')
       expect(loc.redirectedFrom).toMatchObject({
-        path: '/to-foo',
+        path: '/to-foo'
       })
     })
 
@@ -717,7 +717,7 @@ describe('Router', () => {
       const loc = router.currentRoute.value
       expect(loc.name).toBe('Foo')
       expect(loc.redirectedFrom).toMatchObject({
-        path: '/to-foo2',
+        path: '/to-foo2'
       })
     })
 
@@ -732,8 +732,8 @@ describe('Router', () => {
         query: { a: '2' },
         hash: '#b',
         redirectedFrom: expect.objectContaining({
-          fullPath: '/to-foo-query',
-        }),
+          fullPath: '/to-foo-query'
+        })
       })
     })
 
@@ -750,8 +750,8 @@ describe('Router', () => {
         query: { hey: 'foo' },
         hash: '#fa',
         redirectedFrom: expect.objectContaining({
-          fullPath: '/to-foo?hey=foo#fa',
-        }),
+          fullPath: '/to-foo?hey=foo#fa'
+        })
       })
     })
 
@@ -767,8 +767,8 @@ describe('Router', () => {
         query: { hey: 'foo' },
         hash: '#fa',
         redirectedFrom: expect.objectContaining({
-          fullPath: '/to-p/1?hey=foo#fa',
-        }),
+          fullPath: '/to-p/1?hey=foo#fa'
+        })
       })
     })
 
@@ -784,8 +784,8 @@ describe('Router', () => {
         hash: '',
         redirectedFrom: expect.objectContaining({
           fullPath: '/redirect-with-param/test',
-          params: { p: 'test' },
-        }),
+          params: { p: 'test' }
+        })
       })
     })
 
@@ -796,7 +796,7 @@ describe('Router', () => {
       const loc = router.currentRoute.value
       expect(loc.name).toBe('Foo')
       expect(loc.redirectedFrom).toMatchObject({
-        path: '/to-foo-named',
+        path: '/to-foo-named'
       })
     })
 
@@ -808,13 +808,13 @@ describe('Router', () => {
       await expect(router.replace('/to-foo')).resolves.toEqual(undefined)
       expect(router.currentRoute.value).toMatchObject({
         path: '/foo',
-        redirectedFrom: expect.objectContaining({ path: '/to-foo' }),
+        redirectedFrom: expect.objectContaining({ path: '/to-foo' })
       })
 
       history.go(-1)
       await nextNavigation(router)
       expect(router.currentRoute.value).not.toMatchObject({
-        path: '/search',
+        path: '/search'
       })
     })
 
@@ -826,15 +826,15 @@ describe('Router', () => {
       expect(loc).toMatchObject({
         name: 'Foo',
         query: {
-          n: '3-2',
+          n: '3-2'
         },
-        hash: '#fa-2',
+        hash: '#fa-2'
       })
       expect(loc.redirectedFrom).toMatchObject({
         fullPath: '/inc-query-hash?n=3#fa',
         query: { n: '3' },
         hash: '#fa',
-        path: '/inc-query-hash',
+        path: '/inc-query-hash'
       })
     })
 
@@ -848,9 +848,9 @@ describe('Router', () => {
             redirect: { name: 'child' },
             component: components.Home,
             name: 'parent',
-            children: [{ name: 'child', path: '', component: components.Home }],
-          },
-        ],
+            children: [{ name: 'child', path: '', component: components.Home }]
+          }
+        ]
       })
       await expect(router.push({ name: 'parent' })).resolves.toEqual(undefined)
       const loc = router.currentRoute.value
@@ -858,7 +858,7 @@ describe('Router', () => {
       expect(loc.path).toBe('/parent')
       expect(loc.redirectedFrom).toMatchObject({
         name: 'parent',
-        path: '/parent',
+        path: '/parent'
       })
     })
 
@@ -869,8 +869,8 @@ describe('Router', () => {
         history,
         routes: [
           { name: 'foo', path: '/foo', redirect: '/bar' },
-          { path: '/bar', component: components.Bar },
-        ],
+          { path: '/bar', component: components.Bar }
+        ]
       })
       await expect(router.push('/foo')).resolves.toEqual(undefined)
       const loc = router.currentRoute.value
@@ -878,7 +878,7 @@ describe('Router', () => {
       expect(loc.path).toBe('/bar')
       expect(loc.redirectedFrom).toMatchObject({
         name: 'foo',
-        path: '/foo',
+        path: '/foo'
       })
     })
   })
@@ -894,7 +894,7 @@ describe('Router', () => {
         params: {},
         path: '/',
         query: {},
-        meta: {},
+        meta: {}
       })
       await router.replace('/foo')
       expect(router.currentRoute.value).toMatchObject({
@@ -903,7 +903,7 @@ describe('Router', () => {
         hash: '',
         params: {},
         path: '/foo',
-        query: {},
+        query: {}
       })
     })
 
@@ -917,7 +917,7 @@ describe('Router', () => {
         params: {},
         path: '/',
         query: {},
-        meta: {},
+        meta: {}
       })
       await router.replace('/foo')
       expect(router.currentRoute.value).toMatchObject({
@@ -926,7 +926,7 @@ describe('Router', () => {
         hash: '',
         params: {},
         path: '/foo',
-        query: {},
+        query: {}
       })
     })
   })
@@ -936,16 +936,16 @@ describe('Router', () => {
       const { router } = await newRouter({ routes: [] })
       expect(router.resolve('/new-route')).toMatchObject({
         name: undefined,
-        matched: [],
+        matched: []
       })
       expect('No match found').toHaveBeenWarned()
       router.addRoute({
         path: '/new-route',
         component: components.Foo,
-        name: 'new route',
+        name: 'new route'
       })
       expect(router.resolve('/new-route')).toMatchObject({
-        name: 'new route',
+        name: 'new route'
       })
     })
 
@@ -954,7 +954,7 @@ describe('Router', () => {
       router.addRoute({
         name: 'new-route',
         path: '/new-route',
-        component: components.Foo,
+        component: components.Foo
       })
       expect(router.hasRoute('new-route')).toBe(true)
       expect(router.hasRoute('no')).toBe(false)
@@ -966,7 +966,7 @@ describe('Router', () => {
       const { router } = await newRouter({ routes: [] })
       expect(router.resolve('/new-route')).toMatchObject({
         name: undefined,
-        matched: [],
+        matched: []
       })
       expect('No match found').toHaveBeenWarned()
       let removeRoute: (() => void) | undefined
@@ -981,17 +981,17 @@ describe('Router', () => {
             removeRoute = router.addRoute('dynamic parent', {
               path: 'child',
               name: 'dynamic child',
-              component: components.Foo,
+              component: components.Foo
             })
             next(to.fullPath)
           } else next()
-        },
+        }
       })
 
       router.push('/dynamic/child').catch(() => {})
       await tick()
       expect(router.currentRoute.value).toMatchObject({
-        name: 'dynamic child',
+        name: 'dynamic child'
       })
     })
 
@@ -1000,7 +1000,7 @@ describe('Router', () => {
       router.addRoute({
         path: '/new/foo',
         component: components.Foo,
-        name: 'new',
+        name: 'new'
       })
       // navigate to the route we just added
       await router.replace({ name: 'new' })
@@ -1008,13 +1008,13 @@ describe('Router', () => {
       router.addRoute({
         path: '/new/bar',
         component: components.Foo,
-        name: 'new',
+        name: 'new'
       })
       // navigate again
       await router.replace({ name: 'new' })
       expect(router.currentRoute.value).toMatchObject({
         path: '/new/bar',
-        name: 'new',
+        name: 'new'
       })
     })
 
@@ -1024,7 +1024,7 @@ describe('Router', () => {
         path: '/new',
         component: components.Foo,
         children: [],
-        name: 'new',
+        name: 'new'
       })
       // navigate to the route we just added
       await router.replace('/new/child')
@@ -1032,13 +1032,13 @@ describe('Router', () => {
       router.addRoute('new', {
         path: 'child',
         component: components.Bar,
-        name: 'new-child',
+        name: 'new-child'
       })
       // navigate again
       await router.replace('/new/child')
       expect('No match found').toHaveBeenWarned()
       expect(router.currentRoute.value).toMatchObject({
-        name: 'new-child',
+        name: 'new-child'
       })
     })
 
@@ -1046,39 +1046,39 @@ describe('Router', () => {
       const { router } = await newRouter()
       await router.push('/p/p')
       expect(router.currentRoute.value).toMatchObject({
-        name: 'Param',
+        name: 'Param'
       })
       router.addRoute({
         path: '/p/p',
         component: components.Foo,
-        name: 'pp',
+        name: 'pp'
       })
       await router.replace(router.currentRoute.value.fullPath)
       expect(router.currentRoute.value).toMatchObject({
-        name: 'pp',
+        name: 'pp'
       })
     })
 
     it('stops resolving removed routes', async () => {
       const { router } = await newRouter({
-        routes: [routes.find(route => route.name === 'Foo')!],
+        routes: [routes.find((route) => route.name === 'Foo')!]
       })
       // regular route
       router.removeRoute('Foo')
       expect(router.resolve('/foo')).toMatchObject({
         name: undefined,
-        matched: [],
+        matched: []
       })
       // dynamic route
       const removeRoute = router.addRoute({
         path: '/new-route',
         component: components.Foo,
-        name: 'new route',
+        name: 'new route'
       })
       removeRoute()
       expect(router.resolve('/new-route')).toMatchObject({
         name: undefined,
-        matched: [],
+        matched: []
       })
       expect('No match found').toHaveBeenWarned()
     })
@@ -1088,13 +1088,13 @@ describe('Router', () => {
       router.addRoute({
         path: '/p/p',
         component: components.Foo,
-        name: 'pp',
+        name: 'pp'
       })
       await router.push('/p/p')
       router.removeRoute('pp')
       await router.replace(router.currentRoute.value.fullPath)
       expect(router.currentRoute.value).toMatchObject({
-        name: 'Param',
+        name: 'Param'
       })
     })
 
@@ -1103,13 +1103,13 @@ describe('Router', () => {
       const remove = router.addRoute({
         path: '/p/p',
         component: components.Foo,
-        name: 'pp',
+        name: 'pp'
       })
       await router.push('/p/p')
       remove()
       await router.push('/p/p')
       expect(router.currentRoute.value).toMatchObject({
-        name: 'Param',
+        name: 'Param'
       })
     })
 
@@ -1117,7 +1117,7 @@ describe('Router', () => {
       const { router } = await newRouter()
       router.addRoute('parent-route', {
         path: '/p',
-        component: components.Foo,
+        component: components.Foo
       })
       expect(
         'Parent route "parent-route" not found when adding child route'

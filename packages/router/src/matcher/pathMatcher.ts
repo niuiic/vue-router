@@ -2,7 +2,7 @@ import { RouteRecord } from './types'
 import {
   tokensToParser,
   PathParser,
-  PathParserOptions,
+  PathParserOptions
 } from './pathParserRanker'
 import { tokenizePath } from './pathTokenizer'
 import { warn } from '../warning'
@@ -40,7 +40,7 @@ export function createRouteRecordMatcher(
     parent,
     // these needs to be populated by the parent
     children: [],
-    alias: [],
+    alias: []
   })
 
   if (parent) {

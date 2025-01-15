@@ -15,8 +15,8 @@ describe('hash history edge cases', () => {
       history,
       routes: [
         { path: '/', component },
-        { path: '/foo', component },
-      ],
+        { path: '/foo', component }
+      ]
     })
 
     await router.push('/foo?step=1')
@@ -27,7 +27,7 @@ describe('hash history edge cases', () => {
     expect(router.currentRoute.value.fullPath).toBe('/foo?step=2')
 
     // force a redirect next time
-    const removeListener = router.beforeEach(to => {
+    const removeListener = router.beforeEach((to) => {
       if (to.path === '/') {
         removeListener()
         return '/foo?step=2'
@@ -51,8 +51,8 @@ describe('hash history edge cases', () => {
       history,
       routes: [
         { path: '/', component },
-        { path: '/foo', component },
-      ],
+        { path: '/foo', component }
+      ]
     })
 
     await router.push('/foo?step=1')
@@ -63,7 +63,7 @@ describe('hash history edge cases', () => {
     expect(router.currentRoute.value.fullPath).toBe('/foo?step=2')
 
     // force a redirect next time
-    const removeListener = router.beforeEach(to => {
+    const removeListener = router.beforeEach((to) => {
       if (to.path === '/') {
         removeListener()
         return false

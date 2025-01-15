@@ -5,12 +5,12 @@ import { fileURLToPath } from 'node:url'
 const __dirname = new URL('.', import.meta.url).pathname
 export default defineConfig({
   resolve: {
-    alias: [],
+    alias: []
   },
   define: {
     __DEV__: true,
     __TEST__: true,
-    __BROWSER__: true,
+    __BROWSER__: true
   },
   plugins: [Vue()],
 
@@ -24,17 +24,17 @@ export default defineConfig({
         'src/**/*.spec.ts',
         // '/node_modules/',
         'src/index.ts',
-        'src/devtools.ts',
-      ],
+        'src/devtools.ts'
+      ]
     },
     typecheck: {
       enabled: true,
-      checker: 'vue-tsc',
+      checker: 'vue-tsc'
       // only: true,
       // by default it includes all specs too
       // include: ['**/*.test-d.ts'],
 
       // tsconfig: './tsconfig.typecheck.json',
-    },
-  },
+    }
+  }
 })

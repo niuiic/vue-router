@@ -3,7 +3,7 @@ import {
   RouteComponent,
   RouteRecordRaw,
   MatcherLocationRaw,
-  MatcherLocation,
+  MatcherLocation
 } from '../../src/types'
 import { MatcherLocationNormalizedLoose } from '../utils'
 import { defineComponent } from 'vue'
@@ -48,9 +48,9 @@ describe('RouterMatcher.resolve', () => {
       if (!resolved.matched) resolved.matched = record.map(normalizeRouteRecord)
       // allow passing an expect.any(Array)
       else if (Array.isArray(resolved.matched))
-        resolved.matched = resolved.matched.map(m => ({
+        resolved.matched = resolved.matched.map((m) => ({
           ...normalizeRouteRecord(m as any),
-          aliasOf: m.aliasOf,
+          aliasOf: m.aliasOf
         }))
     }
 
@@ -60,10 +60,10 @@ describe('RouterMatcher.resolve', () => {
 
     const startCopy: MatcherLocation = {
       ...start,
-      matched: start.matched.map(m => ({
+      matched: start.matched.map((m) => ({
         ...normalizeRouteRecord(m),
-        aliasOf: m.aliasOf,
-      })) as MatcherLocation['matched'],
+        aliasOf: m.aliasOf
+      })) as MatcherLocation['matched']
     }
 
     // make matched non enumerable
@@ -101,7 +101,7 @@ describe('RouterMatcher.resolve', () => {
           alias: '/home',
           name: 'Home',
           components,
-          meta: { foo: true },
+          meta: { foo: true }
         },
         { path: '/home' },
         {
@@ -115,9 +115,9 @@ describe('RouterMatcher.resolve', () => {
               name: 'Home',
               components,
               aliasOf: expect.objectContaining({ name: 'Home', path: '/' }),
-              meta: { foo: true },
-            },
-          ],
+              meta: { foo: true }
+            }
+          ]
         }
       )
     })
@@ -128,7 +128,7 @@ describe('RouterMatcher.resolve', () => {
         alias: ['/home', '/start'],
         name: 'Home',
         components,
-        meta: { foo: true },
+        meta: { foo: true }
       }
 
       assertRecordMatch(
@@ -145,9 +145,9 @@ describe('RouterMatcher.resolve', () => {
               name: 'Home',
               components,
               aliasOf: undefined,
-              meta: { foo: true },
-            },
-          ],
+              meta: { foo: true }
+            }
+          ]
         }
       )
       assertRecordMatch(
@@ -164,9 +164,9 @@ describe('RouterMatcher.resolve', () => {
               name: 'Home',
               components,
               aliasOf: expect.objectContaining({ name: 'Home', path: '/' }),
-              meta: { foo: true },
-            },
-          ],
+              meta: { foo: true }
+            }
+          ]
         }
       )
       assertRecordMatch(
@@ -183,9 +183,9 @@ describe('RouterMatcher.resolve', () => {
               name: 'Home',
               components,
               aliasOf: expect.objectContaining({ name: 'Home', path: '/' }),
-              meta: { foo: true },
-            },
-          ],
+              meta: { foo: true }
+            }
+          ]
         }
       )
     })
@@ -197,7 +197,7 @@ describe('RouterMatcher.resolve', () => {
           alias: '/home',
           name: 'Home',
           components,
-          meta: { foo: true },
+          meta: { foo: true }
         },
         { name: 'Home' },
         {
@@ -211,9 +211,9 @@ describe('RouterMatcher.resolve', () => {
               name: 'Home',
               components,
               aliasOf: undefined,
-              meta: { foo: true },
-            },
-          ],
+              meta: { foo: true }
+            }
+          ]
         }
       )
     })
@@ -225,7 +225,7 @@ describe('RouterMatcher.resolve', () => {
           path: '/parent',
           alias: '/p',
           component,
-          children,
+          children
         },
         { path: '/p/one' },
         {
@@ -237,15 +237,15 @@ describe('RouterMatcher.resolve', () => {
               path: '/p',
               children,
               components,
-              aliasOf: expect.objectContaining({ path: '/parent' }),
+              aliasOf: expect.objectContaining({ path: '/parent' })
             },
             {
               path: '/p/one',
               name: 'nested',
               components,
-              aliasOf: expect.objectContaining({ path: '/parent/one' }),
-            },
-          ],
+              aliasOf: expect.objectContaining({ path: '/parent/one' })
+            }
+          ]
         }
       )
     })
@@ -258,22 +258,22 @@ describe('RouterMatcher.resolve', () => {
           name: 'nested',
           alias: 'o',
           children: [
-            { path: 'two', alias: 't', name: 'nestednested', component },
-          ],
+            { path: 'two', alias: 't', name: 'nestednested', component }
+          ]
         },
         {
           path: 'other',
           alias: 'otherAlias',
           component,
-          name: 'other',
-        },
+          name: 'other'
+        }
       ]
       const record = {
         path: '/parent',
         name: 'parent',
         alias: '/p',
         component,
-        children,
+        children
       }
 
       it('resolves the parent as an alias', () => {
@@ -286,9 +286,9 @@ describe('RouterMatcher.resolve', () => {
             matched: [
               expect.objectContaining({
                 path: '/p',
-                aliasOf: expect.objectContaining({ path: '/parent' }),
-              }),
-            ],
+                aliasOf: expect.objectContaining({ path: '/parent' })
+              })
+            ]
           })
         )
       })
@@ -306,13 +306,13 @@ describe('RouterMatcher.resolve', () => {
               matched: [
                 expect.objectContaining({
                   path: '/p',
-                  aliasOf: expect.objectContaining({ path: '/parent' }),
+                  aliasOf: expect.objectContaining({ path: '/parent' })
                 }),
                 expect.objectContaining({
                   path: '/p/other',
-                  aliasOf: expect.objectContaining({ path: '/parent/other' }),
-                }),
-              ],
+                  aliasOf: expect.objectContaining({ path: '/parent/other' })
+                })
+              ]
             })
           )
         })
@@ -327,13 +327,13 @@ describe('RouterMatcher.resolve', () => {
               matched: [
                 expect.objectContaining({
                   path: '/parent',
-                  aliasOf: undefined,
+                  aliasOf: undefined
                 }),
                 expect.objectContaining({
                   path: '/parent/otherAlias',
-                  aliasOf: expect.objectContaining({ path: '/parent/other' }),
-                }),
-              ],
+                  aliasOf: expect.objectContaining({ path: '/parent/other' })
+                })
+              ]
             })
           )
         })
@@ -348,13 +348,13 @@ describe('RouterMatcher.resolve', () => {
               matched: [
                 expect.objectContaining({
                   path: '/p',
-                  aliasOf: expect.objectContaining({ path: '/parent' }),
+                  aliasOf: expect.objectContaining({ path: '/parent' })
                 }),
                 expect.objectContaining({
                   path: '/p/otherAlias',
-                  aliasOf: expect.objectContaining({ path: '/parent/other' }),
-                }),
-              ],
+                  aliasOf: expect.objectContaining({ path: '/parent/other' })
+                })
+              ]
             })
           )
         })
@@ -370,17 +370,17 @@ describe('RouterMatcher.resolve', () => {
             matched: [
               expect.objectContaining({
                 path: '/parent',
-                aliasOf: undefined,
+                aliasOf: undefined
               }),
               expect.objectContaining({
                 path: '/parent/one',
-                aliasOf: undefined,
+                aliasOf: undefined
               }),
               expect.objectContaining({
                 path: '/parent/one/two',
-                aliasOf: undefined,
-              }),
-            ],
+                aliasOf: undefined
+              })
+            ]
           })
         )
       })
@@ -397,17 +397,17 @@ describe('RouterMatcher.resolve', () => {
             matched: [
               expect.objectContaining({
                 path: '/p',
-                aliasOf: expect.objectContaining({ path: '/parent' }),
+                aliasOf: expect.objectContaining({ path: '/parent' })
               }),
               expect.objectContaining({
                 path: '/p/one',
-                aliasOf: expect.objectContaining({ path: '/parent/one' }),
+                aliasOf: expect.objectContaining({ path: '/parent/one' })
               }),
               expect.objectContaining({
                 path: '/p/one/two',
-                aliasOf: expect.objectContaining({ path: '/parent/one/two' }),
-              }),
-            ],
+                aliasOf: expect.objectContaining({ path: '/parent/one/two' })
+              })
+            ]
           })
         )
       })
@@ -422,13 +422,13 @@ describe('RouterMatcher.resolve', () => {
             matched: [
               expect.objectContaining({
                 path: '/p',
-                aliasOf: expect.objectContaining({ path: '/parent' }),
+                aliasOf: expect.objectContaining({ path: '/parent' })
               }),
               expect.objectContaining({
                 path: '/p/other',
-                aliasOf: expect.objectContaining({ path: '/parent/other' }),
-              }),
-            ],
+                aliasOf: expect.objectContaining({ path: '/parent/other' })
+              })
+            ]
           })
         )
       })
@@ -443,17 +443,17 @@ describe('RouterMatcher.resolve', () => {
             matched: [
               expect.objectContaining({
                 path: '/parent',
-                aliasOf: undefined,
+                aliasOf: undefined
               }),
               expect.objectContaining({
                 path: '/parent/o',
-                aliasOf: expect.objectContaining({ path: '/parent/one' }),
+                aliasOf: expect.objectContaining({ path: '/parent/one' })
               }),
               expect.objectContaining({
                 path: '/parent/o/two',
-                aliasOf: expect.objectContaining({ path: '/parent/one/two' }),
-              }),
-            ],
+                aliasOf: expect.objectContaining({ path: '/parent/one/two' })
+              })
+            ]
           })
         )
       })
@@ -468,17 +468,17 @@ describe('RouterMatcher.resolve', () => {
             matched: [
               expect.objectContaining({
                 path: '/parent',
-                aliasOf: undefined,
+                aliasOf: undefined
               }),
               expect.objectContaining({
                 path: '/parent/one',
-                aliasOf: undefined,
+                aliasOf: undefined
               }),
               expect.objectContaining({
                 path: '/parent/one/t',
-                aliasOf: expect.objectContaining({ path: '/parent/one/two' }),
-              }),
-            ],
+                aliasOf: expect.objectContaining({ path: '/parent/one/two' })
+              })
+            ]
           })
         )
       })
@@ -493,17 +493,17 @@ describe('RouterMatcher.resolve', () => {
             matched: [
               expect.objectContaining({
                 path: '/parent',
-                aliasOf: undefined,
+                aliasOf: undefined
               }),
               expect.objectContaining({
                 path: '/parent/o',
-                aliasOf: expect.objectContaining({ path: '/parent/one' }),
+                aliasOf: expect.objectContaining({ path: '/parent/one' })
               }),
               expect.objectContaining({
                 path: '/parent/o/t',
-                aliasOf: expect.objectContaining({ path: '/parent/one/two' }),
-              }),
-            ],
+                aliasOf: expect.objectContaining({ path: '/parent/one/two' })
+              })
+            ]
           })
         )
       })
@@ -518,17 +518,17 @@ describe('RouterMatcher.resolve', () => {
             matched: [
               expect.objectContaining({
                 path: '/p',
-                aliasOf: expect.objectContaining({ path: '/parent' }),
+                aliasOf: expect.objectContaining({ path: '/parent' })
               }),
               expect.objectContaining({
                 path: '/p/o',
-                aliasOf: expect.objectContaining({ path: '/parent/one' }),
+                aliasOf: expect.objectContaining({ path: '/parent/one' })
               }),
               expect.objectContaining({
                 path: '/p/o/t',
-                aliasOf: expect.objectContaining({ path: '/parent/one/two' }),
-              }),
-            ],
+                aliasOf: expect.objectContaining({ path: '/parent/one/two' })
+              })
+            ]
           })
         )
       })
@@ -543,17 +543,17 @@ describe('RouterMatcher.resolve', () => {
             matched: [
               expect.objectContaining({
                 path: '/p',
-                aliasOf: expect.objectContaining({ path: '/parent' }),
+                aliasOf: expect.objectContaining({ path: '/parent' })
               }),
               expect.objectContaining({
                 path: '/p/one',
-                aliasOf: expect.objectContaining({ path: '/parent/one' }),
+                aliasOf: expect.objectContaining({ path: '/parent/one' })
               }),
               expect.objectContaining({
                 path: '/p/one/t',
-                aliasOf: expect.objectContaining({ path: '/parent/one/two' }),
-              }),
-            ],
+                aliasOf: expect.objectContaining({ path: '/parent/one/two' })
+              })
+            ]
           })
         )
       })
@@ -566,7 +566,7 @@ describe('RouterMatcher.resolve', () => {
           path: '/parent',
           alias: '/p',
           component,
-          children,
+          children
         },
         { name: 'nested' },
         {
@@ -578,10 +578,10 @@ describe('RouterMatcher.resolve', () => {
               path: '/parent',
               children,
               components,
-              aliasOf: undefined,
+              aliasOf: undefined
             },
-            { path: '/parent/one', name: 'nested', components },
-          ],
+            { path: '/parent/one', name: 'nested', components }
+          ]
         }
       )
     })
@@ -699,7 +699,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/home/',
         name: 'Home',
         components,
-        options: { strict: true },
+        options: { strict: true }
       }
       assertErrorMatch(record, { path: '/home' })
       assertRecordMatch(
@@ -714,7 +714,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/home',
         name: 'Home',
         components,
-        options: { strict: true },
+        options: { strict: true }
       }
       assertRecordMatch(
         record,
@@ -758,7 +758,7 @@ describe('RouterMatcher.resolve', () => {
           path: '/a',
           matched: [],
           meta: {},
-          name: undefined,
+          name: undefined
         }
       )
     })
@@ -773,7 +773,7 @@ describe('RouterMatcher.resolve', () => {
           path: '/a',
           matched: [],
           meta: {},
-          name: undefined,
+          name: undefined
         }
       )
     })
@@ -785,7 +785,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/:optional?/parent',
         name: 'parent',
         components,
-        children: [Child_A, Child_B],
+        children: [Child_A, Child_B]
       }
       assertRecordMatch(
         Parent,
@@ -798,16 +798,16 @@ describe('RouterMatcher.resolve', () => {
             Parent as any,
             {
               ...Child_B,
-              path: `${Parent.path}/${Child_B.path}`,
-            },
-          ],
+              path: `${Parent.path}/${Child_B.path}`
+            }
+          ]
         },
         {
           params: { optional: 'foo' },
           path: '/foo/parent/a',
           matched: [],
           meta: {},
-          name: undefined,
+          name: undefined
         }
       )
     })
@@ -837,7 +837,7 @@ describe('RouterMatcher.resolve', () => {
           path: '/a',
           matched: [],
           meta: {},
-          name: undefined,
+          name: undefined
         }
       )
     })
@@ -852,7 +852,7 @@ describe('RouterMatcher.resolve', () => {
           path: '/a',
           matched: [],
           meta: {},
-          name: undefined,
+          name: undefined
         }
       )
     })
@@ -875,7 +875,7 @@ describe('RouterMatcher.resolve', () => {
     it('warns if a path isn not absolute', () => {
       const record = {
         path: '/parent',
-        components,
+        components
       }
       const matcher = createRouterMatcher([record], {})
       matcher.resolve(
@@ -885,7 +885,7 @@ describe('RouterMatcher.resolve', () => {
           name: undefined,
           params: {},
           matched: [] as any,
-          meta: {},
+          meta: {}
         }
       )
       expect('received "two"').toHaveBeenWarned()
@@ -902,7 +902,7 @@ describe('RouterMatcher.resolve', () => {
           params: {},
           path: '/home',
           matched: [record] as any,
-          meta: {},
+          meta: {}
         }
       )
     })
@@ -918,7 +918,7 @@ describe('RouterMatcher.resolve', () => {
           name: undefined,
           params: { id: 'ed', role: 'user' },
           matched: [record] as any,
-          meta: {},
+          meta: {}
         }
       )
     })
@@ -927,7 +927,7 @@ describe('RouterMatcher.resolve', () => {
       const record = {
         path: '/users/:id/m/:role',
         name: 'UserEdit',
-        components,
+        components
       }
       assertRecordMatch(
         record,
@@ -938,7 +938,7 @@ describe('RouterMatcher.resolve', () => {
           name: 'UserEdit',
           params: { id: 'ed', role: 'user' },
           matched: [],
-          meta: {},
+          meta: {}
         }
       )
     })
@@ -947,7 +947,7 @@ describe('RouterMatcher.resolve', () => {
       const record = {
         path: '/users/:id/m/:role',
         name: 'UserEdit',
-        components,
+        components
       }
       assertRecordMatch(
         record,
@@ -955,14 +955,14 @@ describe('RouterMatcher.resolve', () => {
         {
           name: 'UserEdit',
           path: '/users/ed/m/user',
-          params: { id: 'ed', role: 'user' },
+          params: { id: 'ed', role: 'user' }
         },
         {
           path: '/users/ed/m/user',
           name: 'UserEdit',
           params: { id: 'ed', role: 'user' },
           matched: [record] as any,
-          meta: {},
+          meta: {}
         }
       )
     })
@@ -975,14 +975,14 @@ describe('RouterMatcher.resolve', () => {
         {
           name: undefined,
           path: '/users/ed/m/user',
-          params: { id: 'ed', role: 'user' },
+          params: { id: 'ed', role: 'user' }
         },
         {
           path: '/users/ed/m/user',
           name: undefined,
           params: { id: 'ed', role: 'user' },
           matched: [record] as any,
-          meta: {},
+          meta: {}
         }
       )
     })
@@ -997,7 +997,7 @@ describe('RouterMatcher.resolve', () => {
           params: { a: 'a' },
           path: '/a',
           matched: [],
-          meta: {},
+          meta: {}
         }
       )
     })
@@ -1012,7 +1012,7 @@ describe('RouterMatcher.resolve', () => {
           params: { a: 'a', b: 'b' },
           path: '/a/b',
           matched: [],
-          meta: {},
+          meta: {}
         }
       )
     })
@@ -1027,7 +1027,7 @@ describe('RouterMatcher.resolve', () => {
           params: { a: 'a', b: 'b' },
           path: '/a/b',
           matched: [],
-          meta: {},
+          meta: {}
         }
       )
     })
@@ -1038,7 +1038,7 @@ describe('RouterMatcher.resolve', () => {
         name: 'home',
         params: {},
         path: '/',
-        matched: [record],
+        matched: [record]
       }
       // the property should be non enumerable
       Object.defineProperty(start, 'matched', { enumerable: false })
@@ -1049,7 +1049,7 @@ describe('RouterMatcher.resolve', () => {
           {
             ...start,
             matched: start.matched.map(normalizeRouteRecord),
-            meta: {},
+            meta: {}
           }
         )
       ).toMatchSnapshot()
@@ -1059,7 +1059,7 @@ describe('RouterMatcher.resolve', () => {
       assertErrorMatch(
         {
           path: '/articles',
-          children: [{ path: ':id', components }],
+          children: [{ path: ':id', components }]
         },
         { path: '/articles' }
       )
@@ -1073,9 +1073,9 @@ describe('RouterMatcher.resolve', () => {
           children: [
             {
               path: '/articles',
-              children: [{ path: ':id', components }],
-            },
-          ],
+              children: [{ path: ':id', components }]
+            }
+          ]
         },
         { path: '/articles' }
       )
@@ -1086,7 +1086,7 @@ describe('RouterMatcher.resolve', () => {
         {
           path: '/articles',
           name: 'ArticlesParent',
-          children: [{ path: ':id', components }],
+          children: [{ path: ':id', components }]
         },
         { name: 'ArticlesParent' },
         { name: 'ArticlesParent', path: '/articles' }
@@ -1102,7 +1102,7 @@ describe('RouterMatcher.resolve', () => {
     const ChildWithParam = { path: ':p', name: 'child-params', components }
     const NestedChildWithParam = {
       ...ChildWithParam,
-      name: 'nested-child-params',
+      name: 'nested-child-params'
     }
     const NestedChildA = { ...ChildA, name: 'nested-child-a' }
     const NestedChildB = { ...ChildB, name: 'nested-child-b' }
@@ -1111,13 +1111,13 @@ describe('RouterMatcher.resolve', () => {
       path: 'nested',
       name: 'nested',
       components,
-      children: [NestedChildA, NestedChildB, NestedChildC],
+      children: [NestedChildA, NestedChildB, NestedChildC]
     }
     const NestedWithParam = {
       path: 'nested/:n',
       name: 'nested',
       components,
-      children: [NestedChildWithParam],
+      children: [NestedChildWithParam]
     }
 
     it('resolves children', () => {
@@ -1125,7 +1125,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/foo',
         name: 'Foo',
         components,
-        children: [ChildA, ChildB, ChildC],
+        children: [ChildA, ChildB, ChildC]
       }
       assertRecordMatch(
         Foo,
@@ -1134,7 +1134,7 @@ describe('RouterMatcher.resolve', () => {
           name: 'child-b',
           path: '/foo/b',
           params: {},
-          matched: [Foo, { ...ChildB, path: `${Foo.path}/${ChildB.path}` }],
+          matched: [Foo, { ...ChildB, path: `${Foo.path}/${ChildB.path}` }]
         }
       )
     })
@@ -1145,7 +1145,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/foo',
         name: 'Foo',
         components,
-        children: [Nested],
+        children: [Nested]
       }
       assertRecordMatch(
         Foo,
@@ -1154,7 +1154,7 @@ describe('RouterMatcher.resolve', () => {
           name: 'nested',
           path: '/foo',
           params: {},
-          matched: [Foo as any, { ...Nested, path: `${Foo.path}` }],
+          matched: [Foo as any, { ...Nested, path: `${Foo.path}` }]
         }
       )
     })
@@ -1165,13 +1165,13 @@ describe('RouterMatcher.resolve', () => {
         path: '',
         name: 'nested-nested',
         components,
-        children: [NestedNested],
+        children: [NestedNested]
       }
       const Foo = {
         path: '/foo',
         name: 'Foo',
         components,
-        children: [Nested],
+        children: [Nested]
       }
       assertRecordMatch(
         Foo,
@@ -1183,8 +1183,8 @@ describe('RouterMatcher.resolve', () => {
           matched: [
             Foo as any,
             { ...Nested, path: `${Foo.path}` },
-            { ...NestedNested, path: `${Foo.path}` },
-          ],
+            { ...NestedNested, path: `${Foo.path}` }
+          ]
         }
       )
     })
@@ -1194,7 +1194,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/foo',
         name: 'Foo',
         components,
-        children: [Nested],
+        children: [Nested]
       }
       assertRecordMatch(
         Foo,
@@ -1208,9 +1208,9 @@ describe('RouterMatcher.resolve', () => {
             { ...Nested, path: `${Foo.path}/${Nested.path}` },
             {
               ...NestedChildA,
-              path: `${Foo.path}/${Nested.path}/${NestedChildA.path}`,
-            },
-          ],
+              path: `${Foo.path}/${Nested.path}/${NestedChildA.path}`
+            }
+          ]
         }
       )
     })
@@ -1220,7 +1220,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/foo',
         name: 'Foo',
         components,
-        children: [Nested],
+        children: [Nested]
       }
       assertRecordMatch(
         Foo,
@@ -1234,9 +1234,9 @@ describe('RouterMatcher.resolve', () => {
             { ...Nested, path: `${Foo.path}/${Nested.path}` },
             {
               ...NestedChildA,
-              path: `${Foo.path}/${Nested.path}/${NestedChildA.path}`,
-            },
-          ],
+              path: `${Foo.path}/${Nested.path}/${NestedChildA.path}`
+            }
+          ]
         }
       )
     })
@@ -1246,7 +1246,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/foo',
         name: 'Foo',
         components,
-        children: [Nested],
+        children: [Nested]
       }
       assertRecordMatch(
         Foo,
@@ -1260,16 +1260,16 @@ describe('RouterMatcher.resolve', () => {
             { ...Nested, path: `${Foo.path}/${Nested.path}` },
             {
               ...NestedChildA,
-              path: `${Foo.path}/${Nested.path}/${NestedChildA.path}`,
-            },
-          ],
+              path: `${Foo.path}/${Nested.path}/${NestedChildA.path}`
+            }
+          ]
         },
         {
           name: 'nested-child-a',
           matched: [],
           params: {},
           path: '/foo/nested/a',
-          meta: {},
+          meta: {}
         }
       )
     })
@@ -1279,7 +1279,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/foo',
         name: 'Foo',
         components,
-        children: [NestedWithParam],
+        children: [NestedWithParam]
       }
       assertRecordMatch(
         Foo,
@@ -1292,13 +1292,13 @@ describe('RouterMatcher.resolve', () => {
             Foo as any,
             {
               ...NestedWithParam,
-              path: `${Foo.path}/${NestedWithParam.path}`,
+              path: `${Foo.path}/${NestedWithParam.path}`
             },
             {
               ...NestedChildWithParam,
-              path: `${Foo.path}/${NestedWithParam.path}/${NestedChildWithParam.path}`,
-            },
-          ],
+              path: `${Foo.path}/${NestedWithParam.path}/${NestedChildWithParam.path}`
+            }
+          ]
         }
       )
     })
@@ -1308,7 +1308,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/foo',
         name: 'Foo',
         components,
-        children: [NestedWithParam],
+        children: [NestedWithParam]
       }
       assertRecordMatch(
         Foo,
@@ -1321,13 +1321,13 @@ describe('RouterMatcher.resolve', () => {
             Foo as any,
             {
               ...NestedWithParam,
-              path: `${Foo.path}/${NestedWithParam.path}`,
+              path: `${Foo.path}/${NestedWithParam.path}`
             },
             {
               ...NestedChildWithParam,
-              path: `${Foo.path}/${NestedWithParam.path}/${NestedChildWithParam.path}`,
-            },
-          ],
+              path: `${Foo.path}/${NestedWithParam.path}/${NestedChildWithParam.path}`
+            }
+          ]
         }
       )
     })
@@ -1337,7 +1337,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/foo',
         name: 'Foo',
         components,
-        children: [ChildA, ChildD],
+        children: [ChildA, ChildD]
       }
       assertRecordMatch(
         Foo,
@@ -1346,7 +1346,7 @@ describe('RouterMatcher.resolve', () => {
           name: 'absolute',
           path: '/absolute',
           params: {},
-          matched: [Foo, ChildD],
+          matched: [Foo, ChildD]
         }
       )
     })
@@ -1357,7 +1357,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/',
         name: 'parent',
         components,
-        children: [Nested],
+        children: [Nested]
       }
       assertRecordMatch(
         Parent,
@@ -1366,7 +1366,7 @@ describe('RouterMatcher.resolve', () => {
           name: 'nested',
           path: '/nested',
           params: {},
-          matched: [Parent as any, { ...Nested, path: `/nested` }],
+          matched: [Parent as any, { ...Nested, path: `/nested` }]
         }
       )
     })
@@ -1377,7 +1377,7 @@ describe('RouterMatcher.resolve', () => {
         path: '/parent/',
         name: 'parent',
         components,
-        children: [Nested],
+        children: [Nested]
       }
       assertRecordMatch(
         Parent,
@@ -1386,7 +1386,7 @@ describe('RouterMatcher.resolve', () => {
           name: 'nested',
           path: '/parent/nested',
           params: {},
-          matched: [Parent as any, { ...Nested, path: `/parent/nested` }],
+          matched: [Parent as any, { ...Nested, path: `/parent/nested` }]
         }
       )
     })

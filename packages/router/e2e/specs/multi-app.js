@@ -98,5 +98,5 @@ module.exports = {
       // second app only updated once
       .assert.textContains('#part-2 .count', '1')
       .click('#mount3')
-  },
+  }
 }

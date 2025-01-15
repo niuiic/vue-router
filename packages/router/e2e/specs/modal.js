@@ -149,5 +149,5 @@ module.exports = {
       .assert.visible('dialog')
 
       .end()
-  },
+  }
 }

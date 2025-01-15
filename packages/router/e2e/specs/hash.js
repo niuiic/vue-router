@@ -100,5 +100,5 @@ module.exports = {
       .assert.urlEquals(baseURL + '/foo')
 
       .end()
-  },
+  }
 }

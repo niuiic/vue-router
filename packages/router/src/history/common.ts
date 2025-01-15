@@ -35,13 +35,13 @@ export interface HistoryStateArray extends Array<HistoryStateValue> {}
 
 export enum NavigationType {
   pop = 'pop',
-  push = 'push',
+  push = 'push'
 }
 
 export enum NavigationDirection {
   back = 'back',
   forward = 'forward',
-  unknown = '',
+  unknown = ''
 }
 
 export interface NavigationInformation {

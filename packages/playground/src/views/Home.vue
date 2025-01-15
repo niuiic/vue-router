@@ -16,7 +16,7 @@ export default defineComponent({
   props: ['waited'],
   data: () => ({
     toggle: false,
-    counter: 0,
+    counter: 0
   }),
 
   setup() {
@@ -29,12 +29,12 @@ export default defineComponent({
 
     return {
       log,
-      someData: ref(0),
+      someData: ref(0)
     }
   },
 
   _beforeRouteEnter() {
     this.toggle = true
-  },
+  }
 })
 </script>

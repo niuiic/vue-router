@@ -16,7 +16,7 @@ describe('loadRouteLocation', () => {
   ) {
     const router = createRouter({
       history: createMemoryHistory(),
-      routes,
+      routes
     })
 
     const loaded = await loadRouteLocation(router.resolve(to))
@@ -35,24 +35,24 @@ describe('loadRouteLocation', () => {
     await testLoadRoute([
       {
         path: '/',
-        components: { name: FunctionalHome },
-      },
+        components: { name: FunctionalHome }
+      }
     ])
   })
 
   it('resolves simple promises', async () => {
     expect.assertions(3)
     await testLoadRoute([
-      { path: '/', component: () => Promise.resolve(components.Home) },
+      { path: '/', component: () => Promise.resolve(components.Home) }
     ])
     await testLoadRoute([
-      { path: '/', component: () => Promise.resolve(FunctionalHome) },
+      { path: '/', component: () => Promise.resolve(FunctionalHome) }
     ])
     await testLoadRoute([
       {
         path: '/',
-        components: { name: () => Promise.resolve(FunctionalHome) },
-      },
+        components: { name: () => Promise.resolve(FunctionalHome) }
+      }
     ])
   })
 
@@ -74,15 +74,15 @@ describe('loadRouteLocation', () => {
                   {
                     path: '',
                     components: {
-                      name: () => Promise.resolve(components.Home),
-                    },
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
+                      name: () => Promise.resolve(components.Home)
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     ])
   })
 
@@ -90,12 +90,12 @@ describe('loadRouteLocation', () => {
     const mod = {
       default: components.Home,
       __esModule: true,
-      custom: true,
+      custom: true
     }
     const mod2 = {
       default: FunctionalHome,
       __esModule: true,
-      custom: true,
+      custom: true
     }
 
     it('preserves resolved modules', async () => {
@@ -104,15 +104,15 @@ describe('loadRouteLocation', () => {
         routes: [
           {
             path: '/',
-            component: async () => mod,
-          },
-        ],
+            component: async () => mod
+          }
+        ]
       })
 
       const loaded = await loadRouteLocation(router.resolve('/'))
       // mods follow the same structure as components
       expect(loaded.matched[0]?.mods).toEqual({
-        default: expect.anything(),
+        default: expect.anything()
       })
       expect(loaded.matched[0]?.mods?.default).toBe(mod)
     })
@@ -125,16 +125,16 @@ describe('loadRouteLocation', () => {
             path: '/',
             components: {
               default: async () => mod2,
-              name: async () => mod,
-            },
-          },
-        ],
+              name: async () => mod
+            }
+          }
+        ]
       })
 
       const loaded = await loadRouteLocation(router.resolve('/'))
       expect(loaded.matched[0]?.mods).toEqual({
         default: expect.anything(),
-        name: expect.anything(),
+        name: expect.anything()
       })
       expect(loaded.matched[0]?.mods?.name).toBe(mod)
       expect(loaded.matched[0]?.mods?.default).toBe(mod2)
@@ -156,9 +156,9 @@ describe('loadRouteLocation', () => {
           path: '/',
           redirect: '/foo',
           children: [
-            { path: 'foo', component: () => Promise.resolve(components.Home) },
-          ],
-        },
+            { path: 'foo', component: () => Promise.resolve(components.Home) }
+          ]
+        }
       ],
       '/foo'
     )
@@ -168,9 +168,9 @@ describe('loadRouteLocation', () => {
           path: '/',
           children: [
             { path: '', redirect: '/foo' },
-            { path: 'foo', component: () => Promise.resolve(components.Home) },
-          ],
-        },
+            { path: 'foo', component: () => Promise.resolve(components.Home) }
+          ]
+        }
       ],
       '/foo'
     )
@@ -182,22 +182,22 @@ describe('loadRouteLocation', () => {
       {
         path: '/a',
         alias: '/',
-        component: () => Promise.resolve(components.Home),
-      },
+        component: () => Promise.resolve(components.Home)
+      }
     ])
     await testLoadRoute([
       {
         path: '/a',
         alias: '/',
-        component: () => Promise.resolve(FunctionalHome),
-      },
+        component: () => Promise.resolve(FunctionalHome)
+      }
     ])
     await testLoadRoute([
       {
         path: '/a',
         alias: '/',
-        components: { name: () => Promise.resolve(FunctionalHome) },
-      },
+        components: { name: () => Promise.resolve(FunctionalHome) }
+      }
     ])
   })
 
@@ -208,8 +208,8 @@ describe('loadRouteLocation', () => {
         {
           path: '/a',
           alias: '/',
-          component: () => Promise.resolve(components.Home),
-        },
+          component: () => Promise.resolve(components.Home)
+        }
       ],
       '/a'
     )
@@ -218,8 +218,8 @@ describe('loadRouteLocation', () => {
         {
           path: '/a',
           alias: '/',
-          component: () => Promise.resolve(FunctionalHome),
-        },
+          component: () => Promise.resolve(FunctionalHome)
+        }
       ],
       '/a'
     )
@@ -228,8 +228,8 @@ describe('loadRouteLocation', () => {
         {
           path: '/a',
           alias: '/',
-          components: { name: () => Promise.resolve(FunctionalHome) },
-        },
+          components: { name: () => Promise.resolve(FunctionalHome) }
+        }
       ],
       '/a'
     )

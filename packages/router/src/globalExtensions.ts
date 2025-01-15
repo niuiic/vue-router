@@ -1,7 +1,7 @@
 import type {
   NavigationGuardWithThis,
   NavigationGuard,
-  RouteLocationNormalizedLoaded,
+  RouteLocationNormalizedLoaded
 } from './typed-routes'
 import type { RouterView } from './RouterView'
 import type { RouterLink } from './RouterLink'

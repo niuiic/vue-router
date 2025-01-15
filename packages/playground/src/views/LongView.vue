@@ -22,6 +22,6 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     return { route }
-  },
+  }
 })
 </script>

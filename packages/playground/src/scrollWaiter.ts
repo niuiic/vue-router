@@ -3,7 +3,7 @@ class ScrollQueue {
   private promise: Promise<any> | null = null
 
   add() {
-    this.promise = new Promise(resolve => {
+    this.promise = new Promise((resolve) => {
       this.resolve = resolve
     })
   }

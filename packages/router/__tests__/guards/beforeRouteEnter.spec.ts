@@ -9,7 +9,7 @@ const Foo = { template: `<div>Foo</div>` }
 const beforeRouteEnter = vi.fn<NavigationGuard>()
 const named = {
   default: vi.fn(),
-  other: vi.fn(),
+  other: vi.fn()
 }
 
 const nested = {
@@ -19,7 +19,7 @@ const nested = {
   nestedAbs: vi.fn(),
   nestedNested: vi.fn(),
   nestedNestedFoo: vi.fn(),
-  nestedNestedParam: vi.fn(),
+  nestedNestedParam: vi.fn()
 }
 
 const routes: RouteRecordRaw[] = [
@@ -30,43 +30,43 @@ const routes: RouteRecordRaw[] = [
     alias: '/guard-alias/:n',
     component: {
       ...Foo,
-      beforeRouteEnter,
-    },
+      beforeRouteEnter
+    }
   },
   {
     path: '/named',
     components: {
       default: {
         ...Home,
-        beforeRouteEnter: named.default,
+        beforeRouteEnter: named.default
       },
       other: {
         ...Foo,
-        beforeRouteEnter: named.other,
-      },
-    },
+        beforeRouteEnter: named.other
+      }
+    }
   },
   {
     path: '/nested',
     component: {
       ...Home,
-      beforeRouteEnter: nested.parent,
+      beforeRouteEnter: nested.parent
     },
     children: [
       {
         path: '',
         name: 'nested-empty-path',
-        component: { ...Home, beforeRouteEnter: nested.nestedEmpty },
+        component: { ...Home, beforeRouteEnter: nested.nestedEmpty }
       },
       {
         path: 'a',
         name: 'nested-path',
-        component: { ...Home, beforeRouteEnter: nested.nestedA },
+        component: { ...Home, beforeRouteEnter: nested.nestedA }
       },
       {
         path: '/abs-nested',
         name: 'absolute-nested',
-        component: { ...Home, beforeRouteEnter: nested.nestedAbs },
+        component: { ...Home, beforeRouteEnter: nested.nestedAbs }
       },
       {
         path: 'nested',
@@ -76,17 +76,17 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'foo',
             name: 'nested-nested-foo',
-            component: { ...Home, beforeRouteEnter: nested.nestedNestedFoo },
+            component: { ...Home, beforeRouteEnter: nested.nestedNestedFoo }
           },
           {
             path: 'param/:p',
             name: 'nested-nested-param',
-            component: { ...Home, beforeRouteEnter: nested.nestedNestedParam },
-          },
-        ],
-      },
-    ],
-  },
+            component: { ...Home, beforeRouteEnter: nested.nestedNestedParam }
+          }
+        ]
+      }
+    ]
+  }
 ]
 
 function resetMocks() {
@@ -187,7 +187,7 @@ describe('beforeRouteEnter', () => {
       next(false)
     })
     named.other.mockImplementationOnce(noGuard)
-    await router.push('/named').catch(err => {}) // catch abort
+    await router.push('/named').catch((err) => {}) // catch abort
     expect(named.default).toHaveBeenCalledTimes(1)
     expect(router.currentRoute.value.fullPath).not.toBe('/named')
   })

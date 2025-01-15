@@ -3,7 +3,7 @@ import {
   defineAsyncComponent,
   defineComponent,
   FunctionalComponent,
-  h,
+  h
 } from 'vue'
 import { describe, expect, it } from 'vitest'
 import { mockWarn } from './vitest-mock-warn'
@@ -18,8 +18,8 @@ describe('warnings', () => {
       history,
       routes: [
         { path: '/', component },
-        { path: '/redirect', redirect: { params: { foo: 'f' } } },
-      ],
+        { path: '/redirect', redirect: { params: { foo: 'f' } } }
+      ]
     })
     try {
       await router.push('/redirect')
@@ -31,7 +31,7 @@ describe('warnings', () => {
     const history = createMemoryHistory()
     const router = createRouter({
       history,
-      routes: [{ path: '/:p', name: 'p', component }],
+      routes: [{ path: '/:p', name: 'p', component }]
     })
     // @ts-expect-error: cannot pass params with a path
     router.push({ path: '/p', params: { p: 'p' } })
@@ -42,7 +42,7 @@ describe('warnings', () => {
     const history = createMemoryHistory()
     const router = createRouter({
       history,
-      routes: [{ path: '/:p', name: 'p', component }],
+      routes: [{ path: '/:p', name: 'p', component }]
     })
     // @ts-expect-error: it would be better if this didn't error but it still an
     // invalid location
@@ -57,10 +57,10 @@ describe('warnings', () => {
       routes: [
         {
           path: '/p/:p',
-          redirect: to => ({ path: '/s', query: { p: to.params.p } }),
+          redirect: (to) => ({ path: '/s', query: { p: to.params.p } })
         },
-        { path: '/s', component },
-      ],
+        { path: '/s', component }
+      ]
     })
     router.push({ path: '/p/abc' })
     expect('was passed with params').not.toHaveBeenWarned()
@@ -69,7 +69,7 @@ describe('warnings', () => {
   it('warns if an alias is missing params', async () => {
     createRouter({
       history: createMemoryHistory(),
-      routes: [{ path: '/:p/:c', alias: ['/:p/c'], component }],
+      routes: [{ path: '/:p/:c', alias: ['/:p/c'], component }]
     })
     expect(
       'Alias "/:p/c" and the original record: "/:p/:c" must have the exact same param named "c"'
@@ -87,11 +87,11 @@ describe('warnings', () => {
             {
               path: ':b',
               component,
-              children: [{ path: '/:a/b', component }],
-            },
-          ],
-        },
-      ],
+              children: [{ path: '/:a/b', component }]
+            }
+          ]
+        }
+      ]
     })
     expect(
       `Absolute path "/:a/b" must have the exact same param named "b" as its parent "/:a/:b".`
@@ -101,7 +101,7 @@ describe('warnings', () => {
   it('warns if an alias has a param with the same name but different', async () => {
     createRouter({
       history: createMemoryHistory(),
-      routes: [{ path: '/:p/:c', alias: ['/:p/:c+'], component }],
+      routes: [{ path: '/:p/:c', alias: ['/:p/:c+'], component }]
     })
     expect(
       'Alias "/:p/:c+" and the original record: "/:p/:c" must have the exact same param named "c"'
@@ -111,7 +111,7 @@ describe('warnings', () => {
   it('warns if an alias has extra params', async () => {
     createRouter({
       history: createMemoryHistory(),
-      routes: [{ path: '/:p/c', alias: ['/:p/:c'], component }],
+      routes: [{ path: '/:p/c', alias: ['/:p/:c'], component }]
     })
     expect(
       'Alias "/:p/:c" and the original record: "/:p/c" must have the exact same param named "c"'
@@ -124,8 +124,8 @@ describe('warnings', () => {
       history: createMemoryHistory(),
       routes: [
         { path: '/', name: 'a', component },
-        { path: '/b', name: 'a', component },
-      ],
+        { path: '/b', name: 'a', component }
+      ]
     })
 
     router.beforeEach((to, from, next) => {
@@ -146,7 +146,7 @@ describe('warnings', () => {
 
     const router = createRouter({
       history: createMemoryHistory(),
-      routes: [{ path: '/foo', component: Functional }],
+      routes: [{ path: '/foo', component: Functional }]
     })
 
     await expect(router.push('/foo')).resolves.toBe(undefined)
@@ -156,7 +156,7 @@ describe('warnings', () => {
   it('should warn if multiple leading slashes with raw location', async () => {
     const router = createRouter({
       history: createMemoryHistory(),
-      routes: [{ path: '/', component }],
+      routes: [{ path: '/', component }]
     })
 
     await expect(router.push('//not-valid')).resolves.toBe(undefined)
@@ -166,7 +166,7 @@ describe('warnings', () => {
   it('should warn if multiple leading slashes with object location', async () => {
     const router = createRouter({
       history: createMemoryHistory(),
-      routes: [{ path: '/', component }],
+      routes: [{ path: '/', component }]
     })
 
     await expect(router.push({ path: '//not-valid' })).resolves.toBe(undefined)
@@ -181,9 +181,9 @@ describe('warnings', () => {
         {
           path: '/:id',
           component,
-          children: [{ path: ':id', component }],
-        },
-      ],
+          children: [{ path: ':id', component }]
+        }
+      ]
     })
     expect(
       'duplicated params with name "id" for path "/:id/:id"'
@@ -194,7 +194,7 @@ describe('warnings', () => {
     const router = createRouter({
       history: createMemoryHistory(),
       // simulates import('./component.vue')
-      routes: [{ path: '/foo', component: Promise.resolve(component) }],
+      routes: [{ path: '/foo', component: Promise.resolve(component) }]
     })
 
     await expect(router.push({ path: '/foo' })).resolves.toBe(undefined)
@@ -208,9 +208,9 @@ describe('warnings', () => {
       routes: [
         {
           path: '/foo',
-          component: defineAsyncComponent(() => Promise.resolve({})),
-        },
-      ],
+          component: defineAsyncComponent(() => Promise.resolve({}))
+        }
+      ]
     })
     await router.push('/foo')
     expect(`defined using "defineAsyncComponent()"`).toHaveBeenWarned()
@@ -224,13 +224,13 @@ describe('warnings', () => {
         { path: '/', component },
         {
           path: '/foo',
-          component: defineAsyncComponent(() => Promise.resolve({})),
+          component: defineAsyncComponent(() => Promise.resolve({}))
         },
         {
           path: '/bar',
-          component: defineAsyncComponent(() => Promise.resolve({})),
-        },
-      ],
+          component: defineAsyncComponent(() => Promise.resolve({}))
+        }
+      ]
     })
     await router.push('/foo')
     await router.push('/')
@@ -243,7 +243,7 @@ describe('warnings', () => {
   it('warns if no route matched', async () => {
     const router = createRouter({
       history: createMemoryHistory(),
-      routes: [{ path: '/', name: 'a', component }],
+      routes: [{ path: '/', name: 'a', component }]
     })
 
     await expect(router.push('/foo')).resolves.toBe(undefined)
@@ -258,11 +258,11 @@ describe('warnings', () => {
       history: createMemoryHistory(),
       routes: [
         { path: '/', name: 'a', component },
-        { path: '/b', component },
-      ],
+        { path: '/b', component }
+      ]
     })
 
-    router.beforeEach(to => {
+    router.beforeEach((to) => {
       if (to.path === '/b') return '/b'
       return
     })
@@ -278,8 +278,8 @@ describe('warnings', () => {
       history: createMemoryHistory(),
       routes: [
         { path: '/', component },
-        { path: '/foo', component },
-      ],
+        { path: '/foo', component }
+      ]
     })
     router.beforeEach((to, from, next) => {
       next()
@@ -295,7 +295,7 @@ describe('warnings', () => {
     const record = {
       path: '/a',
       name: 'a',
-      components: {},
+      components: {}
     }
     const matcher = createRouterMatcher([record], {})
     matcher.resolve(
@@ -305,7 +305,7 @@ describe('warnings', () => {
         name: undefined,
         params: { old: 'one' },
         matched: [] as any,
-        meta: {},
+        meta: {}
       }
     )
     expect('invalid param(s) "no", "foo" ').toHaveBeenWarned()

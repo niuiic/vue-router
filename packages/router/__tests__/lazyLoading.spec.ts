@@ -12,7 +12,7 @@ import {
   it,
   beforeEach,
   MockInstance,
-  afterEach,
+  afterEach
 } from 'vitest'
 
 function newRouter(options: Partial<RouterOptions> = {}) {
@@ -26,10 +26,10 @@ function createLazyComponent() {
   const [promise, resolve, reject] = fakePromise()
 
   return {
-    component: vi.fn(() => promise.then(() => ({} as RouteComponent))),
+    component: vi.fn(() => promise.then(() => ({}) as RouteComponent)),
     promise,
     resolve,
-    reject,
+    reject
   }
 }
 
@@ -47,7 +47,7 @@ describe('Lazy Loading', () => {
   it('works', async () => {
     const { component, resolve } = createLazyComponent()
     const { router } = newRouter({
-      routes: [{ path: '/foo', component }],
+      routes: [{ path: '/foo', component }]
     })
 
     let p = router.push('/foo')
@@ -59,7 +59,7 @@ describe('Lazy Loading', () => {
     await p
     expect(router.currentRoute.value).toMatchObject({
       path: '/foo',
-      matched: [{}],
+      matched: [{}]
     })
   })
 
@@ -71,9 +71,9 @@ describe('Lazy Loading', () => {
         {
           path: '/foo',
           component: parent.component,
-          children: [{ path: 'bar', component: child.component }],
-        },
-      ],
+          children: [{ path: 'bar', component: child.component }]
+        }
+      ]
     })
 
     parent.resolve()
@@ -84,7 +84,7 @@ describe('Lazy Loading', () => {
     expect(child.component).toHaveBeenCalled()
 
     expect(router.currentRoute.value).toMatchObject({
-      path: '/foo/bar',
+      path: '/foo/bar'
     })
     expect(router.currentRoute.value.matched).toHaveLength(2)
   })
@@ -94,8 +94,8 @@ describe('Lazy Loading', () => {
     const { router } = newRouter({
       routes: [
         { path: '/foo', component },
-        { path: '/', component: {} },
-      ],
+        { path: '/', component: {} }
+      ]
     })
 
     resolve()
@@ -112,8 +112,8 @@ describe('Lazy Loading', () => {
     const { router } = newRouter({
       routes: [
         { path: '/foo', alias: ['/bar', '/baz'], component },
-        { path: '/', component: {} },
-      ],
+        { path: '/', component: {} }
+      ]
     })
 
     resolve()
@@ -137,11 +137,11 @@ describe('Lazy Loading', () => {
           alias: ['/bar', '/baz'],
           component,
           children: [
-            { path: 'child', alias: ['c1', 'c2'], component: c2.component },
-          ],
+            { path: 'child', alias: ['c1', 'c2'], component: c2.component }
+          ]
         },
-        { path: '/', component: {} },
-      ],
+        { path: '/', component: {} }
+      ]
     })
 
     resolve()
@@ -165,9 +165,9 @@ describe('Lazy Loading', () => {
         {
           path: '/foo',
           component,
-          beforeEnter: spy,
-        },
-      ],
+          beforeEnter: spy
+        }
+      ]
     })
 
     resolve()
@@ -182,9 +182,9 @@ describe('Lazy Loading', () => {
       routes: [
         {
           path: '/foo',
-          component,
-        },
-      ],
+          component
+        }
+      ]
     })
 
     const spy = vi.fn((to, from, next) => next(false))
@@ -204,7 +204,7 @@ describe('Lazy Loading', () => {
       promise.then(() => ({ beforeRouteEnter: spy }))
     )
     const { router } = newRouter({
-      routes: [{ path: '/foo', component }],
+      routes: [{ path: '/foo', component }]
     })
 
     resolve()
@@ -222,8 +222,8 @@ describe('Lazy Loading', () => {
     const { router } = newRouter({
       routes: [
         { path: '/foo', component },
-        { path: '/', component: {} },
-      ],
+        { path: '/', component: {} }
+      ]
     })
 
     resolve()
@@ -245,7 +245,7 @@ describe('Lazy Loading', () => {
       promise.then(() => ({ beforeRouteUpdate: spy }))
     )
     const { router } = newRouter({
-      routes: [{ path: '/:id', component }],
+      routes: [{ path: '/:id', component }]
     })
 
     resolve()
@@ -263,7 +263,7 @@ describe('Lazy Loading', () => {
   it('prints the error when lazy load fails', async () => {
     const { component, reject } = createLazyComponent()
     const { router } = newRouter({
-      routes: [{ path: '/foo', component }],
+      routes: [{ path: '/foo', component }]
     })
 
     const spy = vi.fn()
@@ -278,14 +278,14 @@ describe('Lazy Loading', () => {
 
     expect(router.currentRoute.value).toMatchObject({
       path: '/',
-      matched: [],
+      matched: []
     })
   })
 
   it('aborts the navigation if async fails', async () => {
     const { component, reject } = createLazyComponent()
     const { router } = newRouter({
-      routes: [{ path: '/foo', component }],
+      routes: [{ path: '/foo', component }]
     })
 
     const spy = vi.fn()
@@ -298,7 +298,7 @@ describe('Lazy Loading', () => {
 
     expect(router.currentRoute.value).toMatchObject({
       path: '/',
-      matched: [],
+      matched: []
     })
   })
 
@@ -310,9 +310,9 @@ describe('Lazy Loading', () => {
         {
           path: '/foo',
           component: parent.component,
-          children: [{ path: '', component: child.component }],
-        },
-      ],
+          children: [{ path: '', component: child.component }]
+        }
+      ]
     })
 
     const spy = vi.fn()
@@ -327,7 +327,7 @@ describe('Lazy Loading', () => {
 
     expect(router.currentRoute.value).toMatchObject({
       path: '/',
-      matched: [],
+      matched: []
     })
   })
 
@@ -336,7 +336,7 @@ describe('Lazy Loading', () => {
     Functional.displayName = 'Functional'
 
     const { router } = newRouter({
-      routes: [{ path: '/foo', component: Functional }],
+      routes: [{ path: '/foo', component: Functional }]
     })
 
     await expect(router.push('/foo')).resolves.toBe(undefined)

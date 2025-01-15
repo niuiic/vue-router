@@ -10,10 +10,10 @@ vi.mock('../src/encoding')
 const routes: RouteRecordRaw[] = [
   { path: '/', name: 'home', component: components.Home },
   { path: '/%25', name: 'percent', component: components.Home },
-  { path: '/to-p/:p', redirect: to => `/p/${to.params.p}` },
+  { path: '/to-p/:p', redirect: (to) => `/p/${to.params.p}` },
   { path: '/p/:p', component: components.Bar, name: 'params' },
   { path: '/p/:p+', component: components.Bar, name: 'repeat' },
-  { path: '/optional/:a/:b?', component: components.Bar, name: 'optional' },
+  { path: '/optional/:a/:b?', component: components.Bar, name: 'optional' }
 ]
 
 function createRouter() {
@@ -57,11 +57,11 @@ describe('URL Encoding', () => {
     expect(encoding.encodeParam).toHaveBeenCalledTimes(2)
     expect(encoding.encodeParam).toHaveBeenNthCalledWith(1, 'foo', 0, [
       'foo',
-      'bar',
+      'bar'
     ])
     expect(encoding.encodeParam).toHaveBeenNthCalledWith(2, 'bar', 1, [
       'foo',
-      'bar',
+      'bar'
     ])
   })
 
@@ -92,7 +92,7 @@ describe('URL Encoding', () => {
     await router.push({ params: { b: 'b%' } })
     expect(router.currentRoute.value).toMatchObject({
       fullPath: '/optional/e/e',
-      params: { b: 'd', a: 'd' },
+      params: { b: 'd', a: 'd' }
     })
   })
 
@@ -135,7 +135,7 @@ describe('URL Encoding', () => {
     await router.push({ name: 'home', query: { p: '%' } })
     expect(router.currentRoute.value).toMatchObject({
       fullPath: '/?ek=ev',
-      query: { p: '%' },
+      query: { p: '%' }
     })
   })
 
@@ -148,7 +148,7 @@ describe('URL Encoding', () => {
     await router.push({ name: 'home', hash: '#%' })
     expect(router.currentRoute.value).toMatchObject({
       fullPath: '/#e',
-      hash: '#%',
+      hash: '#%'
     })
   })
   it('decodes hash', async () => {
@@ -160,7 +160,7 @@ describe('URL Encoding', () => {
     await router.push('#%20')
     expect(router.currentRoute.value).toMatchObject({
       fullPath: '/#%20',
-      hash: '#d',
+      hash: '#d'
     })
   })
 })

@@ -5,7 +5,7 @@ import {
   onBeforeRouteUpdate,
   onBeforeRouteLeave,
   RouterView,
-  useRoute,
+  useRoute
 } from 'vue-router'
 import {
   createApp,
@@ -13,7 +13,7 @@ import {
   reactive,
   defineComponent,
   FunctionalComponent,
-  h,
+  h
 } from 'vue'
 
 const Home = defineComponent({
@@ -21,7 +21,7 @@ const Home = defineComponent({
     <div>
       <h2>Home</h2>
     </div>
-  `,
+  `
 })
 
 const logs = ref<string[]>([])
@@ -29,10 +29,10 @@ const logs = ref<string[]>([])
 const state = reactive({
   enter: 0,
   update: 0,
-  leave: 0,
+  leave: 0
 })
 
-const delay = (t: number) => new Promise(r => setTimeout(r, t))
+const delay = (t: number) => new Promise((r) => setTimeout(r, t))
 
 /**
  * Creates a test component with the given key, optionally specifying whether it should be async and whether creation should be logged.
@@ -73,7 +73,7 @@ function createTestComponent(
             shouldFail ? Promise.reject(new Error('failed')) : {}
           )
         : {}
-    },
+    }
   })
 }
 
@@ -98,7 +98,7 @@ function createPassThroughWithSuspense(key: string, isAsync = false) {
     <component :is="Component" />
   </Suspense>
 </router-view>
-  `,
+  `
   })
 }
 
@@ -114,19 +114,19 @@ const router = createRouter({
     { path: '/', component: Home },
     {
       path: '/foo',
-      component: Foo,
+      component: Foo
     },
     {
       path: '/foo-async',
-      component: FooAsync,
+      component: FooAsync
     },
     {
       path: '/nested',
       component: PassThroughView,
       children: [
         { path: 'one', component: createTestComponent('one', true) },
-        { path: 'two', component: createTestComponent('two', true) },
-      ],
+        { path: 'two', component: createTestComponent('two', true) }
+      ]
     },
     {
       path: '/n/sus/one',
@@ -134,9 +134,9 @@ const router = createRouter({
       children: [
         {
           path: 'child',
-          component: createTestComponent('one:child', true, true),
-        },
-      ],
+          component: createTestComponent('one:child', true, true)
+        }
+      ]
     },
     {
       path: '/n/sus/two',
@@ -144,11 +144,11 @@ const router = createRouter({
       children: [
         {
           path: 'child',
-          component: createTestComponent('two:child', true, true),
-        },
-      ],
-    },
-  ],
+          component: createTestComponent('two:child', true, true)
+        }
+      ]
+    }
+  ]
 })
 const shouldFail = ref(false)
 const app = createApp({
@@ -187,10 +187,10 @@ leaves: {{ state.leave }}
   `,
   setup() {
     return { state, logs, log: console.log, shouldFail }
-  },
+  }
 })
 
-router.beforeEach(to => {
+router.beforeEach((to) => {
   if (shouldFail.value && !to.query.fail)
     return { ...to, query: { ...to.query, fail: 'yes' } }
   return

@@ -22,9 +22,9 @@ describe('RouteRecords', () => {
       children: [
         {
           path: 'foo',
-          component,
-        },
-      ],
+          component
+        }
+      ]
     })
 
     // same but with a nested route
@@ -35,25 +35,25 @@ describe('RouteRecords', () => {
       children: [
         {
           path: 'foo',
-          component,
-        },
-      ],
+          component
+        }
+      ]
     })
 
     routes.push({ path: '/a/b', component, props: true })
     routes.push({
       path: '/a/b',
       component,
-      props: (to: RouteLocationNormalized<'/[id]+'>) => to.params.id,
+      props: (to: RouteLocationNormalized<'/[id]+'>) => to.params.id
     })
     // @ts-expect-error: props should be an object
-    routes.push({ path: '/a/b', components, props: to => to.params.id })
+    routes.push({ path: '/a/b', components, props: (to) => to.params.id })
     routes.push({
       path: '/a/b',
       components,
       props: {
-        default: (to: RouteLocationNormalized<'/[id]+'>) => to.params.id,
-      },
+        default: (to: RouteLocationNormalized<'/[id]+'>) => to.params.id
+      }
     })
     routes.push({ path: '/', components, props: true })
 
@@ -64,7 +64,7 @@ describe('RouteRecords', () => {
     // }
 
     function filterNestedChildren(children: RouteRecordRaw[]) {
-      return children.filter(r => {
+      return children.filter((r) => {
         if (r.redirect) {
           r.children?.map(() => {})
         }

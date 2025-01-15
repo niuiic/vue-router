@@ -6,7 +6,7 @@ describe('Path parser', () => {
   describe('tokenizer', () => {
     it('root', () => {
       expect(tokenizePath('/')).toEqual([
-        [{ type: TokenType.Static, value: '' }],
+        [{ type: TokenType.Static, value: '' }]
       ])
     })
 
@@ -20,13 +20,13 @@ describe('Path parser', () => {
 
     it('escapes :', () => {
       expect(tokenizePath('/\\:')).toEqual([
-        [{ type: TokenType.Static, value: ':' }],
+        [{ type: TokenType.Static, value: ':' }]
       ])
     })
 
     it('escapes {', () => {
       expect(tokenizePath('/\\{')).toEqual([
-        [{ type: TokenType.Static, value: '{' }],
+        [{ type: TokenType.Static, value: '{' }]
       ])
     })
 
@@ -40,17 +40,17 @@ describe('Path parser', () => {
             type: TokenType.Group,
             groups: [
               { type: TokenType.Static, value: '-b_' },
-              { type: TokenType.Param, value: 'id' },
-            ],
-          },
-        ],
+              { type: TokenType.Param, value: 'id' }
+            ]
+          }
+        ]
       ])
     })
 
     // same as above
     it.skip('escapes } inside group', () => {
       expect(tokenizePath('/{\\{}')).toEqual([
-        [{ type: TokenType.Static, value: '{' }],
+        [{ type: TokenType.Static, value: '{' }]
       ])
     })
 
@@ -62,15 +62,15 @@ describe('Path parser', () => {
             value: 'a',
             regexp: ')',
             optional: false,
-            repeatable: false,
-          },
-        ],
+            repeatable: false
+          }
+        ]
       ])
     })
 
     it('static single', () => {
       expect(tokenizePath('/home')).toEqual([
-        [{ type: TokenType.Static, value: 'home' }],
+        [{ type: TokenType.Static, value: 'home' }]
       ])
     })
 
@@ -78,7 +78,7 @@ describe('Path parser', () => {
       expect(tokenizePath('/one/two/three')).toEqual([
         [{ type: TokenType.Static, value: 'one' }],
         [{ type: TokenType.Static, value: 'two' }],
-        [{ type: TokenType.Static, value: 'three' }],
+        [{ type: TokenType.Static, value: 'three' }]
       ])
     })
 
@@ -90,9 +90,9 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '',
             repeatable: false,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -104,9 +104,9 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: false,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -118,13 +118,13 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: false,
-            optional: false,
+            optional: false
           },
           {
             type: TokenType.Static,
-            value: 'hey',
-          },
-        ],
+            value: 'hey'
+          }
+        ]
       ])
     })
 
@@ -136,15 +136,15 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: false,
-            optional: false,
-          },
+            optional: false
+          }
         ],
         [
           {
             type: TokenType.Static,
-            value: 'new',
-          },
-        ],
+            value: 'new'
+          }
+        ]
       ])
     })
 
@@ -156,8 +156,8 @@ describe('Path parser', () => {
             value: 'one',
             regexp: '\\d+',
             repeatable: false,
-            optional: false,
-          },
+            optional: false
+          }
         ],
         [
           {
@@ -165,9 +165,9 @@ describe('Path parser', () => {
             value: 'two',
             regexp: '',
             repeatable: false,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -179,9 +179,9 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: false,
-            optional: true,
-          },
-        ],
+            optional: true
+          }
+        ]
       ])
     })
 
@@ -193,13 +193,13 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: false,
-            optional: true,
+            optional: true
           },
           {
             type: TokenType.Static,
-            value: 'hey',
-          },
-        ],
+            value: 'hey'
+          }
+        ]
       ])
     })
 
@@ -211,15 +211,15 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: false,
-            optional: true,
-          },
+            optional: true
+          }
         ],
         [
           {
             type: TokenType.Static,
-            value: 'new',
-          },
-        ],
+            value: 'new'
+          }
+        ]
       ])
     })
 
@@ -231,9 +231,9 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '',
             repeatable: false,
-            optional: true,
-          },
-        ],
+            optional: true
+          }
+        ]
       ])
     })
 
@@ -244,9 +244,9 @@ describe('Path parser', () => {
             type: TokenType.Param,
             value: 'id',
             repeatable: true,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -257,9 +257,9 @@ describe('Path parser', () => {
             type: TokenType.Param,
             value: 'id',
             repeatable: true,
-            optional: true,
-          },
-        ],
+            optional: true
+          }
+        ]
       ])
     })
 
@@ -270,17 +270,17 @@ describe('Path parser', () => {
             type: TokenType.Param,
             value: 'id',
             repeatable: false,
-            optional: false,
-          },
+            optional: false
+          }
         ],
         [
           {
             type: TokenType.Param,
             value: 'other',
             repeatable: false,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -291,21 +291,21 @@ describe('Path parser', () => {
             type: TokenType.Param,
             value: 'id',
             repeatable: false,
-            optional: false,
+            optional: false
           },
           {
             type: TokenType.Param,
             value: 'other',
             repeatable: false,
-            optional: false,
+            optional: false
           },
           {
             type: TokenType.Param,
             value: 'more',
             repeatable: false,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -316,19 +316,19 @@ describe('Path parser', () => {
             type: TokenType.Param,
             value: 'id',
             repeatable: false,
-            optional: false,
+            optional: false
           },
           {
             type: TokenType.Static,
-            value: '-',
+            value: '-'
           },
           {
             type: TokenType.Param,
             value: 'other',
             repeatable: false,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -337,15 +337,15 @@ describe('Path parser', () => {
         [
           {
             type: TokenType.Static,
-            value: 'hey-',
+            value: 'hey-'
           },
           {
             type: TokenType.Param,
             value: 'id',
             repeatable: false,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -356,13 +356,13 @@ describe('Path parser', () => {
             type: TokenType.Param,
             value: 'id',
             repeatable: false,
-            optional: false,
+            optional: false
           },
           {
             type: TokenType.Static,
-            value: '-end',
-          },
-        ],
+            value: '-end'
+          }
+        ]
       ])
     })
     // end of describe token
@@ -395,16 +395,16 @@ describe('Path parser', () => {
 
     it('regex special characters', () => {
       matchRegExp('^/foo\\+\\.\\*\\?$', [
-        [{ type: TokenType.Static, value: 'foo+.*?' }],
+        [{ type: TokenType.Static, value: 'foo+.*?' }]
       ])
       matchRegExp('^/foo\\$\\^$', [
-        [{ type: TokenType.Static, value: 'foo$^' }],
+        [{ type: TokenType.Static, value: 'foo$^' }]
       ])
       matchRegExp('^/foo\\[ea\\]$', [
-        [{ type: TokenType.Static, value: 'foo[ea]' }],
+        [{ type: TokenType.Static, value: 'foo[ea]' }]
       ])
       matchRegExp('^/foo\\(e|a\\)$', [
-        [{ type: TokenType.Static, value: 'foo(e|a)' }],
+        [{ type: TokenType.Static, value: 'foo(e|a)' }]
       ])
       matchRegExp('^/(\\d+)\\{2\\}$', [
         [
@@ -413,16 +413,16 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: false,
-            optional: false,
+            optional: false
           },
-          { type: TokenType.Static, value: '{2}' },
-        ],
+          { type: TokenType.Static, value: '{2}' }
+        ]
       ])
     })
 
     it('strict /', () => {
       matchRegExp('^/$', [[{ type: TokenType.Static, value: '' }]], {
-        strict: true,
+        strict: true
       })
     })
 
@@ -433,7 +433,7 @@ describe('Path parser', () => {
     it('static multiple', () => {
       matchRegExp('^/home/other$', [
         [{ type: TokenType.Static, value: 'home' }],
-        [{ type: TokenType.Static, value: 'other' }],
+        [{ type: TokenType.Static, value: 'other' }]
       ])
     })
 
@@ -444,9 +444,9 @@ describe('Path parser', () => {
             type: TokenType.Param,
             value: 'id',
             repeatable: false,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -457,17 +457,17 @@ describe('Path parser', () => {
             type: TokenType.Param,
             value: 'id',
             repeatable: false,
-            optional: false,
-          },
+            optional: false
+          }
         ],
         [
           {
             type: TokenType.Param,
             value: 'two',
             repeatable: false,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -479,9 +479,9 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: true,
-            optional: true,
-          },
-        ],
+            optional: true
+          }
+        ]
       ])
     })
 
@@ -495,9 +495,9 @@ describe('Path parser', () => {
               value: 'id',
               regexp: '\\d+',
               repeatable: false,
-              optional: true,
-            },
-          ],
+              optional: true
+            }
+          ]
         ],
         { strict: false }
       )
@@ -508,8 +508,8 @@ describe('Path parser', () => {
         [
           {
             type: TokenType.Static,
-            value: 'ab',
-          },
+            value: 'ab'
+          }
         ],
         [
           {
@@ -517,9 +517,9 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: false,
-            optional: true,
-          },
-        ],
+            optional: true
+          }
+        ]
       ])
     })
 
@@ -531,9 +531,9 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: true,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
 
@@ -542,8 +542,8 @@ describe('Path parser', () => {
         [
           {
             type: TokenType.Static,
-            value: 'ab',
-          },
+            value: 'ab'
+          }
         ],
         [
           {
@@ -551,9 +551,9 @@ describe('Path parser', () => {
             value: 'id',
             regexp: '\\d+',
             repeatable: true,
-            optional: false,
-          },
-        ],
+            optional: false
+          }
+        ]
       ])
     })
     // end of describe
@@ -708,7 +708,7 @@ describe('Path parser', () => {
 
     it('param combined', () => {
       matchParams('/hey:a', '/heyedu', {
-        a: 'edu',
+        a: 'edu'
       })
     })
 
@@ -716,14 +716,14 @@ describe('Path parser', () => {
     // also to allow repeatable because otherwise groups are meaningless
     it('groups (extract a part of the param)', () => {
       matchParams('/a/:a(?:b-([^/]+\\)?)', '/a/b-one', {
-        a: 'one',
+        a: 'one'
       })
       matchParams('/a/:a(?:b-([^/]+\\)?)', '/a/b-', {
-        a: '',
+        a: ''
       })
       // non optional
       matchParams('/a/:a(?:b-([^/]+\\))', '/a/b-one', {
-        a: 'one',
+        a: 'one'
       })
     })
 
@@ -735,7 +735,7 @@ describe('Path parser', () => {
     it('catch all non-greedy', () => {
       matchParams('/:rest(.*?)/b/:other(.*)', '/a/b/c/b/d', {
         rest: 'a',
-        other: 'c/b/d',
+        other: 'c/b/d'
       })
     })
 
@@ -743,7 +743,7 @@ describe('Path parser', () => {
       matchParams('/:a-:b-:c', '/one-two-three', {
         a: 'one',
         b: 'two',
-        c: 'three',
+        c: 'three'
       })
     })
 
@@ -786,25 +786,25 @@ describe('Path parser', () => {
 
     it('param repeatable', () => {
       matchParams('/:a+', '/one/two', {
-        a: ['one', 'two'],
+        a: ['one', 'two']
       })
       matchParams('/:a*', '/one/two', {
-        a: ['one', 'two'],
+        a: ['one', 'two']
       })
     })
 
     it('param repeatable with static', () => {
       matchParams('/one/:a+', '/one/two', {
-        a: ['two'],
+        a: ['two']
       })
       matchParams('/one/:a+', '/one/two/three', {
-        a: ['two', 'three'],
+        a: ['two', 'three']
       })
       matchParams('/one/:a*', '/one/two', {
-        a: ['two'],
+        a: ['two']
       })
       matchParams('/one/:a*', '/one/two/three', {
-        a: ['two', 'three'],
+        a: ['two', 'three']
       })
     })
 

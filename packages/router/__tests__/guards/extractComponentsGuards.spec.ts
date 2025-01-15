@@ -16,26 +16,26 @@ const NoGuard: RouteRecordRaw = { path: '/', component: components.Home }
 // @ts-expect-error
 const InvalidRoute: RouteRecordRaw = {
   path: '/',
-  component: null,
+  component: null
 }
 const WrongLazyRoute: RouteRecordRaw = {
   path: '/',
-  component: Promise.resolve(components.Home),
+  component: Promise.resolve(components.Home)
 }
 const SingleGuard: RouteRecordRaw = {
   path: '/',
-  component: { ...components.Home, beforeRouteEnter },
+  component: { ...components.Home, beforeRouteEnter }
 }
 const SingleGuardNamed: RouteRecordRaw = {
   path: '/',
   components: {
     default: { ...components.Home, beforeRouteEnter },
-    other: { ...components.Foo, beforeRouteEnter },
-  },
+    other: { ...components.Foo, beforeRouteEnter }
+  }
 }
 const ErrorLazyLoad: RouteRecordRaw = {
   path: '/',
-  component: () => Promise.reject(new Error('custom')),
+  component: () => Promise.reject(new Error('custom'))
 }
 
 beforeEach(() => {
@@ -109,16 +109,16 @@ describe('extractComponentsGuards', () => {
     const mod = {
       default: components.Home,
       __esModule: true,
-      custom: true,
+      custom: true
     }
     const mod2 = {
       default: components.Bar,
       __esModule: true,
-      custom: true,
+      custom: true
     }
     const record = normalizeRouteRecord({
       path: '/',
-      components: { default: async () => mod, other: async () => mod2 },
+      components: { default: async () => mod, other: async () => mod2 }
     })
     expect(record.mods).toEqual({})
     const guards = extractComponentsGuards(
@@ -127,7 +127,7 @@ describe('extractComponentsGuards', () => {
       to,
       from
     )
-    await Promise.all(guards.map(guard => guard()))
+    await Promise.all(guards.map((guard) => guard()))
     expect(record.mods).toEqual({ default: mod, other: mod2 })
   })
 })

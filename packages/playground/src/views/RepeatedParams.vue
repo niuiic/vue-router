@@ -34,6 +34,6 @@ export default defineComponent({
     })
 
     return { lessNesting, moreNesting }
-  },
+  }
 })
 </script>

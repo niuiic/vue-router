@@ -13,7 +13,7 @@ const DEFAULT_OPTIONS = {
   out: path.resolve(__dirname, './api'),
   entryFileName: 'index.md',
   hideBreadcrumbs: false,
-  preserveAnchorCasing: true,
+  preserveAnchorCasing: true
 }
 
 /**
@@ -23,7 +23,7 @@ const DEFAULT_OPTIONS = {
 export async function createTypeDocApp(config = {}) {
   const options = {
     ...DEFAULT_OPTIONS,
-    ...config,
+    ...config
   }
 
   const app = await Application.bootstrapWithPlugins(options)
@@ -37,13 +37,13 @@ export async function createTypeDocApp(config = {}) {
      *
      * @param {import('typedoc').PageEvent} page
      */
-    page => {
+    (page) => {
       if (!page.contents) {
         return
       }
       page.contents = prependYAML(page.contents, {
         // TODO: figure out a way to point to the source files?
-        editLink: false,
+        editLink: false
       })
     }
   )
@@ -83,7 +83,7 @@ export async function createTypeDocApp(config = {}) {
 
   return {
     build,
-    serve,
+    serve
   }
 }
 

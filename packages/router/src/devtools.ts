@@ -5,7 +5,7 @@ import {
   CustomInspectorState,
   HookPayloads,
   setupDevtoolsPlugin,
-  TimelineEvent,
+  TimelineEvent
 } from '@vue/devtools-api'
 import { watch } from 'vue'
 import { decode } from './encoding'
@@ -32,9 +32,9 @@ function formatRouteLocation(
 ) {
   const copy = assign({}, routeLocation, {
     // remove variables that can contain vue instances
-    matched: routeLocation.matched.map(matched =>
+    matched: routeLocation.matched.map((matched) =>
       omit(matched, ['instances', 'children', 'aliasOf'])
-    ),
+    )
   })
 
   return {
@@ -43,16 +43,16 @@ function formatRouteLocation(
       readOnly: true,
       display: routeLocation.fullPath,
       tooltip,
-      value: copy,
-    },
+      value: copy
+    }
   }
 }
 
 function formatDisplay(display: string) {
   return {
     _custom: {
-      display,
-    },
+      display
+    }
   }
 }
 
@@ -76,9 +76,9 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
       homepage: 'https://router.vuejs.org',
       logo: 'https://router.vuejs.org/logo.png',
       componentStateTypes: ['Routing'],
-      app,
+      app
     },
-    api => {
+    (api) => {
       if (typeof api.now !== 'function') {
         console.warn(
           '[Vue Router]: You seem to be using an outdated version of Vue Devtools. Are you still using the Beta release instead of the stable one? You can find the links at https://devtools.vuejs.org/guide/installation.html.'
@@ -95,7 +95,7 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
             value: formatRouteLocation(
               router.currentRoute.value,
               'Current Route'
-            ),
+            )
           })
         }
       })
@@ -110,7 +110,7 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
             label: (info.name ? `${info.name.toString()}: ` : '') + info.path,
             textColor: 0,
             tooltip: 'This component is rendered by &lt;router-view&gt;',
-            backgroundColor: PINK_500,
+            backgroundColor: PINK_500
           })
         }
         // if multiple useLink are used
@@ -118,7 +118,7 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
           componentInstance.__devtoolsApi = api
           ;(
             componentInstance.__vrl_devtools as UseLinkDevtoolsContext[]
-          ).forEach(devtoolsData => {
+          ).forEach((devtoolsData) => {
             let label = devtoolsData.route.path
             let backgroundColor = ORANGE_400
             let tooltip: string = ''
@@ -140,7 +140,7 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
               label,
               textColor,
               tooltip,
-              backgroundColor,
+              backgroundColor
             })
           })
         }
@@ -159,7 +159,7 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
       api.addTimelineLayer({
         id: navigationsLayerId,
         label: `Router${id ? ' ' + id : ''} Navigations`,
-        color: 0x40a8c4,
+        color: 0x40a8c4
       })
 
       // const errorsLayerId = 'router:errors'
@@ -178,8 +178,8 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
             logType: 'error',
             time: api.now(),
             data: { error },
-            groupId: (to.meta as any).__navigationId,
-          },
+            groupId: (to.meta as any).__navigationId
+          }
         })
       })
 
@@ -193,12 +193,12 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
             from,
             'Current Location during this navigation'
           ),
-          to: formatRouteLocation(to, 'Target location'),
+          to: formatRouteLocation(to, 'Target location')
         }
 
         // Used to group navigations together, hide from devtools
         Object.defineProperty(to.meta, '__navigationId', {
-          value: navigationId++,
+          value: navigationId++
         })
 
         api.addTimelineEvent({
@@ -208,14 +208,14 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
             title: 'Start of navigation',
             subtitle: to.fullPath,
             data,
-            groupId: (to.meta as any).__navigationId,
-          },
+            groupId: (to.meta as any).__navigationId
+          }
         })
       })
 
       router.afterEach((to, from, failure) => {
         const data: TimelineEvent<any, any>['data'] = {
-          guard: formatDisplay('afterEach'),
+          guard: formatDisplay('afterEach')
         }
 
         if (failure) {
@@ -225,8 +225,8 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
               readOnly: true,
               display: failure ? failure.message : '',
               tooltip: 'Navigation Failure',
-              value: failure,
-            },
+              value: failure
+            }
           }
           data.status = formatDisplay('❌')
         } else {
@@ -248,8 +248,8 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
             time: api.now(),
             data,
             logType: failure ? 'warning' : 'default',
-            groupId: (to.meta as any).__navigationId,
-          },
+            groupId: (to.meta as any).__navigationId
+          }
         })
       })
 
@@ -263,7 +263,7 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
         id: routerInspectorId,
         label: 'Routes' + (id ? ' ' + id : ''),
         icon: 'book',
-        treeFilterPlaceholder: 'Search routes',
+        treeFilterPlaceholder: 'Search routes'
       })
 
       function refreshRoutesView() {
@@ -273,7 +273,7 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
 
         // children routes will appear as nested
         let routes = matcher.getRoutes().filter(
-          route =>
+          (route) =>
             !route.parent ||
             // these routes have a parent with no component which will not appear in the view
             // therefore we still need to include them
@@ -285,21 +285,21 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
 
         // apply a match state if there is a payload
         if (payload.filter) {
-          routes = routes.filter(route =>
+          routes = routes.filter((route) =>
             // save matches state based on the payload
             isRouteMatching(route, payload.filter.toLowerCase())
           )
         }
 
         // mark active routes
-        routes.forEach(route =>
+        routes.forEach((route) =>
           markRouteRecordActive(route, router.currentRoute.value)
         )
         payload.rootNodes = routes.map(formatRouteRecordForInspector)
       }
 
       let activeRoutesPayload: HookPayloads['getInspectorTree'] | undefined
-      api.on.getInspectorTree(payload => {
+      api.on.getInspectorTree((payload) => {
         activeRoutesPayload = payload
         if (payload.app === app && payload.inspectorId === routerInspectorId) {
           refreshRoutesView()
@@ -309,16 +309,16 @@ export function addDevtools(app: App, router: Router, matcher: RouterMatcher) {
       /**
        * Display information about the currently selected route record
        */
-      api.on.getInspectorState(payload => {
+      api.on.getInspectorState((payload) => {
         if (payload.app === app && payload.inspectorId === routerInspectorId) {
           const routes = matcher.getRoutes()
           const route = routes.find(
-            route => (route.record as any).__vd_id === payload.nodeId
+            (route) => (route.record as any).__vd_id === payload.nodeId
           )
 
           if (route) {
             payload.state = {
-              options: formatRouteRecordMatcherForStateInspector(route),
+              options: formatRouteRecordMatcherForStateInspector(route)
             }
           }
         }
@@ -343,14 +343,14 @@ function formatRouteRecordMatcherForStateInspector(
 ): CustomInspectorState[string] {
   const { record } = route
   const fields: CustomInspectorState[string] = [
-    { editable: false, key: 'path', value: record.path },
+    { editable: false, key: 'path', value: record.path }
   ]
 
   if (record.name != null) {
     fields.push({
       editable: false,
       key: 'name',
-      value: record.name,
+      value: record.name
     })
   }
 
@@ -365,12 +365,12 @@ function formatRouteRecordMatcherForStateInspector(
           type: null,
           readOnly: true,
           display: route.keys
-            .map(key => `${key.name}${modifierForKey(key)}`)
+            .map((key) => `${key.name}${modifierForKey(key)}`)
             .join(' '),
           tooltip: 'Param keys',
-          value: route.keys,
-        },
-      },
+          value: route.keys
+        }
+      }
     })
   }
 
@@ -378,7 +378,7 @@ function formatRouteRecordMatcherForStateInspector(
     fields.push({
       editable: false,
       key: 'redirect',
-      value: record.redirect,
+      value: record.redirect
     })
   }
 
@@ -386,7 +386,7 @@ function formatRouteRecordMatcherForStateInspector(
     fields.push({
       editable: false,
       key: 'aliases',
-      value: route.alias.map(alias => alias.record.path),
+      value: route.alias.map((alias) => alias.record.path)
     })
   }
 
@@ -394,7 +394,7 @@ function formatRouteRecordMatcherForStateInspector(
     fields.push({
       editable: false,
       key: 'meta',
-      value: route.record.meta,
+      value: route.record.meta
     })
   }
 
@@ -405,11 +405,11 @@ function formatRouteRecordMatcherForStateInspector(
       _custom: {
         type: null,
         readOnly: true,
-        display: route.score.map(score => score.join(', ')).join(' | '),
+        display: route.score.map((score) => score.join(', ')).join(' | '),
         tooltip: 'Score used to sort routes',
-        value: route.score,
-      },
-    },
+        value: route.score
+      }
+    }
   })
 
   return fields
@@ -439,7 +439,7 @@ function formatRouteRecordForInspector(
     tags.push({
       label: String(record.name),
       textColor: 0,
-      backgroundColor: CYAN_400,
+      backgroundColor: CYAN_400
     })
   }
 
@@ -447,7 +447,7 @@ function formatRouteRecordForInspector(
     tags.push({
       label: 'alias',
       textColor: 0,
-      backgroundColor: ORANGE_400,
+      backgroundColor: ORANGE_400
     })
   }
 
@@ -455,7 +455,7 @@ function formatRouteRecordForInspector(
     tags.push({
       label: 'matches',
       textColor: 0,
-      backgroundColor: PINK_500,
+      backgroundColor: PINK_500
     })
   }
 
@@ -463,7 +463,7 @@ function formatRouteRecordForInspector(
     tags.push({
       label: 'exact',
       textColor: 0,
-      backgroundColor: LIME_500,
+      backgroundColor: LIME_500
     })
   }
 
@@ -471,7 +471,7 @@ function formatRouteRecordForInspector(
     tags.push({
       label: 'active',
       textColor: 0,
-      backgroundColor: BLUE_600,
+      backgroundColor: BLUE_600
     })
   }
 
@@ -482,7 +482,7 @@ function formatRouteRecordForInspector(
           ? `redirect: ${record.redirect}`
           : 'redirects',
       textColor: 0xffffff,
-      backgroundColor: DARK,
+      backgroundColor: DARK
     })
   }
 
@@ -498,7 +498,7 @@ function formatRouteRecordForInspector(
     id,
     label: record.path,
     tags,
-    children: route.children.map(formatRouteRecordForInspector),
+    children: route.children.map(formatRouteRecordForInspector)
   }
 }
 
@@ -522,12 +522,12 @@ function markRouteRecordActive(
   ;(route as any).__vd_exactActive = (route as any).__vd_active = isExactActive
 
   if (!isExactActive) {
-    ;(route as any).__vd_active = currentRoute.matched.some(match =>
+    ;(route as any).__vd_active = currentRoute.matched.some((match) =>
       isSameRouteRecord(match, route.record)
     )
   }
 
-  route.children.forEach(childRoute =>
+  route.children.forEach((childRoute) =>
     markRouteRecordActive(childRoute, currentRoute)
   )
 }
@@ -549,7 +549,7 @@ function isRouteMatching(route: RouteRecordMatcher, filter: string): boolean {
   const nonEndingRE = new RegExp(found[1].replace(/\$$/, ''), found[2])
   if (nonEndingRE.test(filter)) {
     // mark children as matches
-    route.children.forEach(child => isRouteMatching(child, filter))
+    route.children.forEach((child) => isRouteMatching(child, filter))
     // exception case: `/`
     if (route.record.path !== '/' || filter === '/') {
       ;(route as any).__vd_match = route.re.test(filter)
@@ -572,7 +572,7 @@ function isRouteMatching(route: RouteRecordMatcher, filter: string): boolean {
   if (route.record.name && String(route.record.name).includes(filter))
     return true
 
-  return route.children.some(child => isRouteMatching(child, filter))
+  return route.children.some((child) => isRouteMatching(child, filter))
 }
 
 function omit<T extends object, K extends [...(keyof T)[]]>(obj: T, keys: K) {

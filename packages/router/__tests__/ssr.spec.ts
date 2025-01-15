@@ -6,22 +6,22 @@ import { createSSRApp, resolveComponent, Component } from 'vue'
 import {
   renderToString,
   ssrInterpolate,
-  ssrRenderComponent,
+  ssrRenderComponent
 } from '@vue/server-renderer'
 import { describe, expect, it } from 'vitest'
 
-const delay = (t: number) => new Promise(resolve => setTimeout(resolve, t))
+const delay = (t: number) => new Promise((resolve) => setTimeout(resolve, t))
 
 describe('SSR', () => {
   const Home = {
     ssrRender(ctx: any, push: any) {
       push('Home')
-    },
+    }
   }
   const Page = {
     ssrRender(ctx: any, push: any) {
       push(`${ssrInterpolate(ctx.$route.fullPath)}`)
-    },
+    }
   }
 
   const AsyncPage = async () => {
@@ -36,9 +36,9 @@ describe('SSR', () => {
         { path: '/', component: Home },
         {
           path: '/:id',
-          component: Page,
-        },
-      ],
+          component: Page
+        }
+      ]
     })
     const App = {
       ssrRender(ctx: any, push: any, parent: any) {
@@ -50,7 +50,7 @@ describe('SSR', () => {
             parent
           )
         )
-      },
+      }
     }
     const app = createSSRApp(App)
     app.use(router)
@@ -71,9 +71,9 @@ describe('SSR', () => {
         { path: '/', component: Home },
         {
           path: '/:id',
-          component: AsyncPage,
-        },
-      ],
+          component: AsyncPage
+        }
+      ]
     })
     const App = {
       ssrRender(ctx: any, push: any, parent: any) {
@@ -85,7 +85,7 @@ describe('SSR', () => {
             parent
           )
         )
-      },
+      }
     }
     const app = createSSRApp(App)
     app.use(router)

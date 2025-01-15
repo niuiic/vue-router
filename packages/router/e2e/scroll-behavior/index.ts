@@ -3,7 +3,7 @@ import {
   RouteComponent,
   createRouter,
   createWebHistory,
-  RouterScrollBehavior,
+  RouterScrollBehavior
 } from 'vue-router'
 import { createApp, ref } from 'vue'
 import { scrollWaiter } from './scrollWaiter'
@@ -19,7 +19,7 @@ const Bar: RouteComponent = {
       <p id="anchor2" style="height:500px">Anchor2</p>
       <p id="1number">with number</p>
     </div>
-  `,
+  `
 }
 
 // scrollBehavior:
@@ -74,8 +74,8 @@ const router = createRouter({
   routes: [
     { path: '/', component: Home, meta: { scrollToTop: true } },
     { path: '/foo', component: Foo },
-    { path: '/bar', component: Bar, meta: { scrollToTop: true } },
-  ],
+    { path: '/bar', component: Bar, meta: { scrollToTop: true } }
+  ]
 })
 
 declare module '../../src' {
@@ -94,7 +94,7 @@ const app = createApp({
       smoothScroll,
       hashWithNumber: { path: '/bar', hash: '#1number' },
       flushWaiter: scrollWaiter.flush,
-      setupWaiter: scrollWaiter.add,
+      setupWaiter: scrollWaiter.add
     }
   },
 
@@ -126,7 +126,7 @@ const app = createApp({
         <component :is="Component" />
       </transition>
     </router-view>
-  `,
+  `
 })
 app.use(router)
 

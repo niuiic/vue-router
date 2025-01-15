@@ -7,9 +7,9 @@ const tsmap = import.meta.glob('./**/index.ts')
 const DIR_RE = /^\.\/([^/]+)\//
 
 const examples: string[] = Object.keys(tsmap)
-  .map(path => DIR_RE.exec(path))
-  .filter(match => !!match)
-  .map(match => match![1] + '/')
+  .map((path) => DIR_RE.exec(path))
+  .filter((match) => !!match)
+  .map((match) => match![1] + '/')
   .sort()
 
 declare global {
@@ -21,7 +21,7 @@ declare global {
 }
 
 const app = createApp({
-  data: () => ({ examples }),
+  data: () => ({ examples })
 })
 
 app.mount('#app')

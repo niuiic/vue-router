@@ -18,13 +18,13 @@ const routes: RouteRecordRaw[] = [
     component: Nested,
     children: [
       { path: '', name: 'nested-default', component: Foo },
-      { path: 'home', name: 'nested-home', component: Home },
-    ],
+      { path: 'home', name: 'nested-home', component: Home }
+    ]
   },
   {
     path: '/redirect',
-    redirect: { path: '/other', state: { fromRecord: true } },
-  },
+    redirect: { path: '/other', state: { fromRecord: true } }
+  }
 ]
 
 describe('router.beforeEach', () => {
@@ -120,7 +120,7 @@ describe('router.beforeEach', () => {
       if (to.fullPath !== '/other') {
         return {
           path: '/other',
-          state: { added: 'state' },
+          state: { added: 'state' }
         }
       }
       return
@@ -174,15 +174,15 @@ describe('router.beforeEach', () => {
   }
 
   it('can redirect multiple times with string redirect', async () => {
-    await assertRedirect(i => '/n/' + i)
+    await assertRedirect((i) => '/n/' + i)
   })
 
   it('can redirect multiple times with path object', async () => {
-    await assertRedirect(i => ({ path: '/n/' + i }))
+    await assertRedirect((i) => ({ path: '/n/' + i }))
   })
 
   it('can redirect multiple times with named route', async () => {
-    await assertRedirect(i => ({ name: 'n', params: { i } }))
+    await assertRedirect((i) => ({ name: 'n', params: { i } }))
   })
 
   it('is called when changing params', async () => {

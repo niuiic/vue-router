@@ -26,14 +26,14 @@ export const router = createRouter({
     {
       path: '/',
       components: { default: Home, other: component },
-      props: { default: to => ({ waited: to.meta.waitedFor }) },
+      props: { default: (to) => ({ waited: to.meta.waitedFor }) }
     },
     {
       path: '/always-redirect',
       redirect: () => ({
         name: 'user',
-        params: { id: String(Math.round(Math.random() * 100)) },
-      }),
+        params: { id: String(Math.round(Math.random() * 100)) }
+      })
     },
     { path: '/users/:id', name: 'user', component: User, props: true },
     { path: '/documents/:id', name: 'docs', component: User, props: true },
@@ -48,7 +48,7 @@ export const router = createRouter({
       component: async () => {
         await delay(500)
         return component
-      },
+      }
     },
     {
       path: '/with-guard/:n',
@@ -56,7 +56,7 @@ export const router = createRouter({
       component,
       beforeEnter(to) {
         if (to.params.n !== 'valid') return false
-      },
+      }
     },
     { path: '/cant-leave', component: GuardedWithLeave },
     {
@@ -74,13 +74,13 @@ export const router = createRouter({
             {
               path: '',
               name: 'b-child',
-              component: Nested,
+              component: Nested
             },
             { path: 'a2', component: Nested },
-            { path: 'b2', component: Nested },
-          ],
-        },
-      ],
+            { path: 'b2', component: Nested }
+          ]
+        }
+      ]
     },
     { path: '/with-data', component: ComponentWithData, name: 'WithData' },
     { path: '/rep/:a*', component: RepeatedParams, name: 'repeat' },
@@ -100,23 +100,23 @@ export const router = createRouter({
             {
               name: 'NestedNestedNested',
               path: 'nested',
-              component: Nested,
-            },
-          ],
+              component: Nested
+            }
+          ]
         },
         {
           path: 'other',
           alias: 'otherAlias',
           component: Nested,
-          name: 'NestedOther',
+          name: 'NestedOther'
         },
         {
           path: 'also-as-absolute',
           alias: '/absolute',
           name: 'absolute-child',
-          component: Nested,
-        },
-      ],
+          component: Nested
+        }
+      ]
     },
 
     {
@@ -131,8 +131,8 @@ export const router = createRouter({
         // child with absolute path. we need to add an `id` because the parent needs it
         { path: '/p_:id/absolute-a', alias: 'as-absolute-a', component },
         // same as above but the alias is absolute
-        { path: 'as-absolute-b', alias: '/p_:id/absolute-b', component },
-      ],
+        { path: 'as-absolute-b', alias: '/p_:id/absolute-b', component }
+      ]
     },
     {
       path: '/dynamic',
@@ -144,11 +144,11 @@ export const router = createRouter({
         if (!removeRoute) {
           removeRoute = router.addRoute('dynamic', {
             path: 'child',
-            component: Dynamic,
+            component: Dynamic
           })
           return to.fullPath
         }
-      },
+      }
     },
 
     {
@@ -156,9 +156,9 @@ export const router = createRouter({
       children: [
         { path: '', component },
         { path: 'dashboard', component },
-        { path: 'settings', component },
-      ],
-    },
+        { path: 'settings', component }
+      ]
+    }
   ],
   async scrollBehavior(to, from, savedPosition) {
     await scrollWaiter.wait()
@@ -171,22 +171,22 @@ export const router = createRouter({
     // leave scroll as it is by not returning anything
     // https://github.com/Microsoft/TypeScript/issues/18319
     return false
-  },
+  }
 })
 
 // router.push({ name: 'user', params: {} })
 
-const delay = (t: number) => new Promise(resolve => setTimeout(resolve, t))
+const delay = (t: number) => new Promise((resolve) => setTimeout(resolve, t))
 
 // remove trailing slashes
-router.beforeEach(to => {
+router.beforeEach((to) => {
   if (/.\/$/.test(to.path)) {
     to.meta.redirectCode = 301
     return to.path.replace(/\/$/, '')
   }
 })
 
-router.beforeEach(async to => {
+router.beforeEach(async (to) => {
   // console.log(`Guard from ${from.fullPath} to ${to.fullPath}`)
   if (to.params.id === 'no-name') return false
 
@@ -242,7 +242,7 @@ export function go(delta: number) {
       clearHooks()
       resolve(failure)
     })
-    const removeOnError = router.onError(err => {
+    const removeOnError = router.onError((err) => {
       clearHooks()
       reject(err)
     })
@@ -254,7 +254,7 @@ export function go(delta: number) {
 // @ts-expect-error
 window._go = go
 
-router.beforeEach(to => {
+router.beforeEach((to) => {
   // console.log('second guard')
   if (typeof to.query.to === 'string' && to.query.to) return to.query.to
 })
@@ -262,7 +262,7 @@ router.beforeEach(to => {
 const dirLog = {
   '': '？',
   back: '⏪',
-  forward: '⏩',
+  forward: '⏩'
 }
 routerHistory.listen((to, from, info) => {
   console.log(`${dirLog[info.direction]} as a ${info.type}`)

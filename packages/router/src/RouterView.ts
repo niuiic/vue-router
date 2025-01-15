@@ -15,17 +15,17 @@ import {
   watch,
   Slot,
   VNode,
-  Component,
+  Component
 } from 'vue'
 import type {
   RouteLocationNormalized,
-  RouteLocationNormalizedLoaded,
+  RouteLocationNormalizedLoaded
 } from './typed-routes'
 import type { RouteLocationMatched } from './types'
 import {
   matchedRouteKey,
   viewDepthKey,
-  routerViewLocationKey,
+  routerViewLocationKey
 } from './injectionSymbols'
 import { assign, isArray, isBrowser } from './utils'
 import { warn } from './warning'
@@ -49,9 +49,9 @@ export const RouterViewImpl = /*#__PURE__*/ defineComponent({
   props: {
     name: {
       type: String as PropType<string>,
-      default: 'default',
+      default: 'default'
     },
-    route: Object as PropType<RouteLocationNormalizedLoaded>,
+    route: Object as PropType<RouteLocationNormalizedLoaded>
   },
 
   // Better compat for @vue/compat users
@@ -127,7 +127,7 @@ export const RouterViewImpl = /*#__PURE__*/ defineComponent({
           // the first visit
           (!from || !isSameRouteRecord(to, from) || !oldInstance)
         ) {
-          ;(to.enterCallbacks[name] || []).forEach(callback =>
+          ;(to.enterCallbacks[name] || []).forEach((callback) =>
             callback(instance)
           )
         }
@@ -145,7 +145,10 @@ export const RouterViewImpl = /*#__PURE__*/ defineComponent({
         matchedRoute && matchedRoute.components![currentName]
 
       if (!ViewComponent) {
-        return normalizeSlot(slots.default, { Component: ViewComponent, route })
+        return normalizeSlot(slots.default, {
+          Component: ViewComponent,
+          route
+        })
       }
 
       // props from route configuration
@@ -154,11 +157,11 @@ export const RouterViewImpl = /*#__PURE__*/ defineComponent({
         ? routePropsOption === true
           ? route.params
           : typeof routePropsOption === 'function'
-          ? routePropsOption(route)
-          : routePropsOption
+            ? routePropsOption(route)
+            : routePropsOption
         : null
 
-      const onVnodeUnmounted: VNodeProps['onVnodeUnmounted'] = vnode => {
+      const onVnodeUnmounted: VNodeProps['onVnodeUnmounted'] = (vnode) => {
         // remove the instance reference to prevent leak
         if (vnode.component!.isUnmounted) {
           matchedRoute.instances[currentName] = null
@@ -169,7 +172,7 @@ export const RouterViewImpl = /*#__PURE__*/ defineComponent({
         ViewComponent,
         assign({}, routeProps, attrs, {
           onVnodeUnmounted,
-          ref: viewRef,
+          ref: viewRef
         })
       )
 
@@ -183,14 +186,14 @@ export const RouterViewImpl = /*#__PURE__*/ defineComponent({
           depth: depth.value,
           name: matchedRoute.name,
           path: matchedRoute.path,
-          meta: matchedRoute.meta,
+          meta: matchedRoute.meta
         }
 
         const internalInstances = isArray(component.ref)
-          ? component.ref.map(r => r.i)
+          ? component.ref.map((r) => r.i)
           : [component.ref.i]
 
-        internalInstances.forEach(instance => {
+        internalInstances.forEach((instance) => {
           // @ts-expect-error
           instance.__vrv_devtools = info
         })
@@ -203,7 +206,7 @@ export const RouterViewImpl = /*#__PURE__*/ defineComponent({
         component
       )
     }
-  },
+  }
 })
 
 function normalizeSlot(slot: Slot | undefined, data: any) {
@@ -227,7 +230,7 @@ export const RouterView = RouterViewImpl as unknown as {
     $slots: {
       default?: ({
         Component,
-        route,
+        route
       }: {
         Component: VNode
         route: RouteLocationNormalizedLoaded

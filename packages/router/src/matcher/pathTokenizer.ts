@@ -1,7 +1,7 @@
 export const enum TokenType {
   Static,
   Param,
-  Group,
+  Group
 }
 
 const enum TokenizerState {
@@ -9,7 +9,7 @@ const enum TokenizerState {
   Param,
   ParamRegExp, // custom re for a param
   ParamRegExpEnd, // check if there is any ? + *
-  EscapeNext,
+  EscapeNext
 }
 
 interface TokenStatic {
@@ -34,7 +34,7 @@ export type Token = TokenStatic | TokenParam | TokenGroup
 
 const ROOT_TOKEN: Token = {
   type: TokenType.Static,
-  value: '',
+  value: ''
 }
 
 const VALID_PARAM_RE = /[a-zA-Z0-9_]/
@@ -87,7 +87,7 @@ export function tokenizePath(path: string): Array<Token[]> {
     if (state === TokenizerState.Static) {
       segment.push({
         type: TokenType.Static,
-        value: buffer,
+        value: buffer
       })
     } else if (
       state === TokenizerState.Param ||
@@ -103,7 +103,7 @@ export function tokenizePath(path: string): Array<Token[]> {
         value: buffer,
         regexp: customRe,
         repeatable: char === '*' || char === '+',
-        optional: char === '*' || char === '?',
+        optional: char === '*' || char === '?'
       })
     } else {
       crash('Invalid state to consume buffer')

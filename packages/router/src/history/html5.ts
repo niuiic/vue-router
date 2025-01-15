@@ -7,11 +7,11 @@ import {
   ValueContainer,
   normalizeBase,
   createHref,
-  HistoryLocation,
+  HistoryLocation
 } from './common'
 import {
   computeScrollPosition,
-  _ScrollPositionNormalized,
+  _ScrollPositionNormalized
 } from '../scrollBehavior'
 import { warn } from '../warning'
 import { stripBase } from '../location'
@@ -68,7 +68,7 @@ function useHistoryListeners(
   let pauseState: HistoryLocation | null = null
 
   const popStateHandler: PopStateListener = ({
-    state,
+    state
   }: {
     state: StateEntry | null
   }) => {
@@ -96,7 +96,7 @@ function useHistoryListeners(
     // to be updated before triggering the listeners. Some kind of validation function would also
     // need to be passed to the listeners so the navigation can be accepted
     // call all listeners
-    listeners.forEach(listener => {
+    listeners.forEach((listener) => {
       listener(currentLocation.value, from, {
         delta,
         type: NavigationType.pop,
@@ -104,7 +104,7 @@ function useHistoryListeners(
           ? delta > 0
             ? NavigationDirection.forward
             : NavigationDirection.back
-          : NavigationDirection.unknown,
+          : NavigationDirection.unknown
       })
     })
   }
@@ -147,13 +147,13 @@ function useHistoryListeners(
   // TODO: could we use 'pagehide' or 'visibilitychange' instead?
   // https://developer.chrome.com/blog/page-lifecycle-api/
   window.addEventListener('beforeunload', beforeUnloadListener, {
-    passive: true,
+    passive: true
   })
 
   return {
     pauseListeners,
     listen,
-    destroy,
+    destroy
   }
 }
 
@@ -173,7 +173,7 @@ function buildState(
     forward,
     replaced,
     position: window.history.length,
-    scroll: computeScroll ? computeScrollPosition() : null,
+    scroll: computeScroll ? computeScrollPosition() : null
   }
 }
 
@@ -182,7 +182,7 @@ function useHistoryStateNavigation(base: string) {
 
   // private variables
   const currentLocation: ValueContainer<HistoryLocation> = {
-    value: createCurrentLocation(base, location),
+    value: createCurrentLocation(base, location)
   }
   const historyState: ValueContainer<StateEntry> = { value: history.state }
   // build current history entry as this is a fresh navigation
@@ -198,7 +198,7 @@ function useHistoryStateNavigation(base: string) {
         replaced: true,
         // don't add a scroll as the user may have an anchor, and we want
         // scrollBehavior to be triggered without a saved position
-        scroll: null,
+        scroll: null
       },
       true
     )
@@ -272,7 +272,7 @@ function useHistoryStateNavigation(base: string) {
       history.state as Partial<StateEntry> | null,
       {
         forward: to,
-        scroll: computeScrollPosition(),
+        scroll: computeScrollPosition()
       }
     )
 
@@ -302,7 +302,7 @@ function useHistoryStateNavigation(base: string) {
     state: historyState,
 
     push,
-    replace,
+    replace
   }
 }
 
@@ -332,7 +332,7 @@ export function createWebHistory(base?: string): RouterHistory {
       location: '',
       base,
       go,
-      createHref: createHref.bind(null, base),
+      createHref: createHref.bind(null, base)
     },
 
     historyNavigation,
@@ -341,12 +341,12 @@ export function createWebHistory(base?: string): RouterHistory {
 
   Object.defineProperty(routerHistory, 'location', {
     enumerable: true,
-    get: () => historyNavigation.location.value,
+    get: () => historyNavigation.location.value
   })
 
   Object.defineProperty(routerHistory, 'state', {
     enumerable: true,
-    get: () => historyNavigation.state.value,
+    get: () => historyNavigation.state.value
   })
 
   return routerHistory

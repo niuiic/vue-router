@@ -6,9 +6,7 @@
   "engines": {
     "node": ">=20.9.0"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": ["packages/*"],
   "scripts": {
     "release": "node scripts/release.mjs",
     "size": "node scripts/check-size.mjs",
@@ -53,20 +51,12 @@
     "commit-msg": "node scripts/verifyCommit.mjs"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write"
-    ],
-    "*.ts?(x)": [
-      "prettier --parser=typescript --write"
-    ]
+    "*.js": ["prettier --write"],
+    "*.ts?(x)": ["prettier --parser=typescript --write"]
   },
   "pnpm": {
     "peerDependencyRules": {
-      "ignoreMissing": [
-        "react",
-        "@types/react",
-        "react-dom"
-      ]
+      "ignoreMissing": ["react", "@types/react", "react-dom"]
     }
   },
   "volta": {

@@ -19,7 +19,7 @@ function createRoutes<T extends Record<string, RouteLocationNormalizedLoose>>(
 
   for (let key in routes) {
     nonReactiveRoutes[key] = markRaw(routes[key])
-    nonReactiveRoutes[key].matched.forEach(record => {
+    nonReactiveRoutes[key].matched.forEach((record) => {
       record.leaveGuards ??= new Set()
       record.updateGuards ??= new Set()
     })
@@ -45,9 +45,9 @@ const routes = createRoutes({
         instances: {},
         enterCallbacks: {},
         path: '/',
-        props,
-      },
-    ],
+        props
+      }
+    ]
   },
   foo: {
     fullPath: '/foo',
@@ -63,9 +63,9 @@ const routes = createRoutes({
         instances: {},
         enterCallbacks: {},
         path: '/foo',
-        props,
-      },
-    ],
+        props
+      }
+    ]
   },
   nested: {
     fullPath: '/a',
@@ -81,16 +81,16 @@ const routes = createRoutes({
         instances: {},
         enterCallbacks: {},
         path: '/',
-        props,
+        props
       },
       {
         components: { default: components.Foo },
         instances: {},
         enterCallbacks: {},
         path: 'a',
-        props,
-      },
-    ],
+        props
+      }
+    ]
   },
   nestedNested: {
     fullPath: '/a/b',
@@ -106,23 +106,23 @@ const routes = createRoutes({
         instances: {},
         enterCallbacks: {},
         path: '/',
-        props,
+        props
       },
       {
         components: { default: components.Nested },
         instances: {},
         enterCallbacks: {},
         path: 'a',
-        props,
+        props
       },
       {
         components: { default: components.Foo },
         instances: {},
         enterCallbacks: {},
         path: 'b',
-        props,
-      },
-    ],
+        props
+      }
+    ]
   },
   named: {
     fullPath: '/',
@@ -138,9 +138,9 @@ const routes = createRoutes({
         instances: {},
         enterCallbacks: {},
         path: '/',
-        props,
-      },
-    ],
+        props
+      }
+    ]
   },
   withParams: {
     fullPath: '/users/1',
@@ -157,9 +157,9 @@ const routes = createRoutes({
         instances: {},
         enterCallbacks: {},
         path: '/users/:id',
-        props: { default: true },
-      },
-    ],
+        props: { default: true }
+      }
+    ]
   },
   withIdAndOther: {
     fullPath: '/props/1',
@@ -176,9 +176,9 @@ const routes = createRoutes({
         instances: {},
         enterCallbacks: {},
         path: '/props/:id',
-        props: { default: { id: 'foo', other: 'fixed' } },
-      },
-    ],
+        props: { default: { id: 'foo', other: 'fixed' } }
+      }
+    ]
   },
 
   withFnProps: {
@@ -199,11 +199,11 @@ const routes = createRoutes({
         props: {
           default: (to: RouteLocationNormalized) => ({
             id: Number(to.params.id) * 2,
-            other: to.query.q,
-          }),
-        },
-      },
-    ],
+            other: to.query.q
+          })
+        }
+      }
+    ]
   },
 
   passthrough: {
@@ -220,17 +220,17 @@ const routes = createRoutes({
         instances: {},
         enterCallbacks: {},
         path: '/',
-        props,
+        props
       },
       {
         components: { default: components.Foo },
         instances: {},
         enterCallbacks: {},
         path: 'foo',
-        props,
-      },
-    ],
-  },
+        props
+      }
+    ]
+  }
 })
 
 describe('RouterView', () => {
@@ -245,8 +245,8 @@ describe('RouterView', () => {
       props,
       global: {
         provide: route.provides,
-        components: { RouterView },
-      },
+        components: { RouterView }
+      }
     })
 
     return { route, wrapper }
@@ -295,15 +295,15 @@ describe('RouterView', () => {
           instances: {},
           enterCallbacks: {},
           path: '/users/:id',
-          props,
-        },
-      ],
+          props
+        }
+      ]
     }
     const { wrapper, route } = await factory(noPropsWithParams)
     expect(wrapper.html()).toBe(`<div>User: default</div>`)
     await route.set({
       ...noPropsWithParams,
-      params: { id: '4' },
+      params: { id: '4' }
     })
     expect(wrapper.html()).toBe(`<div>User: default</div>`)
   })
@@ -313,7 +313,7 @@ describe('RouterView', () => {
     expect(wrapper.html()).toBe(`<div>User: 1</div>`)
     await route.set({
       ...routes.withParams,
-      params: { id: '4' },
+      params: { id: '4' }
     })
     expect(wrapper.html()).toBe(`<div>User: 4</div>`)
   })
@@ -325,7 +325,7 @@ describe('RouterView', () => {
 
   it('inherit attributes', async () => {
     const { wrapper } = await factory(routes.withIdAndOther, {
-      'data-test': 'true',
+      'data-test': 'true'
     })
     expect(wrapper.html()).toBe(
       `<div data-test="true">id:foo;other:fixed</div>`
@@ -347,14 +347,14 @@ describe('RouterView', () => {
       const route = createMockedRoute(routes.root)
       const wrapper = mount(
         {
-          template: `<div><router-view/></div>`,
+          template: `<div><router-view/></div>`
         },
         {
           props: {},
           global: {
             provide: route.provides,
-            components: { RouterView },
-          },
+            components: { RouterView }
+          }
         }
       )
       expect(wrapper.html()).toMatchSnapshot()
@@ -369,14 +369,14 @@ describe('RouterView', () => {
         <keep-alive>
           <router-view/>
         </keep-alive>
-        `,
+        `
         },
         {
           props: {},
           global: {
             provide: route.provides,
-            components: { RouterView },
-          },
+            components: { RouterView }
+          }
         }
       )
       expect(wrapper.html()).toBe(`<div>Home</div>`)
@@ -393,17 +393,17 @@ describe('RouterView', () => {
             <router-view/>
           </keep-alive>
         </transition>
-        `,
+        `
         },
         {
           props: {},
           global: {
             stubs: {
-              transition: false,
+              transition: false
             },
             provide: route.provides,
-            components: { RouterView },
-          },
+            components: { RouterView }
+          }
         }
       )
       expect(wrapper.html()).toBe(`<div>Home</div>`)
@@ -420,17 +420,17 @@ describe('RouterView', () => {
             <router-view/>
           </div>
         </transition>
-        `,
+        `
         },
         {
           props: {},
           global: {
             stubs: {
-              transition: false,
+              transition: false
             },
             provide: route.provides,
-            components: { RouterView },
-          },
+            components: { RouterView }
+          }
         }
       )
       expect('can no longer be used directly inside').not.toHaveBeenWarned()
@@ -444,17 +444,17 @@ describe('RouterView', () => {
         <transition>
           <router-view/>
         </transition>
-        `,
+        `
         },
         {
           props: {},
           global: {
             stubs: {
-              transition: false,
+              transition: false
             },
             provide: route.provides,
-            components: { RouterView },
-          },
+            components: { RouterView }
+          }
         }
       )
       expect(wrapper.html()).toBe(`<div>Home</div>`)
@@ -472,7 +472,7 @@ describe('RouterView', () => {
         props,
         global: {
           provide: route.provides,
-          components: { RouterView },
+          components: { RouterView }
         },
         slots: {
           default: `
@@ -480,8 +480,8 @@ describe('RouterView', () => {
               <span>{{ route.name }}</span>
               <component :is="Component"/>
             </template>
-            `,
-        },
+            `
+        }
       })
 
       return { route, wrapper }
@@ -503,7 +503,7 @@ describe('RouterView', () => {
         props,
         global: {
           provide: route.provides,
-          components: { RouterView },
+          components: { RouterView }
         },
         slots: {
           default: `
@@ -511,8 +511,8 @@ describe('RouterView', () => {
             <keep-alive>
               <component :is="Component"/>
             </keep-alive>
-          </template>`,
-        },
+          </template>`
+        }
       })
 
       return { route, wrapper }
@@ -536,7 +536,7 @@ describe('RouterView', () => {
         props,
         global: {
           provide: route.provides,
-          components: { RouterView },
+          components: { RouterView }
         },
         slots: {
           default: `
@@ -544,8 +544,8 @@ describe('RouterView', () => {
             <Suspense>
               <component :is="Component"/>
             </Suspense>
-          </template>`,
-        },
+          </template>`
+        }
       })
 
       return { route, wrapper }

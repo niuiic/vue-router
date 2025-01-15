@@ -3,7 +3,7 @@ import { h } from 'vue'
 import { createDom } from './utils'
 import { vi, describe, expect, it, beforeAll } from 'vitest'
 
-const delay = (t: number) => new Promise(resolve => setTimeout(resolve, t))
+const delay = (t: number) => new Promise((resolve) => setTimeout(resolve, t))
 
 function newRouter(options: Partial<Parameters<typeof createRouter>[0]> = {}) {
   const history = options.history || createMemoryHistory()
@@ -13,11 +13,11 @@ function newRouter(options: Partial<Parameters<typeof createRouter>[0]> = {}) {
       {
         path: '/:pathMatch(.*)',
         component: {
-          render: () => h('div', 'any route'),
-        },
-      },
+          render: () => h('div', 'any route')
+        }
+      }
     ],
-    ...options,
+    ...options
   })
 
   return { history, router }

@@ -4,7 +4,7 @@ import {
   isRouteLocation,
   isRouteName,
   RouteLocationOptions,
-  MatcherLocationRaw,
+  MatcherLocationRaw
 } from './types'
 import type {
   RouteLocation,
@@ -18,7 +18,7 @@ import type {
   RouteLocationAsRelative,
   RouteLocationAsPath,
   RouteLocationAsString,
-  RouteRecordNameGeneric,
+  RouteRecordNameGeneric
 } from './typed-routes'
 import { RouterHistory, HistoryState, NavigationType } from './history/common'
 import {
@@ -28,7 +28,7 @@ import {
   saveScrollPosition,
   computeScrollPosition,
   scrollToPosition,
-  _ScrollPositionNormalized,
+  _ScrollPositionNormalized
 } from './scrollBehavior'
 import { createRouterMatcher, PathParserOptions } from './matcher'
 import {
@@ -36,7 +36,7 @@ import {
   ErrorTypes,
   NavigationFailure,
   NavigationRedirectError,
-  isNavigationFailure,
+  isNavigationFailure
 } from './errors'
 import { applyToParams, isBrowser, assign, noop, isArray } from './utils'
 import { useCallbacks } from './utils/callbacks'
@@ -45,7 +45,7 @@ import {
   normalizeQuery,
   parseQuery as originalParseQuery,
   stringifyQuery as originalStringifyQuery,
-  LocationQuery,
+  LocationQuery
 } from './query'
 import { shallowRef, Ref, nextTick, App, unref, shallowReactive } from 'vue'
 import { RouteRecord, RouteRecordNormalized } from './matcher/types'
@@ -54,7 +54,7 @@ import {
   stringifyURL,
   isSameRouteLocation,
   isSameRouteRecord,
-  START_LOCATION_NORMALIZED,
+  START_LOCATION_NORMALIZED
 } from './location'
 import { extractComponentsGuards, guardToPromiseFn } from './navigationGuards'
 import { warn } from './warning'
@@ -63,7 +63,7 @@ import { RouterView } from './RouterView'
 import {
   routeLocationKey,
   routerKey,
-  routerViewLocationKey,
+  routerViewLocationKey
 } from './injectionSymbols'
 import { addDevtools } from './devtools'
 import { _LiteralUnion } from './types/utils'
@@ -408,7 +408,7 @@ export function createRouter(options: RouterOptions): Router {
 
   const normalizeParams = applyToParams.bind(
     null,
-    paramValue => '' + paramValue
+    (paramValue) => '' + paramValue
   )
   const encodeParams = applyToParams.bind(null, encodeParam)
   const decodeParams: (params: RouteParams | undefined) => RouteParams =
@@ -449,7 +449,7 @@ export function createRouter(options: RouterOptions): Router {
   }
 
   function getRoutes() {
-    return matcher.getRoutes().map(routeMatcher => routeMatcher.record)
+    return matcher.getRoutes().map((routeMatcher) => routeMatcher.record)
   }
 
   function hasRoute(name: NonNullable<RouteRecordNameGeneric>): boolean {
@@ -491,7 +491,7 @@ export function createRouter(options: RouterOptions): Router {
         params: decodeParams(matchedRoute.params),
         hash: decode(locationNormalized.hash),
         redirectedFrom: undefined,
-        href,
+        href
       })
     }
 
@@ -519,7 +519,7 @@ export function createRouter(options: RouterOptions): Router {
         )
       }
       matcherLocation = assign({}, rawLocation, {
-        path: parseURL(parseQuery, rawLocation.path, currentLocation.path).path,
+        path: parseURL(parseQuery, rawLocation.path, currentLocation.path).path
       })
     } else {
       // remove any nullish param
@@ -531,7 +531,7 @@ export function createRouter(options: RouterOptions): Router {
       }
       // pass encoded values to the matcher, so it can produce encoded path and fullPath
       matcherLocation = assign({}, rawLocation, {
-        params: encodeParams(targetParams),
+        params: encodeParams(targetParams)
       })
       // current location params are decoded, we need to encode them in case the
       // matcher merges the params
@@ -555,7 +555,7 @@ export function createRouter(options: RouterOptions): Router {
       stringifyQuery,
       assign({}, rawLocation, {
         hash: encodeHash(hash),
-        path: matchedRoute.path,
+        path: matchedRoute.path
       })
     )
 
@@ -588,12 +588,12 @@ export function createRouter(options: RouterOptions): Router {
           // https://github.com/vuejs/router/issues/328#issuecomment-649481567
           stringifyQuery === originalStringifyQuery
             ? normalizeQuery(rawLocation.query)
-            : ((rawLocation.query || {}) as LocationQuery),
+            : ((rawLocation.query || {}) as LocationQuery)
       },
       matchedRoute,
       {
         redirectedFrom: undefined,
-        href,
+        href
       }
     )
   }
@@ -615,7 +615,7 @@ export function createRouter(options: RouterOptions): Router {
         ErrorTypes.NAVIGATION_CANCELLED,
         {
           from,
-          to,
+          to
         }
       )
     }
@@ -669,7 +669,7 @@ export function createRouter(options: RouterOptions): Router {
           query: to.query,
           hash: to.hash,
           // avoid transferring params if the redirect has a path
-          params: newTargetLocation.path != null ? {} : to.params,
+          params: newTargetLocation.path != null ? {} : to.params
         },
         newTargetLocation
       )
@@ -697,7 +697,7 @@ export function createRouter(options: RouterOptions): Router {
               ? assign({}, data, shouldRedirect.state)
               : data,
           force,
-          replace,
+          replace
         }),
         // keep original redirectedFrom if it exists
         redirectedFrom || targetLocation
@@ -771,7 +771,7 @@ export function createRouter(options: RouterOptions): Router {
               assign(
                 {
                   // preserve an existing replacement but allow the redirect to override it
-                  replace,
+                  replace
                 },
                 locationAsObject(failure.to),
                 {
@@ -779,7 +779,7 @@ export function createRouter(options: RouterOptions): Router {
                     typeof failure.to === 'object'
                       ? assign({}, data, failure.to.state)
                       : data,
-                  force,
+                  force
                 }
               ),
               // preserve the original redirectedFrom if any
@@ -847,7 +847,7 @@ export function createRouter(options: RouterOptions): Router {
 
     // leavingRecords is already reversed
     for (const record of leavingRecords) {
-      record.leaveGuards.forEach(guard => {
+      record.leaveGuards.forEach((guard) => {
         guards.push(guardToPromiseFn(guard, to, from))
       })
     }
@@ -883,7 +883,7 @@ export function createRouter(options: RouterOptions): Router {
           )
 
           for (const record of updatingRecords) {
-            record.updateGuards.forEach(guard => {
+            record.updateGuards.forEach((guard) => {
               guards.push(guardToPromiseFn(guard, to, from))
             })
           }
@@ -915,7 +915,7 @@ export function createRouter(options: RouterOptions): Router {
           // NOTE: at this point to.matched is normalized and does not contain any () => Promise<Component>
 
           // clear existing enterCallbacks, these are added by extractComponentsGuards
-          to.matched.forEach(record => (record.enterCallbacks = {}))
+          to.matched.forEach((record) => (record.enterCallbacks = {}))
 
           // check in-component beforeRouteEnter
           guards = extractComponentsGuards(
@@ -941,7 +941,7 @@ export function createRouter(options: RouterOptions): Router {
           return runGuardQueue(guards)
         })
         // catch any navigation canceled
-        .catch(err =>
+        .catch((err) =>
           isNavigationFailure(err, ErrorTypes.NAVIGATION_CANCELLED)
             ? err
             : Promise.reject(err)
@@ -958,7 +958,7 @@ export function createRouter(options: RouterOptions): Router {
     // TODO: wrap with error handlers
     afterGuards
       .list()
-      .forEach(guard => runWithContext(() => guard(to, from, failure)))
+      .forEach((guard) => runWithContext(() => guard(to, from, failure)))
   }
 
   /**
@@ -991,7 +991,7 @@ export function createRouter(options: RouterOptions): Router {
           toLocation.fullPath,
           assign(
             {
-              scroll: isFirstNavigation && state && state.scroll,
+              scroll: isFirstNavigation && state && state.scroll
             },
             data
           )
@@ -1064,12 +1064,12 @@ export function createRouter(options: RouterOptions): Router {
             // logging the error
             pushWithRedirect(
               assign(locationAsObject((error as NavigationRedirectError).to), {
-                force: true,
+                force: true
               }),
               toLocation
               // avoid an uncaught rejection, let push call triggerError
             )
-              .then(failure => {
+              .then((failure) => {
                 // manual change in hash history #916 ending up in the URL not
                 // changing, but it was changed by the manual url change, so we
                 // need to manually change it ourselves
@@ -1161,7 +1161,7 @@ export function createRouter(options: RouterOptions): Router {
     markAsReady(error)
     const list = errorListeners.list()
     if (list.length) {
-      list.forEach(handler => handler(error, to, from))
+      list.forEach((handler) => handler(error, to, from))
     } else {
       if (__DEV__) {
         warn('uncaught error during route navigation:')
@@ -1220,8 +1220,8 @@ export function createRouter(options: RouterOptions): Router {
 
     return nextTick()
       .then(() => scrollBehavior(to, from, scrollPosition))
-      .then(position => position && scrollToPosition(position))
-      .catch(err => triggerError(err, to, from))
+      .then((position) => position && scrollToPosition(position))
+      .catch((err) => triggerError(err, to, from))
   }
 
   const go = (delta: number) => routerHistory.go(delta)
@@ -1262,7 +1262,7 @@ export function createRouter(options: RouterOptions): Router {
       app.config.globalProperties.$router = router
       Object.defineProperty(app.config.globalProperties, '$route', {
         enumerable: true,
-        get: () => unref(currentRoute),
+        get: () => unref(currentRoute)
       })
 
       // this initial navigation is only necessary on client, on server it doesn't
@@ -1277,7 +1277,7 @@ export function createRouter(options: RouterOptions): Router {
       ) {
         // see above
         started = true
-        push(routerHistory.location).catch(err => {
+        push(routerHistory.location).catch((err) => {
           if (__DEV__) warn('Unexpected error when starting the router:', err)
         })
       }
@@ -1286,7 +1286,7 @@ export function createRouter(options: RouterOptions): Router {
       for (const key in START_LOCATION_NORMALIZED) {
         Object.defineProperty(reactiveRoute, key, {
           get: () => currentRoute.value[key as keyof RouteLocationNormalized],
-          enumerable: true,
+          enumerable: true
         })
       }
 
@@ -1315,7 +1315,7 @@ export function createRouter(options: RouterOptions): Router {
       if ((__DEV__ || __FEATURE_PROD_DEVTOOLS__) && isBrowser) {
         addDevtools(app, router, matcher)
       }
-    },
+    }
   }
 
   // TODO: type this as NavigationGuardReturn or similar instead of any
@@ -1341,14 +1341,14 @@ function extractChangingRecords(
   for (let i = 0; i < len; i++) {
     const recordFrom = from.matched[i]
     if (recordFrom) {
-      if (to.matched.find(record => isSameRouteRecord(record, recordFrom)))
+      if (to.matched.find((record) => isSameRouteRecord(record, recordFrom)))
         updatingRecords.push(recordFrom)
       else leavingRecords.push(recordFrom)
     }
     const recordTo = to.matched[i]
     if (recordTo) {
       // the type doesn't matter because we are comparing per reference
-      if (!from.matched.find(record => isSameRouteRecord(record, recordTo))) {
+      if (!from.matched.find((record) => isSameRouteRecord(record, recordTo))) {
         enteringRecords.push(recordTo)
       }
     }

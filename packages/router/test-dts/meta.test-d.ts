@@ -23,17 +23,17 @@ describe('RouteMeta', () => {
             requiresAuth: true,
             lol: true,
             nested: {
-              foo: 'bar',
-            },
-          },
+              foo: 'bar'
+            }
+          }
         },
         {
           path: '/hey',
           component,
           // @ts-expect-error: meta is missing `nested`
-          meta: {},
-        },
-      ],
+          meta: {}
+        }
+      ]
     })
 
     router.addRoute({
@@ -41,18 +41,18 @@ describe('RouteMeta', () => {
       component,
       meta: {
         nested: {
-          foo: 'foo',
-        },
-      },
+          foo: 'foo'
+        }
+      }
     })
   })
 
   it('route location in guards', () => {
     const router = createRouter({
       history: createWebHistory(),
-      routes: [],
+      routes: []
     })
-    router.beforeEach(to => {
+    router.beforeEach((to) => {
       expectTypeOf<{ requiresAuth?: Boolean; nested?: { foo: string } }>(
         to.meta
       )

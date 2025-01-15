@@ -3,15 +3,15 @@ import { createRouter, createWebHistory, RouteComponent } from 'vue-router'
 import { createApp, defineComponent, FunctionalComponent, h } from 'vue'
 
 const component: RouteComponent = {
-  template: `<div>A component</div>`,
+  template: `<div>A component</div>`
 }
 
 const Home: RouteComponent = {
-  template: `<div>Home</div>`,
+  template: `<div>Home</div>`
 }
 
 const ParamId = defineComponent({
-  template: `<div>id: <span id="p-id">"{{ $route.params.id }}"</span></div>`,
+  template: `<div>id: <span id="p-id">"{{ $route.params.id }}"</span></div>`
 })
 
 const FunctionalView: FunctionalComponent = () =>
@@ -27,8 +27,8 @@ const router = createRouter({
     { path: '/functional', component: FunctionalView },
     { path: '/:id', component: ParamId, name: 'param' },
     { path: '/documents/:id', name: 'docs', component: ParamId },
-    { path: encodeURI('/n/€'), name: 'euro', component },
-  ],
+    { path: encodeURI('/n/€'), name: 'euro', component }
+  ]
 })
 
 const app = createApp({
@@ -39,7 +39,7 @@ const app = createApp({
       name: 'param',
       params: { id: ' !"#$&\'()*+,/:;<=>?@[]^`{|}' },
       query: { 'a=': ' !"#$&\'()*+,/:;<=>?@[]^`{|}' },
-      hash: '# !"#$&\'()*+,/:;<=>?@[]^`{|}',
+      hash: '# !"#$&\'()*+,/:;<=>?@[]^`{|}'
     }
     return { url, urlObject }
   },
@@ -118,7 +118,7 @@ const app = createApp({
     </ul>
 
     <router-view></router-view>
-  `,
+  `
 })
 app.use(router)
 

@@ -13,7 +13,7 @@ const nested = {
   nestedAbs: vi.fn(),
   nestedNested: vi.fn(),
   nestedNestedFoo: vi.fn(),
-  nestedNestedParam: vi.fn(),
+  nestedNestedParam: vi.fn()
 }
 const beforeRouteLeave = vi.fn()
 
@@ -24,35 +24,35 @@ const routes: RouteRecordRaw[] = [
     path: '/guard',
     component: {
       ...Foo,
-      beforeRouteLeave,
-    },
+      beforeRouteLeave
+    }
   },
   {
     path: '/nested',
     component: {
       ...Home,
-      beforeRouteLeave: nested.parent,
+      beforeRouteLeave: nested.parent
     },
     children: [
       {
         path: '',
         name: 'nested-empty-path',
-        component: { ...Home, beforeRouteLeave: nested.nestedEmpty },
+        component: { ...Home, beforeRouteLeave: nested.nestedEmpty }
       },
       {
         path: 'a',
         name: 'nested-path',
-        component: { ...Home, beforeRouteLeave: nested.nestedA },
+        component: { ...Home, beforeRouteLeave: nested.nestedA }
       },
       {
         path: 'b',
         name: 'nested-path-b',
-        component: { ...Home, beforeRouteLeave: nested.nestedB },
+        component: { ...Home, beforeRouteLeave: nested.nestedB }
       },
       {
         path: '/abs-nested',
         name: 'absolute-nested',
-        component: { ...Home, beforeRouteLeave: nested.nestedAbs },
+        component: { ...Home, beforeRouteLeave: nested.nestedAbs }
       },
       {
         path: 'nested',
@@ -62,17 +62,17 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'foo',
             name: 'nested-nested-foo',
-            component: { ...Home, beforeRouteLeave: nested.nestedNestedFoo },
+            component: { ...Home, beforeRouteLeave: nested.nestedNestedFoo }
           },
           {
             path: 'param/:p',
             name: 'nested-nested-param',
-            component: { ...Home, beforeRouteLeave: nested.nestedNestedParam },
-          },
-        ],
-      },
-    ],
-  },
+            component: { ...Home, beforeRouteLeave: nested.nestedNestedParam }
+          }
+        ]
+      }
+    ]
+  }
 ]
 
 function resetMocks() {
@@ -143,11 +143,11 @@ describe('beforeRouteLeave', () => {
     expect(nested.nestedA).toHaveBeenCalledWith(
       expect.objectContaining({
         name: 'nested-path-b',
-        fullPath: '/nested/b',
+        fullPath: '/nested/b'
       }),
       expect.objectContaining({
         name: 'nested-path',
-        fullPath: '/nested/a',
+        fullPath: '/nested/a'
       }),
       expect.any(Function)
     )
@@ -191,7 +191,7 @@ describe('beforeRouteLeave', () => {
     const p = router.push('/')
     const currentRoute = router.currentRoute.value
     expect(currentRoute.fullPath).toBe('/guard')
-    await p.catch(err => {}) // catch the navigation abortion
+    await p.catch((err) => {}) // catch the navigation abortion
     expect(currentRoute.fullPath).toBe('/guard')
   })
 })

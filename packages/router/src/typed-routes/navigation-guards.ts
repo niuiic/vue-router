@@ -2,7 +2,7 @@ import type { _Awaitable } from '../types/utils'
 import type {
   RouteLocationNormalizedLoaded,
   RouteLocationNormalized,
-  RouteLocationRaw,
+  RouteLocationRaw
 } from './route-location'
 import type { TypesConfig } from '../config'
 import type { NavigationFailure } from '../errors'

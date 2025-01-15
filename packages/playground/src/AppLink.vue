@@ -33,7 +33,7 @@ import { computed, defineComponent, toRefs } from 'vue'
 export default defineComponent({
   props: {
     ...RouterLink.props,
-    disabled: Boolean,
+    disabled: Boolean
   },
 
   setup(props, { attrs }) {
@@ -46,7 +46,7 @@ export default defineComponent({
 
     const { route, href, isActive, isExactActive, navigate } = useLink({
       to: computed(() => (isExternalLink.value ? START_LOCATION : to.value)),
-      replace,
+      replace
     })
 
     const classes = computed(() => ({
@@ -54,10 +54,10 @@ export default defineComponent({
       'router-link-active':
         isActive.value || currentRoute.path.startsWith(route.value.path),
       'router-link-exact-active':
-        isExactActive.value || currentRoute.path === route.value.path,
+        isExactActive.value || currentRoute.path === route.value.path
     }))
 
     return { attrs, isExternalLink, href, navigate, classes, disabled }
-  },
+  }
 })
 </script>

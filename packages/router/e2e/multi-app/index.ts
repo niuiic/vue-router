@@ -3,7 +3,7 @@ import { RouteComponent, createRouter, createWebHistory } from 'vue-router'
 import { createApp, ref, watchEffect, App, inject } from 'vue'
 
 const Home: RouteComponent = {
-  template: `<div class="home">Home</div>`,
+  template: `<div class="home">Home</div>`
 }
 
 const User: RouteComponent = {
@@ -11,7 +11,7 @@ const User: RouteComponent = {
   data: () => ({ count: 0 }),
 
   beforeRouteEnter(to, from, next) {
-    next(vm => {
+    next((vm) => {
       // @ts-expect-error
       console.log('enter from ', vm.id)
     })
@@ -26,12 +26,12 @@ const User: RouteComponent = {
     const id = inject('id')!
 
     return { id }
-  },
+  }
 }
 
 let looper = [1, 2, 3]
 
-const NamedViews: RouteComponent[] = looper.map(i => ({
+const NamedViews: RouteComponent[] = looper.map((i) => ({
   name: 'part-' + i,
 
   template: `<div class="named" id="part-${i}">Part ${i}. Updated <span class="count">{{ count }}</span></div>`,
@@ -43,7 +43,7 @@ const NamedViews: RouteComponent[] = looper.map(i => ({
     // @ts-expect-error
     this.count++
     next()
-  },
+  }
 }))
 
 // path popstate listeners to track the call count
@@ -86,13 +86,13 @@ const router = createRouter({
         ...NamedViews.reduce(
           (routeComponents, component) => ({
             ...routeComponents,
-            [component.name!]: component,
+            [component.name!]: component
           }),
           {} as Record<string, RouteComponent>
-        ),
-      },
-    },
-  ],
+        )
+      }
+    }
+  ]
 })
 
 router.beforeEach((to, from, next) => {
@@ -117,7 +117,7 @@ looper.forEach((n, i) => {
 
       <router-view></router-view>
       <router-view name="part-${n}"></router-view>
-  `,
+  `
     }))
     app.use(router)
     app.provide('id', n)

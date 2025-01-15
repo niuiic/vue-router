@@ -8,14 +8,14 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'User',
   props: {
-    id: String,
+    id: String
   },
 
   beforeRouteUpdate(to, from, next) {
     console.log('in beforeRouteUpdate this', this)
-    next(vm => {
+    next((vm) => {
       console.log('in next callback', vm)
     })
-  },
+  }
 })
 </script>

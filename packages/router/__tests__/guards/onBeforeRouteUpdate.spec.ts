@@ -6,7 +6,7 @@ import {
   createMemoryHistory,
   onBeforeRouteUpdate,
   RouterView,
-  RouteRecordRaw,
+  RouteRecordRaw
 } from '../../src'
 import { defineComponent, h, ComponentOptions, FunctionalComponent } from 'vue'
 import { mount } from '@vue/test-utils'
@@ -14,7 +14,7 @@ import { delay } from '../utils'
 import { vi, describe, expect, it } from 'vitest'
 
 const component = {
-  template: '<div>Generic</div>',
+  template: '<div>Generic</div>'
 }
 
 function withSpy(name?: string, isAsync = false) {
@@ -25,7 +25,7 @@ function withSpy(name?: string, isAsync = false) {
     setup() {
       onBeforeRouteUpdate(spy)
       return isAsync ? delay(100).then(() => ({})) : {}
-    },
+    }
   })
 
   return { spy, Component }
@@ -42,12 +42,12 @@ function factory(
 ) {
   const router = createRouter({
     history: createMemoryHistory(),
-    routes,
+    routes
   })
   const wrapper = mount(componentToMount as any, {
     global: {
-      plugins: [router],
-    },
+      plugins: [router]
+    }
   })
 
   return { wrapper, router }
@@ -58,7 +58,7 @@ describe('onBeforeRouteUpdate', () => {
 
     const { router } = factory([
       { path: '/', component },
-      { path: '/foo', component: Component },
+      { path: '/foo', component: Component }
     ])
 
     await router.isReady()
@@ -83,7 +83,7 @@ describe('onBeforeRouteUpdate', () => {
     const { router } = factory(
       [
         { path: '/', component: Component },
-        { path: '/async', component: Async },
+        { path: '/async', component: Async }
       ],
       {
         template: `<router-view v-slot="{ Component }">
@@ -91,7 +91,7 @@ describe('onBeforeRouteUpdate', () => {
           <component :is="Component" />
         </Suspense>
       </router-view>
-      `,
+      `
       }
     )
 

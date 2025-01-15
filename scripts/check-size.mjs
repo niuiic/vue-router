@@ -17,7 +17,7 @@ async function checkFileSize(filePath) {
   const [gzipped, compressed] = await Promise.all([
     gzipSync(file),
     //
-    compress(file),
+    compress(file)
   ])
   const gzippedSize = (gzipped.length / 1024).toFixed(2) + 'kb'
   const compressedSize = (compressed.length / 1024).toFixed(2) + 'kb'
@@ -27,7 +27,6 @@ async function checkFileSize(filePath) {
     )} min:${minSize} / gzip:${gzippedSize} / brotli:${compressedSize}`
   )
 }
-
 ;(async () => {
   await Promise.all(
     [
@@ -38,7 +37,7 @@ async function checkFileSize(filePath) {
       path.resolve(
         __dirname,
         '../packages/router/dist/vue-router.global.prod.js'
-      ),
+      )
     ].map(checkFileSize)
   )
 })()

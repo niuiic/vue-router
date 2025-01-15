@@ -15,7 +15,7 @@ const nested = {
   nestedAbs: vi.fn(),
   nestedNested: vi.fn(),
   nestedNestedFoo: vi.fn(),
-  nestedNestedParam: vi.fn(),
+  nestedNestedParam: vi.fn()
 }
 
 const routes: RouteRecordRaw[] = [
@@ -25,34 +25,34 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/guard/:n',
     component: Foo,
-    beforeEnter,
+    beforeEnter
   },
   {
     path: '/multiple',
     beforeEnter: beforeEnters,
-    component: Foo,
+    component: Foo
   },
   {
     path: '/nested',
     component: {
       ...Home,
-      beforeRouteEnter: nested.parent,
+      beforeRouteEnter: nested.parent
     },
     children: [
       {
         path: '',
         name: 'nested-empty-path',
-        component: { ...Home, beforeRouteEnter: nested.nestedEmpty },
+        component: { ...Home, beforeRouteEnter: nested.nestedEmpty }
       },
       {
         path: 'a',
         name: 'nested-path',
-        component: { ...Home, beforeRouteEnter: nested.nestedA },
+        component: { ...Home, beforeRouteEnter: nested.nestedA }
       },
       {
         path: '/abs-nested',
         name: 'absolute-nested',
-        component: { ...Home, beforeRouteEnter: nested.nestedAbs },
+        component: { ...Home, beforeRouteEnter: nested.nestedAbs }
       },
       {
         path: 'nested',
@@ -62,22 +62,22 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'foo',
             name: 'nested-nested-foo',
-            component: { ...Home, beforeRouteEnter: nested.nestedNestedFoo },
+            component: { ...Home, beforeRouteEnter: nested.nestedNestedFoo }
           },
           {
             path: 'param/:p',
             name: 'nested-nested-param',
-            component: { ...Home, beforeRouteEnter: nested.nestedNestedParam },
-          },
-        ],
-      },
-    ],
-  },
+            component: { ...Home, beforeRouteEnter: nested.nestedNestedParam }
+          }
+        ]
+      }
+    ]
+  }
 ]
 
 function resetMocks() {
   beforeEnter.mockReset()
-  beforeEnters.forEach(spy => {
+  beforeEnters.forEach((spy) => {
     spy.mockReset()
     spy.mockImplementationOnce(noGuard)
   })

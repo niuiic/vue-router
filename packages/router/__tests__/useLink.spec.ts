@@ -9,7 +9,7 @@ import {
   createRouter,
   RouteLocationRaw,
   useLink,
-  UseLinkOptions,
+  UseLinkOptions
 } from '../src'
 import { describe, expect, it } from 'vitest'
 
@@ -20,19 +20,19 @@ async function callUseLink(args: UseLinkOptions) {
       {
         path: '/',
         component: {},
-        name: 'root',
+        name: 'root'
       },
       {
         path: '/a',
         component: {},
-        name: 'a',
+        name: 'a'
       },
       {
         path: '/b',
         component: {},
-        name: 'b',
-      },
-    ],
+        name: 'b'
+      }
+    ]
   })
 
   await router.push('/')
@@ -45,12 +45,12 @@ async function callUseLink(args: UseLinkOptions) {
         link = useLink(args)
 
         return () => ''
-      },
+      }
     },
     {
       global: {
-        plugins: [router],
-      },
+        plugins: [router]
+      }
     }
   )
 
@@ -61,7 +61,7 @@ describe('useLink', () => {
   describe('basic usage', () => {
     it('supports a string for "to"', async () => {
       const { href, route } = await callUseLink({
-        to: '/a',
+        to: '/a'
       })
 
       expect(href.value).toBe('/a')
@@ -70,7 +70,7 @@ describe('useLink', () => {
 
     it('supports an object for "to"', async () => {
       const { href, route } = await callUseLink({
-        to: { path: '/a' },
+        to: { path: '/a' }
       })
 
       expect(href.value).toBe('/a')
@@ -81,7 +81,7 @@ describe('useLink', () => {
       const to = ref<RouteLocationRaw>('/a')
 
       const { href, route } = await callUseLink({
-        to,
+        to
       })
 
       expect(href.value).toBe('/a')
@@ -101,7 +101,7 @@ describe('useLink', () => {
 
     it('should warn when "to" is undefined', async () => {
       await callUseLink({
-        to: undefined as any,
+        to: undefined as any
       })
 
       expect('Invalid value for prop "to" in useLink()').toHaveBeenWarned()
@@ -112,7 +112,7 @@ describe('useLink', () => {
 
     it('should warn when "to" is an undefined ref', async () => {
       await callUseLink({
-        to: ref(undefined as any),
+        to: ref(undefined as any)
       })
 
       expect('Invalid value for prop "to" in useLink()').toHaveBeenWarned()
@@ -125,7 +125,7 @@ describe('useLink', () => {
       const to = ref('/a')
 
       const { href, route } = await callUseLink({
-        to,
+        to
       })
 
       expect(href.value).toBe('/a')

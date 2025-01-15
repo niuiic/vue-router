@@ -93,7 +93,7 @@ const BASE_PATH_PARSER_OPTIONS: Required<_PathParserOptions> = {
   sensitive: false,
   strict: false,
   start: true,
-  end: true,
+  end: true
 }
 
 // Scoring values used in tokensToParser
@@ -110,7 +110,7 @@ const enum PathScore {
   BonusOptional = -0.8 * _multiplier, // /:w? or /:w*
   // these two have to be under 0.1 so a strict /:page is still lower than /:a-:b
   BonusStrict = 0.07 * _multiplier, // when options strict: true is passed, as the regex omits \/?
-  BonusCaseSensitive = 0.025 * _multiplier, // when options strict: true is passed, as the regex omits \/?
+  BonusCaseSensitive = 0.025 * _multiplier // when options strict: true is passed, as the regex omits \/?
 }
 
 // Special Regex characters that must be escaped in static tokens
@@ -159,7 +159,7 @@ export function tokensToParser(
         keys.push({
           name: value,
           repeatable,
-          optional,
+          optional
         })
         const re = regexp ? regexp : BASE_PARAM_PATTERN
         // the user provided a custom regexp /:id(\\d+)
@@ -286,7 +286,7 @@ export function tokensToParser(
     score,
     keys,
     parse,
-    stringify,
+    stringify
   }
 }
 

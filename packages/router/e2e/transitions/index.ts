@@ -10,7 +10,7 @@ const Home: RouteComponent = {
       <h2>Home</h2>
       <p>hello</p>
     </div>
-  `,
+  `
 }
 
 // override existing style on dev with shorter times
@@ -33,7 +33,7 @@ if (!__CI__) {
 const Parent = defineComponent({
   data() {
     return {
-      transitionName: 'slide-right',
+      transitionName: 'slide-right'
     }
   },
   async beforeRouteUpdate(to, from, next) {
@@ -54,7 +54,7 @@ const Parent = defineComponent({
         </transition>
       </router-view>
     </div>
-  `,
+  `
 })
 
 const NestedTransition = defineComponent({
@@ -64,11 +64,11 @@ const NestedTransition = defineComponent({
           <component :is="Component" />
         </transition>
       </router-view>
-  `,
+  `
 })
 
 const Default: RouteComponent = {
-  template: '<div class="default">default</div>',
+  template: '<div class="default">default</div>'
 }
 const Foo: RouteComponent = { template: '<div class="foo">foo</div>' }
 const Bar: RouteComponent = { template: '<div class="bar">bar</div>' }
@@ -84,8 +84,8 @@ const router = createRouter({
       children: [
         { path: '', component: Default },
         { path: 'foo', component: Foo },
-        { path: 'bar', component: Bar },
-      ],
+        { path: 'bar', component: Bar }
+      ]
     },
 
     {
@@ -94,10 +94,10 @@ const router = createRouter({
       children: [
         { path: '', component: Default },
         { path: 'foo', component: Foo },
-        { path: 'bar', component: Bar },
-      ],
-    },
-  ],
+        { path: 'bar', component: Bar }
+      ]
+    }
+  ]
 })
 const app = createApp({
   setup() {
@@ -108,7 +108,7 @@ const app = createApp({
 
     return {
       transitionName,
-      toggleTransition,
+      toggleTransition
     }
   },
 
@@ -132,7 +132,7 @@ const app = createApp({
           <component :is="Component" />
         </transition>
       </router-view>
-  `,
+  `
 })
 app.use(router)
 

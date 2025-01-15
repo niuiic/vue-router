@@ -12,21 +12,21 @@ describe('inject() within navigation guards', () => {
   mockWarn()
 
   const PageComponent = {
-    template: `<div>Page</div>`,
+    template: `<div>Page</div>`
   }
 
   function factory(router: Router) {
     return mount(
       {
-        template: `<RouterView />`,
+        template: `<RouterView />`
       },
       {
         global: {
           plugins: [router],
           provide: {
-            test: 'hello',
-          },
-        },
+            test: 'hello'
+          }
+        }
       }
     )
   }
@@ -37,7 +37,7 @@ describe('inject() within navigation guards', () => {
     it(`router.${guardName}()`, async () => {
       expect.assertions(1)
       const router = createRouter({
-        routes: [{ path: '/', component: PageComponent }],
+        routes: [{ path: '/', component: PageComponent }]
       })
       router[guardName](() => {
         expect(inject('test')).toBe('hello')
@@ -58,10 +58,10 @@ describe('inject() within navigation guards', () => {
               template: `<div>Page</div>`,
               beforeRouteEnter() {
                 expect(inject('test')).toBe('hello')
-              },
-            },
-          },
-        ],
+              }
+            }
+          }
+        ]
       })
       factory(router)
       await router.isReady()
@@ -75,16 +75,16 @@ describe('inject() within navigation guards', () => {
           {
             path: '/',
             component: () =>
-              new Promise(r =>
+              new Promise((r) =>
                 r({
                   template: `<div>Page</div>`,
                   beforeRouteEnter() {
                     expect(inject('test')).toBe('hello')
-                  },
+                  }
                 })
-              ),
-          },
-        ],
+              )
+          }
+        ]
       })
       factory(router)
       await router.isReady()
@@ -102,10 +102,10 @@ describe('inject() within navigation guards', () => {
               template: `<div>Page</div>`,
               beforeRouteUpdate() {
                 expect(inject('test')).toBe('hello')
-              },
-            },
-          },
-        ],
+              }
+            }
+          }
+        ]
       })
       factory(router)
       await router.isReady()
@@ -125,10 +125,10 @@ describe('inject() within navigation guards', () => {
               template: `<div>Page</div>`,
               beforeRouteLeave() {
                 expect(inject('test')).toBe('hello')
-              },
-            },
-          },
-        ],
+              }
+            }
+          }
+        ]
       })
       factory(router)
       await router.isReady()

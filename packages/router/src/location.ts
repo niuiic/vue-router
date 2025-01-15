@@ -83,7 +83,7 @@ export function parseURL(
     fullPath: path + (searchString && '?') + searchString + hash,
     path,
     query,
-    hash: decode(hash),
+    hash: decode(hash)
   }
 }
 
@@ -175,8 +175,8 @@ function isSameRouteLocationParamsValue(
   return isArray(a)
     ? isEquivalentArray(a, b)
     : isArray(b)
-    ? isEquivalentArray(b, a)
-    : a === b
+      ? isEquivalentArray(b, a)
+      : a === b
 }
 
 /**
@@ -270,5 +270,5 @@ export const START_LOCATION_NORMALIZED: RouteLocationNormalizedLoaded = {
   fullPath: '/',
   matched: [],
   meta: {},
-  redirectedFrom: undefined,
+  redirectedFrom: undefined
 }

@@ -9,13 +9,13 @@ import {
   beforeAll,
   beforeEach,
   afterAll,
-  afterEach,
+  afterEach
 } from 'vitest'
 
 // override the value of isBrowser because the variable is created before JSDOM
 // is created
 vi.mock('../../src/utils/env', () => ({
-  isBrowser: true,
+  isBrowser: true
 }))
 
 // These unit tests are supposed to tests very specific scenarios that are easier to setup

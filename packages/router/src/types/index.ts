@@ -8,7 +8,7 @@ import type {
   RouteLocation,
   RouteRecordRedirectOption,
   _RouteRecordProps,
-  RouteRecordNameGeneric,
+  RouteRecordNameGeneric
 } from '../typed-routes'
 import type { _Awaitable } from './utils'
 

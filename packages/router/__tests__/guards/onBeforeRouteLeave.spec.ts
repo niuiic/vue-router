@@ -4,13 +4,13 @@
 import {
   createRouter,
   createMemoryHistory,
-  onBeforeRouteLeave,
+  onBeforeRouteLeave
 } from '../../src'
 import { createApp, defineComponent } from 'vue'
 import { vi, describe, expect, it } from 'vitest'
 
 const component = {
-  template: '<div>Generic</div>',
+  template: '<div>Generic</div>'
 }
 
 describe('onBeforeRouteLeave', () => {
@@ -20,20 +20,20 @@ describe('onBeforeRouteLeave', () => {
       template: `text`,
       setup() {
         onBeforeRouteLeave(spy)
-      },
+      }
     })
 
     const router = createRouter({
       history: createMemoryHistory(),
       routes: [
         { path: '/', component },
-        { path: '/leave', component: WithLeave as any },
-      ],
+        { path: '/leave', component: WithLeave as any }
+      ]
     })
     const app = createApp({
       template: `
       <router-view />
-      `,
+      `
     })
     app.use(router)
     const rootEl = document.createElement('div')

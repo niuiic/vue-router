@@ -12,7 +12,7 @@ const __dirname = dirname(__filename)
 
 /** @type {string[]} */
 const examples = []
-fs.readdirSync(__dirname).forEach(dir => {
+fs.readdirSync(__dirname).forEach((dir) => {
   const fullDir = join(__dirname, dir)
   const entry = join(fullDir, 'index.ts')
   if (fs.statSync(fullDir).isDirectory() && fs.existsSync(entry)) {
@@ -26,16 +26,16 @@ fs.readdirSync(__dirname).forEach(dir => {
  * @param {Record<string, string>} env
  * @returns
  */
-const config = env => {
+const config = (env) => {
   return defineConfig({
     root: resolve(__dirname),
     resolve: {
       alias: {
         vue: resolve(__dirname, '../node_modules/vue/dist/vue.esm-bundler.js'),
-        'vue-router': join(__dirname, '..', 'src'),
+        'vue-router': join(__dirname, '..', 'src')
       },
       // Add `.ts` and `.tsx` as a resolvable extension.
-      extensions: ['.ts', '.tsx', '.js', '.vue'],
+      extensions: ['.ts', '.tsx', '.js', '.vue']
     },
     build: {
       outDir: join(__dirname, '__build__'),
@@ -43,7 +43,7 @@ const config = env => {
       rollupOptions: {
         output: {
           file: '[name].js',
-          chunkFileNames: '[id].chunk.js',
+          chunkFileNames: '[id].chunk.js'
         },
         plugins: [],
         input: examples.reduce(
@@ -53,8 +53,8 @@ const config = env => {
           },
           /** @type {Record<string, string>} */
           { index: resolve(__dirname, 'index.html') }
-        ),
-      },
+        )
+      }
     },
     plugins: [
       vue(),
@@ -65,7 +65,7 @@ const config = env => {
             history({
               // verbose: true,
               rewrites: [
-                ...examples.map(name => ({
+                ...examples.map((name) => ({
                   from: new RegExp(`^/${name}/.*$`),
                   to({ parsedUrl }) {
                     // console.log('checking for', parsedUrl.pathname)
@@ -80,7 +80,7 @@ const config = env => {
                       // console.log('\t', `/${name}/index.html`)
                       return `/${name}/index.html`
                     }
-                  },
+                  }
                   // to: `/${name}/index.html`,
                 })),
                 {
@@ -88,22 +88,22 @@ const config = env => {
                   to({ parsedUrl }) {
                     // console.log('bypassing', parsedUrl.pathname, parsedUrl.href)
                     return parsedUrl.href
-                  },
-                },
-              ],
+                  }
+                }
+              ]
             })
           )
-        },
-      },
+        }
+      }
     ],
     define: {
       __DEV__: JSON.stringify(!env.prod),
       __CI__: JSON.stringify(process.env.CI || false),
       __BROWSER__: 'true',
       'process.env': {
-        NODE_ENV: JSON.stringify(env.prod ? 'production' : 'development'),
-      },
-    },
+        NODE_ENV: JSON.stringify(env.prod ? 'production' : 'development')
+      }
+    }
   })
 }
 

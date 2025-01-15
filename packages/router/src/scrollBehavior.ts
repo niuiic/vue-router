@@ -1,6 +1,6 @@
 import type {
   RouteLocationNormalized,
-  RouteLocationNormalizedLoaded,
+  RouteLocationNormalizedLoaded
 } from './typed-routes'
 import { warn } from './warning'
 
@@ -67,13 +67,13 @@ function getElementPosition(
   return {
     behavior: offset.behavior,
     left: elRect.left - docRect.left - (offset.left || 0),
-    top: elRect.top - docRect.top - (offset.top || 0),
+    top: elRect.top - docRect.top - (offset.top || 0)
   }
 }
 
 export const computeScrollPosition = (): _ScrollPositionNormalized => ({
   left: window.scrollX,
-  top: window.scrollY,
+  top: window.scrollY
 })
 
 export function scrollToPosition(position: ScrollPosition): void {

@@ -4,7 +4,7 @@ import {
   createRouter,
   createWebHistory,
   useRoute,
-  loadRouteLocation,
+  loadRouteLocation
 } from 'vue-router'
 import {
   createApp,
@@ -12,13 +12,13 @@ import {
   ref,
   watchEffect,
   computed,
-  defineComponent,
+  defineComponent
 } from 'vue'
 
 const users = readonly([
   { name: 'John' },
   { name: 'Jessica' },
-  { name: 'James' },
+  { name: 'James' }
 ])
 
 const historyState = ref(history.state || {})
@@ -30,7 +30,7 @@ async function showUserModal(id: number) {
   await router.push({
     name: 'user',
     params: { id },
-    state: { backgroundView },
+    state: { backgroundView }
   })
 }
 
@@ -97,9 +97,9 @@ const Home = defineComponent({
       showUserModal,
       closeUserModal,
       userId,
-      users,
+      users
     }
-  },
+  }
 })
 
 const About = defineComponent({
@@ -110,12 +110,12 @@ const About = defineComponent({
     <router-link to="/">Back home</router-link>
   </div>`,
   methods: {
-    back: () => history.back(),
-  },
+    back: () => history.back()
+  }
 })
 
 const Child = defineComponent({
-  template: `<div class="child">child</div>`,
+  template: `<div class="child">child</div>`
 })
 
 const UserDetails = defineComponent({
@@ -129,10 +129,10 @@ const UserDetails = defineComponent({
   props: {
     id: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
-  data: () => ({ users }),
+  data: () => ({ users })
 })
 
 const webHistory = createWebHistory('/modal')
@@ -144,17 +144,17 @@ const router = createRouter({
       component: Home,
       children: [
         // to check that displaying the modal doesn't change this
-        { path: '', component: Child },
-      ],
+        { path: '', component: Child }
+      ]
     },
     { path: '/about', component: About },
     {
       path: '/users/:id',
       props: true,
       name: 'user',
-      component: UserDetails,
-    },
-  ],
+      component: UserDetails
+    }
+  ]
 })
 
 router.afterEach(() => {
@@ -168,14 +168,14 @@ router.beforeEach((to, from) => {
   console.log('---')
 })
 
-router.beforeResolve(async to => {
+router.beforeResolve(async (to) => {
   if (historyState.value && historyState.value.backgroundView) {
     await loadRouteLocation(router.resolve(historyState.value.backgroundView))
   }
 })
 
 // avoid navigating to non existent users
-router.beforeEach(to => {
+router.beforeEach((to) => {
   if (to.name !== 'user') return
 
   const { id } = to.params
@@ -203,7 +203,7 @@ const app = createApp({
 
   template: `
     <router-view :route="routeWithModal"></router-view>
-  `,
+  `
 })
 app.use(router)
 

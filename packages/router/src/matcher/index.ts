@@ -2,7 +2,7 @@ import {
   RouteRecordRaw,
   MatcherLocationRaw,
   MatcherLocation,
-  isRouteName,
+  isRouteName
 } from '../types'
 import { createRouterError, ErrorTypes, MatcherError } from '../errors'
 import { createRouteRecordMatcher, RouteRecordMatcher } from './pathMatcher'
@@ -11,7 +11,7 @@ import { RouteRecordNormalized } from './types'
 import type {
   PathParams,
   PathParserOptions,
-  _PathParserOptions,
+  _PathParserOptions
 } from './pathParserRanker'
 
 import { comparePathParserScore } from './pathParserRanker'
@@ -107,7 +107,7 @@ export function createRouterMatcher(
               // we might be the child of an alias
               aliasOf: originalRecord
                 ? originalRecord.record
-                : mainNormalizedRecord,
+                : mainNormalizedRecord
               // the aliases are always of the same kind as the original since they
               // are defined on the same record
             })
@@ -250,14 +250,16 @@ export function createRouterMatcher(
 
       if (!matcher)
         throw createRouterError<MatcherError>(ErrorTypes.MATCHER_NOT_FOUND, {
-          location,
+          location
         })
 
       // warn if the user is passing invalid params so they can debug it better when they get removed
       if (__DEV__) {
         const invalidParams: string[] = Object.keys(
           location.params || {}
-        ).filter(paramName => !matcher!.keys.find(k => k.name === paramName))
+        ).filter(
+          (paramName) => !matcher!.keys.find((k) => k.name === paramName)
+        )
 
         if (invalidParams.length) {
           warn(
@@ -276,18 +278,20 @@ export function createRouterMatcher(
           // only keep params that exist in the resolved location
           // only keep optional params coming from a parent record
           matcher.keys
-            .filter(k => !k.optional)
+            .filter((k) => !k.optional)
             .concat(
-              matcher.parent ? matcher.parent.keys.filter(k => k.optional) : []
+              matcher.parent
+                ? matcher.parent.keys.filter((k) => k.optional)
+                : []
             )
-            .map(k => k.name)
+            .map((k) => k.name)
         ),
         // discard any existing params in the current location that do not exist here
         // #1497 this ensures better active/exact matching
         location.params &&
           paramsFromLocation(
             location.params,
-            matcher.keys.map(k => k.name)
+            matcher.keys.map((k) => k.name)
           )
       )
       // throws if cannot be stringified
@@ -303,7 +307,7 @@ export function createRouterMatcher(
         )
       }
 
-      matcher = matchers.find(m => m.re.test(path))
+      matcher = matchers.find((m) => m.re.test(path))
       // matcher should have a value after the loop
 
       if (matcher) {
@@ -316,11 +320,11 @@ export function createRouterMatcher(
       // match by name or path of current route
       matcher = currentLocation.name
         ? matcherMap.get(currentLocation.name)
-        : matchers.find(m => m.re.test(currentLocation.path))
+        : matchers.find((m) => m.re.test(currentLocation.path))
       if (!matcher)
         throw createRouterError<MatcherError>(ErrorTypes.MATCHER_NOT_FOUND, {
           location,
-          currentLocation,
+          currentLocation
         })
       name = matcher.record.name
       // since we are navigating to the same location, we don't need to pick the
@@ -343,12 +347,12 @@ export function createRouterMatcher(
       path,
       params,
       matched,
-      meta: mergeMetaFields(matched),
+      meta: mergeMetaFields(matched)
     }
   }
 
   // add initial routes
-  routes.forEach(route => addRoute(route))
+  routes.forEach((route) => addRoute(route))
 
   function clearRoutes() {
     matchers.length = 0
@@ -361,7 +365,7 @@ export function createRouterMatcher(
     removeRoute,
     clearRoutes,
     getRoutes,
-    getRecordMatcher,
+    getRecordMatcher
   }
 }
 
@@ -405,14 +409,14 @@ export function normalizeRouteRecord(
     components:
       'components' in record
         ? record.components || null
-        : record.component && { default: record.component },
+        : record.component && { default: record.component }
   }
 
   // mods contain modules and shouldn't be copied,
   // logged or anything. It's just used for internal
   // advanced use cases like data loaders
   Object.defineProperty(normalized, 'mods', {
-    value: {},
+    value: {}
   })
 
   return normalized as RouteRecordNormalized

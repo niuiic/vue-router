@@ -6,12 +6,12 @@ import {
   NavigationFailure,
   NavigationFailureType,
   RouteLocationNormalized,
-  RouteLocationRaw,
+  RouteLocationRaw
 } from './index'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: [],
+  routes: []
 })
 
 describe('Navigation guards', () => {

@@ -33,7 +33,7 @@ function testCase(browser, name) {
         `${name}: setup:update /f/2 - /f/2`,
         `${name}: leave /f/2 - /foo`,
         `${name}: setup:leave /f/2 - /foo`,
-        `${name}: enter /f/2 - /foo`,
+        `${name}: enter /f/2 - /foo`
       ].join('\n')
     )
 }
@@ -129,7 +129,7 @@ module.exports = {
           `${name}: update /f/1 - /f/2`,
           `${name}: setup:update /f/1 - /f/2`,
           `${name}: leave /f/2 - /`,
-          `${name}: setup:leave /f/2 - /`,
+          `${name}: setup:leave /f/2 - /`
         ].join('\n')
       )
 
@@ -176,7 +176,7 @@ module.exports = {
         [
           // to force new lines formatting
           `${name}: update /f/2 - /f/2`,
-          `${name}: setup:update /f/2 - /f/2`,
+          `${name}: setup:update /f/2 - /f/2`
         ].join('\n')
       )
     browser
@@ -239,7 +239,7 @@ module.exports = {
         [
           // foo
           `${name}: update /f/2 - /f/2`,
-          `${name}: setup:update /f/2 - /f/2`,
+          `${name}: setup:update /f/2 - /f/2`
         ].join('\n')
       )
     browser
@@ -253,7 +253,7 @@ module.exports = {
           `${name}: update /f/2 - /f/2`,
           `${name}: setup:update /f/2 - /f/2`,
           `${name}: update /f/2 - /f/2`,
-          `${name}: setup:update /f/2 - /f/2`,
+          `${name}: setup:update /f/2 - /f/2`
         ].join('\n')
       )
 
@@ -276,7 +276,7 @@ module.exports = {
           `One: leave /named-one - /`,
           `Aux: leave /named-one - /`,
           `One: setup:leave /named-one - /`,
-          `Aux: setup:leave /named-one - /`,
+          `Aux: setup:leave /named-one - /`
         ].join('\n')
       )
 
@@ -292,10 +292,10 @@ module.exports = {
           `One: setup:leave /named-one - /named-two`,
           `Aux: setup:leave /named-one - /named-two`,
           `Two: enter /named-one - /named-two`,
-          `Aux: enter /named-one - /named-two`,
+          `Aux: enter /named-one - /named-two`
         ].join('\n')
       )
 
     browser.end()
-  },
+  }
 }

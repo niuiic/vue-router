@@ -8,7 +8,7 @@ import {
   NavigationInformation,
   normalizeBase,
   createHref,
-  HistoryLocation,
+  HistoryLocation
 } from './common'
 
 /**
@@ -41,7 +41,7 @@ export function createMemoryHistory(base: string = ''): RouterHistory {
     const info: NavigationInformation = {
       direction,
       delta,
-      type: NavigationType.pop,
+      type: NavigationType.pop
     }
     for (const callback of listeners) {
       callback(to, from, info)
@@ -90,15 +90,15 @@ export function createMemoryHistory(base: string = ''): RouterHistory {
       if (shouldTrigger) {
         triggerListeners(this.location, from, {
           direction,
-          delta,
+          delta
         })
       }
-    },
+    }
   }
 
   Object.defineProperty(routerHistory, 'location', {
     enumerable: true,
-    get: () => queue[position],
+    get: () => queue[position]
   })
 
   if (__TEST__) {
@@ -108,7 +108,7 @@ export function createMemoryHistory(base: string = ''): RouterHistory {
       queue.splice(position++ + 1, queue.length, url)
       triggerListeners(this.location, from, {
         direction: NavigationDirection.unknown,
-        delta: 0,
+        delta: 0
       })
     }
   }

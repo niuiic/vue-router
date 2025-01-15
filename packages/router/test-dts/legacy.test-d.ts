@@ -1,7 +1,7 @@
 import { describe, expectTypeOf, it } from 'vitest'
 import {
   useRouter,
-  useRoute,
+  useRoute
   // rename types for better error messages, otherwise they have the same name
   // RouteLocationNormalizedLoadedTyped as I_RLNLT
 } from './index'
@@ -14,8 +14,8 @@ describe('Instance types', () => {
         doStuff() {
           // TODO: can't do a proper check because of typed routes
           expectTypeOf(this.$route.params).toMatchTypeOf(useRoute().params)
-        },
-      },
+        }
+      }
     })
   })
 
@@ -25,8 +25,8 @@ describe('Instance types', () => {
         doStuff() {
           // TODO: can't do a proper check because of typed routes
           expectTypeOf(this.$router.back).toEqualTypeOf(useRouter().back)
-        },
-      },
+        }
+      }
     })
   })
 })

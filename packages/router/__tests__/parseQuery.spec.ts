@@ -7,13 +7,13 @@ describe('parseQuery', () => {
 
   it('works with leading ?', () => {
     expect(parseQuery('?foo=a')).toEqual({
-      foo: 'a',
+      foo: 'a'
     })
   })
 
   it('works without leading ?', () => {
     expect(parseQuery('foo=a')).toEqual({
-      foo: 'a',
+      foo: 'a'
     })
   })
 
@@ -26,20 +26,20 @@ describe('parseQuery', () => {
 
   it('decodes values in query', () => {
     expect(parseQuery('e=%25')).toEqual({
-      e: '%',
+      e: '%'
     })
   })
 
   it('parses empty string values', () => {
     expect(parseQuery('e=&c=a')).toEqual({
       e: '',
-      c: 'a',
+      c: 'a'
     })
   })
 
   it('allows = inside values', () => {
     expect(parseQuery('e=c=a')).toEqual({
-      e: 'c=a',
+      e: 'c=a'
     })
   })
 
@@ -47,41 +47,41 @@ describe('parseQuery', () => {
     expect(parseQuery('e&b&c=a')).toEqual({
       e: null,
       b: null,
-      c: 'a',
+      c: 'a'
     })
   })
 
   it('parses empty values as null in arrays', () => {
     expect(parseQuery('e&e&e=a')).toEqual({
-      e: [null, null, 'a'],
+      e: [null, null, 'a']
     })
   })
 
   it('decodes array values in query', () => {
     expect(parseQuery('e=%25&e=%22')).toEqual({
-      e: ['%', '"'],
+      e: ['%', '"']
     })
     expect(parseQuery('e=%25&e=a')).toEqual({
-      e: ['%', 'a'],
+      e: ['%', 'a']
     })
   })
 
   it('decodes the + as space', () => {
     expect(parseQuery('a+b=c+d')).toEqual({
-      'a b': 'c d',
+      'a b': 'c d'
     })
   })
 
   it('decodes the encoded + as +', () => {
     expect(parseQuery('a%2Bb=c%2Bd')).toEqual({
-      'a+b': 'c+d',
+      'a+b': 'c+d'
     })
   })
 
   // this is for browsers like IE that allow invalid characters
   it('keep invalid values as is', () => {
     expect(parseQuery('e=%&e=%25')).toEqual({
-      e: ['%', '%'],
+      e: ['%', '%']
     })
 
     expect('decoding "%"').toHaveBeenWarnedTimes(1)

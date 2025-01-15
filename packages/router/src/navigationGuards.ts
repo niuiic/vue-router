@@ -7,14 +7,14 @@ import type {
   RouteLocation,
   RouteLocationRaw,
   NavigationGuardNext,
-  NavigationGuardNextCallback,
+  NavigationGuardNextCallback
 } from './typed-routes'
 
 import {
   createRouterError,
   ErrorTypes,
   NavigationFailure,
-  NavigationRedirectError,
+  NavigationRedirectError
 } from './errors'
 import { ComponentOptions, onUnmounted, onActivated, onDeactivated } from 'vue'
 import { inject, getCurrentInstance } from 'vue'
@@ -125,7 +125,7 @@ export function guardToPromiseFn(
   from: RouteLocationNormalizedLoaded,
   record?: RouteRecordNormalized,
   name?: string,
-  runWithContext: <T>(fn: () => T) => T = fn => fn()
+  runWithContext: <T>(fn: () => T) => T = (fn) => fn()
 ): () => Promise<void> {
   // keep a reference to the enterCallbackArray to prevent pushing callbacks if a new navigation took place
   const enterCallbackArray =
@@ -144,7 +144,7 @@ export function guardToPromiseFn(
               ErrorTypes.NAVIGATION_ABORTED,
               {
                 from,
-                to,
+                to
               }
             )
           )
@@ -156,7 +156,7 @@ export function guardToPromiseFn(
               ErrorTypes.NAVIGATION_GUARD_REDIRECT,
               {
                 from: to,
-                to: valid,
+                to: valid
               }
             )
           )
@@ -190,7 +190,7 @@ export function guardToPromiseFn(
           guard.name ? '"' + guard.name + '"' : ''
         }:\n${guard.toString()}\n. If you are returning a value instead of calling "next", make sure to remove the "next" parameter from your function.`
         if (typeof guardReturn === 'object' && 'then' in guardReturn) {
-          guardCall = guardCall.then(resolvedValue => {
+          guardCall = guardCall.then((resolvedValue) => {
             // @ts-expect-error: _called is added at canOnlyBeCalledOnce
             if (!next._called) {
               warn(message)
@@ -207,7 +207,7 @@ export function guardToPromiseFn(
           }
         }
       }
-      guardCall.catch(err => reject(err))
+      guardCall.catch((err) => reject(err))
     })
 }
 
@@ -235,7 +235,7 @@ export function extractComponentsGuards(
   guardType: GuardType,
   to: RouteLocationNormalized,
   from: RouteLocationNormalizedLoaded,
-  runWithContext: <T>(fn: () => T) => T = fn => fn()
+  runWithContext: <T>(fn: () => T) => T = (fn) => fn()
 ) {
   const guards: Array<() => Promise<void>> = []
 
@@ -314,7 +314,7 @@ export function extractComponentsGuards(
         }
 
         guards.push(() =>
-          componentPromise.then(resolved => {
+          componentPromise.then((resolved) => {
             if (!resolved)
               throw new Error(
                 `Couldn't resolve component "${name}" at "${record.path}"`
@@ -353,42 +353,47 @@ export function extractComponentsGuards(
 export function loadRouteLocation(
   route: RouteLocation | RouteLocationNormalized
 ): Promise<RouteLocationNormalizedLoaded> {
-  return route.matched.every(record => record.redirect)
+  return route.matched.every((record) => record.redirect)
     ? Promise.reject(new Error('Cannot load a route that redirects.'))
     : Promise.all(
         route.matched.map(
-          record =>
+          (record) =>
             record.components &&
             Promise.all(
-              Object.keys(record.components).reduce((promises, name) => {
-                const rawComponent = record.components![name]
-                if (
-                  typeof rawComponent === 'function' &&
-                  !('displayName' in rawComponent)
-                ) {
-                  promises.push(
-                    (rawComponent as Lazy<RouteComponent>)().then(resolved => {
-                      if (!resolved)
-                        return Promise.reject(
-                          new Error(
-                            `Couldn't resolve component "${name}" at "${record.path}". Ensure you passed a function that returns a promise.`
-                          )
-                        )
+              Object.keys(record.components).reduce(
+                (promises, name) => {
+                  const rawComponent = record.components![name]
+                  if (
+                    typeof rawComponent === 'function' &&
+                    !('displayName' in rawComponent)
+                  ) {
+                    promises.push(
+                      (rawComponent as Lazy<RouteComponent>)().then(
+                        (resolved) => {
+                          if (!resolved)
+                            return Promise.reject(
+                              new Error(
+                                `Couldn't resolve component "${name}" at "${record.path}". Ensure you passed a function that returns a promise.`
+                              )
+                            )
 
-                      const resolvedComponent = isESModule(resolved)
-                        ? resolved.default
-                        : resolved
-                      // keep the resolved module for plugins like data loaders
-                      record.mods[name] = resolved
-                      // replace the function with the resolved component
-                      // cannot be null or undefined because we went into the for loop
-                      record.components![name] = resolvedComponent
-                      return
-                    })
-                  )
-                }
-                return promises
-              }, [] as Array<Promise<RouteComponent | null | undefined>>)
+                          const resolvedComponent = isESModule(resolved)
+                            ? resolved.default
+                            : resolved
+                          // keep the resolved module for plugins like data loaders
+                          record.mods[name] = resolved
+                          // replace the function with the resolved component
+                          // cannot be null or undefined because we went into the for loop
+                          record.components![name] = resolvedComponent
+                          return
+                        }
+                      )
+                    )
+                  }
+                  return promises
+                },
+                [] as Array<Promise<RouteComponent | null | undefined>>
+              )
             )
         )
       ).then(() => route as RouteLocationNormalizedLoaded)

@@ -23,7 +23,7 @@ const app = createApp(App)
 app.mixin({
   beforeRouteEnter() {
     console.log('mixin enter')
-  },
+  }
 })
 
 app.provide('state', globalState)
@@ -65,7 +65,7 @@ function _ok() {
 
   router.push({
     name: '/[name]',
-    params: { name: 'hey' },
+    params: { name: 'hey' }
   })
 
   router

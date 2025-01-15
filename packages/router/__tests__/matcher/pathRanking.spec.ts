@@ -1,7 +1,7 @@
 import { tokenizePath } from '../../src/matcher/pathTokenizer'
 import {
   tokensToParser,
-  comparePathParserScore,
+  comparePathParserScore
 } from '../../src/matcher/pathParserRanker'
 import { describe, expect, it } from 'vitest'
 
@@ -15,17 +15,17 @@ describe('Path ranking', () => {
           score: a,
           re: /a/,
           // @ts-expect-error
-          stringify: v => v,
+          stringify: (v) => v,
           // @ts-expect-error
-          parse: v => v,
-          keys: [],
+          parse: (v) => v,
+          keys: []
         },
         {
           score: b,
           re: /a/,
-          stringify: v => v,
-          parse: v => v,
-          keys: [],
+          stringify: (v) => v,
+          parse: (v) => v,
+          keys: []
         }
       )
     }
@@ -49,15 +49,15 @@ describe('Path ranking', () => {
     undefined,
     { strict: true, sensitive: false },
     { strict: false, sensitive: true },
-    { strict: true, sensitive: true },
+    { strict: true, sensitive: true }
   ]
 
   function joinScore(score: number[][]): string {
-    return score.map(s => `[${s.join(', ')}]`).join(' ')
+    return score.map((s) => `[${s.join(', ')}]`).join(' ')
   }
 
   function checkPathOrder(paths: Array<string | [string, PathParserOptions]>) {
-    const normalizedPaths = paths.map(pathOrArray => {
+    const normalizedPaths = paths.map((pathOrArray) => {
       let path: string
       let options: PathParserOptions
       if (typeof pathOrArray === 'string') {
@@ -70,7 +70,7 @@ describe('Path ranking', () => {
       return {
         id: path + (options ? JSON.stringify(options) : ''),
         path,
-        options,
+        options
       }
     })
 
@@ -80,7 +80,7 @@ describe('Path ranking', () => {
       .reverse()
       .map(({ id, path, options }) => ({
         ...tokensToParser(tokenizePath(path), options),
-        id,
+        id
       }))
 
     parsers.sort((a, b) => comparePathParserScore(a, b))
@@ -102,13 +102,13 @@ describe('Path ranking', () => {
     }
 
     try {
-      expect(parsers.map(parser => parser.id)).toEqual(
-        normalizedPaths.map(path => path.id)
+      expect(parsers.map((parser) => parser.id)).toEqual(
+        normalizedPaths.map((path) => path.id)
       )
     } catch (err) {
       console.warn(
         parsers
-          .map(parser => `${parser.id} -> ${joinScore(parser.score)}`)
+          .map((parser) => `${parser.id} -> ${joinScore(parser.score)}`)
           .join('\n')
       )
       throw err
@@ -131,12 +131,12 @@ describe('Path ranking', () => {
       '/:a/-:b',
       '/:a/:b',
       '/:w',
-      '/:w+',
+      '/:w+'
     ])
   })
 
   it('puts the slash before optional parameters', () => {
-    possibleOptions.forEach(options => {
+    possibleOptions.forEach((options) => {
       checkPathOrder(['/', ['/:a?', options]])
       checkPathOrder(['/', ['/:a*', options]])
       checkPathOrder(['/', ['/:a(\\d+)?', options]])
@@ -145,10 +145,10 @@ describe('Path ranking', () => {
   })
 
   it('puts catchall param after same prefix', () => {
-    possibleOptions.forEach(options => {
+    possibleOptions.forEach((options) => {
       checkPathOrder([
         ['/a', options],
-        ['/a/:a(.*)*', options],
+        ['/a/:a(.*)*', options]
       ])
     })
   })
@@ -156,23 +156,23 @@ describe('Path ranking', () => {
   it('sensitive should go before non sensitive', () => {
     checkPathOrder([
       ['/Home', { sensitive: true }],
-      ['/home', {}],
+      ['/home', {}]
     ])
     checkPathOrder([
       ['/:w', { sensitive: true }],
-      ['/:w', {}],
+      ['/:w', {}]
     ])
   })
 
   it('strict should go before non strict', () => {
     checkPathOrder([
       ['/home', { strict: true }],
-      ['/home', {}],
+      ['/home', {}]
     ])
   })
 
   it('orders repeatable and optional', () => {
-    possibleOptions.forEach(options => {
+    possibleOptions.forEach((options) => {
       checkPathOrder(['/:w', ['/:w?', options]])
       checkPathOrder(['/:w?', ['/:w+', options]])
       checkPathOrder(['/:w+', ['/:w*', options]])
@@ -181,13 +181,13 @@ describe('Path ranking', () => {
   })
 
   it('orders static before params', () => {
-    possibleOptions.forEach(options => {
+    possibleOptions.forEach((options) => {
       checkPathOrder(['/a', ['/:id', options]])
     })
   })
 
   it('empty path before slash', () => {
-    possibleOptions.forEach(options => {
+    possibleOptions.forEach((options) => {
       checkPathOrder(['', ['/', options]])
     })
   })
@@ -205,12 +205,12 @@ describe('Path ranking', () => {
     checkPathOrder([
       // no strict
       '/a/',
-      '/a',
+      '/a'
     ])
     checkPathOrder([
       // no strict
       '/a/b/',
-      '/a/b',
+      '/a/b'
     ])
 
     checkPathOrder([['/a/', { strict: true }], '/a/'])
@@ -218,7 +218,7 @@ describe('Path ranking', () => {
   })
 
   it('puts the wildcard at the end', () => {
-    possibleOptions.forEach(options => {
+    possibleOptions.forEach((options) => {
       checkPathOrder([['', options], '/:rest(.*)'])
       checkPathOrder([['/', options], '/:rest(.*)'])
       checkPathOrder([['/ab', options], '/:rest(.*)'])
@@ -240,7 +240,7 @@ describe('Path ranking', () => {
       '/a/_:b(\\d)other',
       '/a/_:b(\\d)?other',
       '/a/_:b-other', // the _ is escaped but b can be also letters
-      '/a/a_:b',
+      '/a/a_:b'
     ])
   })
 
@@ -249,13 +249,13 @@ describe('Path ranking', () => {
       '/a/_:b-other',
       '/a/_:b?-other',
       '/a/_:b+-other',
-      '/a/_:b*-other',
+      '/a/_:b*-other'
     ])
     checkPathOrder([
       '/a/_:b(\\d)-other',
       '/a/_:b(\\d)?-other',
       '/a/_:b(\\d)+-other',
-      '/a/_:b(\\d)*-other',
+      '/a/_:b(\\d)*-other'
     ])
   })
 
@@ -263,7 +263,7 @@ describe('Path ranking', () => {
     checkPathOrder([
       ['/a/b', { strict: false }],
       ['/a/:b', { strict: true }],
-      ['/a/:b/', { strict: true }],
+      ['/a/:b/', { strict: true }]
     ])
   })
 })

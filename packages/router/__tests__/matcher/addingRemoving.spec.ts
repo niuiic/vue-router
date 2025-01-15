@@ -12,7 +12,7 @@ describe('Matcher: adding and removing records', () => {
     const matcher = createRouterMatcher([], {})
     matcher.addRoute({ path: '/', component, name: 'home' })
     expect(matcher.resolve({ path: '/' }, currentLocation)).toMatchObject({
-      name: 'home',
+      name: 'home'
     })
   })
 
@@ -23,7 +23,7 @@ describe('Matcher: adding and removing records', () => {
     matcher.addRoute({
       path: '/with-children',
       component,
-      children: [{ path: 'child', component }],
+      children: [{ path: 'child', component }]
     })
     expect(matcher.getRoutes()).not.toHaveLength(0)
     matcher.clearRoutes()
@@ -44,7 +44,7 @@ describe('Matcher: adding and removing records', () => {
       matcher.addRoute({
         path: '/something',
         component,
-        children: [{ path: '*', component }],
+        children: [{ path: '*', component }]
       })
     }).not.toThrow()
   })
@@ -60,8 +60,8 @@ describe('Matcher: adding and removing records', () => {
       name: 'foo',
       matched: [
         expect.objectContaining({ name: 'home' }),
-        expect.objectContaining({ name: 'foo' }),
-      ],
+        expect.objectContaining({ name: 'foo' })
+      ]
     })
   })
 
@@ -72,7 +72,7 @@ describe('Matcher: adding and removing records', () => {
       remove()
       expect(matcher.resolve({ path: '/' }, currentLocation)).toMatchObject({
         name: undefined,
-        matched: [],
+        matched: []
       })
     })
 
@@ -87,11 +87,11 @@ describe('Matcher: adding and removing records', () => {
       )
       remove()
       expect(matcher.resolve({ path: '/' }, currentLocation)).toMatchObject({
-        name: 'home',
+        name: 'home'
       })
       expect(matcher.resolve({ path: '/foo' }, currentLocation)).toMatchObject({
         name: undefined,
-        matched: [],
+        matched: []
       })
     })
 
@@ -101,19 +101,19 @@ describe('Matcher: adding and removing records', () => {
         path: '/',
         component,
         name: 'home',
-        alias: ['/home', '/start'],
+        alias: ['/home', '/start']
       })
       remove()
       expect(matcher.resolve({ path: '/' }, currentLocation)).toMatchObject({
         path: '/',
         name: undefined,
-        matched: [],
+        matched: []
       })
       expect(matcher.resolve({ path: '/home' }, currentLocation)).toMatchObject(
         {
           path: '/home',
           name: undefined,
-          matched: [],
+          matched: []
         }
       )
       expect(
@@ -121,7 +121,7 @@ describe('Matcher: adding and removing records', () => {
       ).toMatchObject({
         path: '/start',
         name: undefined,
-        matched: [],
+        matched: []
       })
     })
 
@@ -137,9 +137,9 @@ describe('Matcher: adding and removing records', () => {
             path: 'one',
             alias: ['o, o2'],
             component,
-            children: [{ path: 'two', alias: ['t', 't2'], component }],
-          },
-        ],
+            children: [{ path: 'two', alias: ['t', 't2'], component }]
+          }
+        ]
       })
       remove()
       ;[
@@ -150,12 +150,12 @@ describe('Matcher: adding and removing records', () => {
         '/start/one/two',
         '/home/o/two',
         '/home/one/t2',
-        '/o2/t',
-      ].forEach(path => {
+        '/o2/t'
+      ].forEach((path) => {
         expect(matcher.resolve({ path }, currentLocation)).toMatchObject({
           path,
           name: undefined,
-          matched: [],
+          matched: []
         })
       })
     })
@@ -168,8 +168,8 @@ describe('Matcher: adding and removing records', () => {
         name: 'home',
         children: [
           // absolute path so it can work out
-          { path: '/about', name: 'child', component },
-        ],
+          { path: '/about', name: 'child', component }
+        ]
       })
 
       remove()
@@ -178,7 +178,7 @@ describe('Matcher: adding and removing records', () => {
         matcher.resolve({ path: '/about' }, currentLocation)
       ).toMatchObject({
         name: undefined,
-        matched: [],
+        matched: []
       })
 
       expect(matcher.getRecordMatcher('child')).toBe(undefined)
@@ -195,7 +195,7 @@ describe('Matcher: adding and removing records', () => {
     expect(matcher.getRoutes()).toHaveLength(0)
     expect(matcher.resolve({ path: '/' }, currentLocation)).toMatchObject({
       name: undefined,
-      matched: [],
+      matched: []
     })
   })
 
@@ -207,14 +207,14 @@ describe('Matcher: adding and removing records', () => {
       name: 'home',
       children: [
         // absolute path so it can work out
-        { path: '/about', name: 'child', component },
-      ],
+        { path: '/about', name: 'child', component }
+      ]
     })
 
     matcher.removeRoute('home')
     expect(matcher.resolve({ path: '/about' }, currentLocation)).toMatchObject({
       name: undefined,
-      matched: [],
+      matched: []
     })
 
     expect(matcher.getRecordMatcher('child')).toBe(undefined)
@@ -231,8 +231,8 @@ describe('Matcher: adding and removing records', () => {
       name: 'home',
       children: [
         // absolute path so it can work out
-        { path: '/about', name: 'child', component },
-      ],
+        { path: '/about', name: 'child', component }
+      ]
     })
 
     expect(matcher.getRoutes()).toHaveLength(2)
@@ -241,7 +241,7 @@ describe('Matcher: adding and removing records', () => {
 
     expect(matcher.resolve({ path: '/about' }, currentLocation)).toMatchObject({
       name: undefined,
-      matched: [],
+      matched: []
     })
 
     expect(matcher.getRecordMatcher('child')).toBe(undefined)
@@ -250,7 +250,7 @@ describe('Matcher: adding and removing records', () => {
     }).toThrow()
 
     expect(matcher.resolve({ path: '/' }, currentLocation)).toMatchObject({
-      name: 'home',
+      name: 'home'
     })
   })
 
@@ -262,8 +262,8 @@ describe('Matcher: adding and removing records', () => {
       name: 'home',
       children: [
         // absolute path so it can work out
-        { path: '/about', name: 'child', component },
-      ],
+        { path: '/about', name: 'child', component }
+      ]
     })
 
     matcher.removeRoute('home')
@@ -271,7 +271,7 @@ describe('Matcher: adding and removing records', () => {
 
     expect(matcher.resolve({ path: '/about' }, currentLocation)).toMatchObject({
       name: undefined,
-      matched: [],
+      matched: []
     })
 
     expect(matcher.getRecordMatcher('child')).toBe(undefined)
@@ -283,7 +283,7 @@ describe('Matcher: adding and removing records', () => {
       path: '/',
       alias: '/start',
       component,
-      name: 'home',
+      name: 'home'
     })
 
     matcher.removeRoute('home')
@@ -291,7 +291,7 @@ describe('Matcher: adding and removing records', () => {
 
     expect(matcher.resolve({ path: '/start' }, currentLocation)).toMatchObject({
       name: undefined,
-      matched: [],
+      matched: []
     })
   })
 
@@ -307,7 +307,7 @@ describe('Matcher: adding and removing records', () => {
           path: 'one',
           alias: ['o', 'o2'],
           component,
-          children: [{ path: 'two', alias: ['t', 't2'], component }],
+          children: [{ path: 'two', alias: ['t', 't2'], component }]
         },
         {
           path: 'xxx',
@@ -315,10 +315,10 @@ describe('Matcher: adding and removing records', () => {
           component,
           children: [
             { path: 'yyy', alias: ['y', 'y2'], component },
-            { path: 'zzz', alias: ['z', 'z2'], component },
-          ],
-        },
-      ],
+            { path: 'zzz', alias: ['z', 'z2'], component }
+          ]
+        }
+      ]
     })
 
     matcher.removeRoute('home')
@@ -343,12 +343,12 @@ describe('Matcher: adding and removing records', () => {
       '/start/xxx/yyy',
       '/home/xxx/yyy',
       '/home/xxx/z2',
-      '/home/x2/z2',
-    ].forEach(path => {
+      '/home/x2/z2'
+    ].forEach((path) => {
       expect(matcher.resolve({ path }, currentLocation)).toMatchObject({
         path,
         name: undefined,
-        matched: [],
+        matched: []
       })
     })
   })
@@ -360,7 +360,7 @@ describe('Matcher: adding and removing records', () => {
       alias: '/start',
       component,
       name: 'home',
-      children: [{ path: 'about', alias: 'two', name: 'child', component }],
+      children: [{ path: 'about', alias: 'two', name: 'child', component }]
     })
 
     matcher.removeRoute('child')
@@ -369,26 +369,26 @@ describe('Matcher: adding and removing records', () => {
 
     expect(matcher.resolve({ path: '/about' }, currentLocation)).toMatchObject({
       name: undefined,
-      matched: [],
+      matched: []
     })
 
     expect(matcher.resolve({ path: '/two' }, currentLocation)).toMatchObject({
       name: undefined,
-      matched: [],
+      matched: []
     })
 
     expect(
       matcher.resolve({ path: '/start/about' }, currentLocation)
     ).toMatchObject({
       name: undefined,
-      matched: [],
+      matched: []
     })
 
     expect(
       matcher.resolve({ path: '/start/two' }, currentLocation)
     ).toMatchObject({
       name: undefined,
-      matched: [],
+      matched: []
     })
 
     expect(matcher.getRecordMatcher('child')).toBe(undefined)
@@ -400,7 +400,7 @@ describe('Matcher: adding and removing records', () => {
     matcher.addRoute({ path: '/home', component, name: 'home' })
     expect(matcher.getRoutes()).toHaveLength(1)
     expect(matcher.resolve({ path: '/home' }, currentLocation)).toMatchObject({
-      name: 'home',
+      name: 'home'
     })
   })
 
@@ -412,8 +412,8 @@ describe('Matcher: adding and removing records', () => {
             path: '/',
             component,
             name: 'home',
-            children: [{ path: '/home', component, name: 'home' }],
-          },
+            children: [{ path: '/home', component, name: 'home' }]
+          }
         ],
         {}
       )
@@ -433,10 +433,10 @@ describe('Matcher: adding and removing records', () => {
             {
               path: 'home',
               name: 'other',
-              component,
-            },
-          ],
-        },
+              component
+            }
+          ]
+        }
       ],
       {}
     )
@@ -455,11 +455,11 @@ describe('Matcher: adding and removing records', () => {
     matcher.addRoute({ path: '/', component, name: 'parent' })
     const parent = matcher.getRecordMatcher('parent')
     expect(matcher.resolve({ path: '/' }, currentLocation)).toMatchObject({
-      name: 'parent',
+      name: 'parent'
     })
     matcher.addRoute({ path: '', component, name: 'child' }, parent)
     expect(matcher.resolve({ path: '/' }, currentLocation)).toMatchObject({
-      name: 'child',
+      name: 'child'
     })
   })
 
@@ -469,13 +469,13 @@ describe('Matcher: adding and removing records', () => {
     const parent = matcher.getRecordMatcher('parent')
     expect(matcher.resolve({ path: '/parent' }, currentLocation)).toMatchObject(
       {
-        name: 'parent',
+        name: 'parent'
       }
     )
     matcher.addRoute({ path: '/:id', component, name: 'child' }, parent)
     expect(matcher.resolve({ path: '/parent' }, currentLocation)).toMatchObject(
       {
-        name: 'parent',
+        name: 'parent'
       }
     )
   })
@@ -511,8 +511,8 @@ describe('Matcher: adding and removing records', () => {
             name: 'UserRoute',
             path: '/user/:id',
             component,
-            children: [{ path: '', component }],
-          },
+            children: [{ path: '', component }]
+          }
         ],
         {}
       )
@@ -526,13 +526,13 @@ describe('Matcher: adding and removing records', () => {
             name: 'UserRoute',
             path: '/user/:id',
             component,
-            children: [{ path: '', name: 'UserHome', component }],
+            children: [{ path: '', name: 'UserHome', component }]
           },
           {
             path: '/',
             component,
-            children: [{ path: '', name: 'child', component }],
-          },
+            children: [{ path: '', name: 'child', component }]
+          }
         ],
         {}
       )
@@ -551,10 +551,10 @@ describe('Matcher: adding and removing records', () => {
                 path: 'b',
                 name: 'b',
                 component,
-                children: [{ path: '', component }],
-              },
-            ],
-          },
+                children: [{ path: '', component }]
+              }
+            ]
+          }
         ],
         {}
       )
@@ -572,10 +572,10 @@ describe('Matcher: adding and removing records', () => {
                 path: '',
                 name: 'parent',
                 component,
-                children: [{ path: '', component }],
-              },
-            ],
-          },
+                children: [{ path: '', component }]
+              }
+            ]
+          }
         ],
         {}
       )
@@ -594,10 +594,10 @@ describe('Matcher: adding and removing records', () => {
                 path: 'b',
                 name: 'b',
                 component,
-                children: [{ path: '', name: 'child', component }],
-              },
-            ],
-          },
+                children: [{ path: '', name: 'child', component }]
+              }
+            ]
+          }
         ],
         {}
       )

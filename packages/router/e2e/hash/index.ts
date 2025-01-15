@@ -3,12 +3,12 @@ import {
   createRouter,
   useRoute,
   createWebHashHistory,
-  RouteComponent,
+  RouteComponent
 } from 'vue-router'
 import { createApp } from 'vue'
 
 const Home: RouteComponent = {
-  template: `<div>home</div>`,
+  template: `<div>home</div>`
 }
 
 const Foo: RouteComponent = { template: '<div>Foo</div>' }
@@ -19,7 +19,7 @@ const Unicode: RouteComponent = {
     const route = useRoute()
     return { route }
   },
-  template: `<div>param: <span id="param">{{ route.params.id }}</span></div>`,
+  template: `<div>param: <span id="param">{{ route.params.id }}</span></div>`
 }
 
 const router = createRouter({
@@ -32,8 +32,8 @@ const router = createRouter({
     { path: '/foo', component: Foo },
     { path: '/bar', component: Bar },
     { path: '/unicode/:id', name: 'unicode', component: Unicode },
-    { path: encodeURI('/n/é'), name: 'encoded', component: Foo },
-  ],
+    { path: encodeURI('/n/é'), name: 'encoded', component: Foo }
+  ]
 })
 
 const app = createApp({
@@ -82,7 +82,7 @@ const app = createApp({
     </p>
 
     <router-view class="view"></router-view>
-  `,
+  `
 })
 app.use(router)
 

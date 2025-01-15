@@ -10,7 +10,7 @@ import {
   beforeEach,
   afterAll,
   beforeAll,
-  MockInstance,
+  MockInstance
 } from 'vitest'
 
 describe('scrollBehavior', () => {
@@ -84,7 +84,7 @@ describe('scrollBehavior', () => {
       expect(scrollTo).toHaveBeenCalledWith({
         left: 10,
         top: 100,
-        behavior: undefined,
+        behavior: undefined
       })
     })
 
@@ -94,7 +94,7 @@ describe('scrollBehavior', () => {
       expect(querySelector).not.toHaveBeenCalled()
       expect(scrollTo).toHaveBeenCalledWith({
         top: 10,
-        behavior: undefined,
+        behavior: undefined
       })
     })
 
@@ -104,7 +104,7 @@ describe('scrollBehavior', () => {
       expect(querySelector).not.toHaveBeenCalled()
       expect(scrollTo).toHaveBeenCalledWith({
         left: 10,
-        behavior: undefined,
+        behavior: undefined
       })
     })
   })
@@ -117,7 +117,7 @@ describe('scrollBehavior', () => {
       expect(scrollTo).toHaveBeenCalledWith({
         left: 0,
         top: 0,
-        behavior: undefined,
+        behavior: undefined
       })
     })
 
@@ -128,7 +128,7 @@ describe('scrollBehavior', () => {
       expect(scrollTo).toHaveBeenCalledWith({
         left: 0,
         top: 0,
-        behavior: undefined,
+        behavior: undefined
       })
     })
 
@@ -139,7 +139,7 @@ describe('scrollBehavior', () => {
       expect(scrollTo).toHaveBeenCalledWith({
         left: 0,
         top: 0,
-        behavior: undefined,
+        behavior: undefined
       })
     })
 
@@ -150,7 +150,7 @@ describe('scrollBehavior', () => {
       expect(scrollTo).toHaveBeenCalledWith({
         left: 0,
         top: 0,
-        behavior: undefined,
+        behavior: undefined
       })
     })
 
@@ -161,7 +161,7 @@ describe('scrollBehavior', () => {
       expect(scrollTo).toHaveBeenCalledWith({
         left: 0,
         top: 0,
-        behavior: undefined,
+        behavior: undefined
       })
     })
 

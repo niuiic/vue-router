@@ -43,33 +43,33 @@ module.exports = {
       screenshots: {
         enabled: false,
         path: 'screens',
-        on_failure: true,
+        on_failure: true
       },
 
       desiredCapabilities: {
         browserName: 'chrome',
         'goog:chromeOptions': {
-          w3c: true,
-        },
+          w3c: true
+        }
       },
 
       webdriver: {
         start_process: true,
-        server_path: '',
-      },
+        server_path: ''
+      }
     },
 
     safari: {
       desiredCapabilities: {
         browserName: 'safari',
         alwaysMatch: {
-          acceptInsecureCerts: false,
-        },
+          acceptInsecureCerts: false
+        }
       },
       webdriver: {
         start_process: true,
-        server_path: '',
-      },
+        server_path: ''
+      }
     },
 
     firefox: {
@@ -81,9 +81,9 @@ module.exports = {
             args: [
               // '-headless',
               // '-verbose'
-            ],
-          },
-        },
+            ]
+          }
+        }
       },
       webdriver: {
         start_process: true,
@@ -91,8 +91,8 @@ module.exports = {
         cli_args: [
           // very verbose geckodriver logs
           // '-vv'
-        ],
-      },
+        ]
+      }
     },
 
     chrome: {
@@ -108,16 +108,16 @@ module.exports = {
             '--no-sandbox',
             `--disable-setuid-sandbox`,
             //'--ignore-certificate-errors',
-            '--allow-insecure-localhost',
+            '--allow-insecure-localhost'
             //'--headless'
-          ],
-        },
+          ]
+        }
       },
 
       webdriver: {
         start_process: true,
-        server_path: '',
-      },
+        server_path: ''
+      }
     },
 
     'chrome-headless': {
@@ -126,9 +126,9 @@ module.exports = {
         browserName: 'chrome',
         'goog:chromeOptions': {
           w3c: true,
-          args: ['window-size=1280,800', 'headless'],
-        },
-      },
+          args: ['window-size=1280,800', 'headless']
+        }
+      }
     },
 
     edge: {
@@ -139,8 +139,8 @@ module.exports = {
           // More info on EdgeDriver: https://docs.microsoft.com/en-us/microsoft-edge/webdriver-chromium/capabilities-edge-options
           args: [
             //'--headless'
-          ],
-        },
+          ]
+        }
       },
 
       webdriver: {
@@ -150,8 +150,8 @@ module.exports = {
         server_path: '',
         cli_args: [
           // --verbose
-        ],
-      },
+        ]
+      }
     },
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -165,48 +165,48 @@ module.exports = {
     browserstack: {
       selenium: {
         host: 'hub.browserstack.com',
-        port: 443,
+        port: 443
       },
       // More info on configuring capabilities can be found on:
       // https://www.browserstack.com/automate/capabilities?tag=selenium-4
       desiredCapabilities: {
         'bstack:options': {
           userName: '${BROWSERSTACK_USERNAME}',
-          accessKey: '${BROWSERSTACK_ACCESS_KEY}',
-        },
+          accessKey: '${BROWSERSTACK_ACCESS_KEY}'
+        }
       },
 
       disable_error_log: true,
       webdriver: {
         timeout_options: {
           timeout: 15000,
-          retry_attempts: 3,
+          retry_attempts: 3
         },
         keep_alive: true,
-        start_process: false,
-      },
+        start_process: false
+      }
     },
 
     'browserstack.local': {
       extends: 'browserstack',
       desiredCapabilities: {
-        'browserstack.local': true,
-      },
+        'browserstack.local': true
+      }
     },
 
     'browserstack.local_chrome': {
       extends: 'browserstack.local',
       desiredCapabilities: {
-        browserName: 'chrome',
-      },
+        browserName: 'chrome'
+      }
     },
 
     'browserstack.local_firefox': {
       extends: 'browserstack.local',
       desiredCapabilities: {
         browserName: 'firefox',
-        browserVersion: '58.0',
-      },
+        browserVersion: '58.0'
+      }
     },
 
     // Use https://www.browserstack.com/automate/capabilities?tag=selenium-4 to generate configs
@@ -215,8 +215,8 @@ module.exports = {
       extends: 'browserstack.local',
       desiredCapabilities: {
         browserName: 'Edge',
-        browserVersion: '18.0',
-      },
+        browserVersion: '18.0'
+      }
     },
 
     android5: {
@@ -224,8 +224,8 @@ module.exports = {
       desiredCapabilities: {
         deviceName: 'Samsung Galaxy S6',
         realMobile: 'true',
-        osVersion: '5.0',
-      },
+        osVersion: '5.0'
+      }
     },
 
     ios10: {
@@ -233,8 +233,8 @@ module.exports = {
       desiredCapabilities: {
         deviceName: 'iPhone 7',
         realMobile: 'true',
-        osVersion: '10',
-      },
-    },
-  },
+        osVersion: '10'
+      }
+    }
+  }
 }

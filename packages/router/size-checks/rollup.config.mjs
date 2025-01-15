@@ -12,7 +12,7 @@ const config = defineConfig({
   external: ['vue'],
   output: {
     file: path.resolve(__dirname, './dist/webRouter.js'),
-    format: 'es',
+    format: 'es'
   },
   input: path.resolve(__dirname, './webRouter.js'),
   plugins: [
@@ -30,8 +30,8 @@ const config = defineConfig({
         // is targeting Node (SSR)?
         __NODE_JS__: 'false',
         __VUE_PROD_DEVTOOLS__: 'false',
-        'process.env.NODE_ENV': JSON.stringify('production'),
-      },
+        'process.env.NODE_ENV': JSON.stringify('production')
+      }
     }),
     ts({
       check: false,
@@ -41,24 +41,24 @@ const config = defineConfig({
         compilerOptions: {
           sourceMap: false,
           declaration: false,
-          declarationMap: false,
+          declarationMap: false
         },
-        exclude: ['__tests__', 'test-dts'],
-      },
+        exclude: ['__tests__', 'test-dts']
+      }
     }),
     resolve(),
     commonjs(),
     terser({
       format: {
-        comments: false,
+        comments: false
       },
       module: true,
       compress: {
         ecma: 2015,
-        pure_getters: true,
-      },
-    }),
-  ],
+        pure_getters: true
+      }
+    })
+  ]
 })
 
 export default config

@@ -15,7 +15,7 @@ export const enum ErrorTypes {
   NAVIGATION_GUARD_REDIRECT = 2,
   NAVIGATION_ABORTED = 4,
   NAVIGATION_CANCELLED = 8,
-  NAVIGATION_DUPLICATED = 16,
+  NAVIGATION_DUPLICATED = 16
 }
 
 const NavigationFailureSymbol = Symbol(__DEV__ ? 'navigation failure' : '')
@@ -45,7 +45,7 @@ export enum NavigationFailureType {
    * A duplicated navigation is a navigation that failed because it was
    * initiated while already being at the exact same location.
    */
-  duplicated = ErrorTypes.NAVIGATION_DUPLICATED,
+  duplicated = ErrorTypes.NAVIGATION_DUPLICATED
 }
 
 /**
@@ -91,7 +91,7 @@ const ErrorTypeMessages = {
   },
   [ErrorTypes.NAVIGATION_GUARD_REDIRECT]({
     from,
-    to,
+    to
   }: NavigationRedirectError) {
     return `Redirected from "${from.fullPath}" to "${stringifyRoute(
       to
@@ -105,7 +105,7 @@ const ErrorTypeMessages = {
   },
   [ErrorTypes.NAVIGATION_DUPLICATED]({ from, to }: NavigationFailure) {
     return `Avoided redundant navigation to current location: "${from.fullPath}".`
-  },
+  }
 }
 
 // Possible internal errors
@@ -127,7 +127,7 @@ export function createRouterError<E extends RouterError>(
       new Error(ErrorTypeMessages[type](params as any)),
       {
         type,
-        [NavigationFailureSymbol]: true,
+        [NavigationFailureSymbol]: true
       } as { type: typeof type },
       params
     ) as E
@@ -136,7 +136,7 @@ export function createRouterError<E extends RouterError>(
       new Error(),
       {
         type,
-        [NavigationFailureSymbol]: true,
+        [NavigationFailureSymbol]: true
       } as { type: typeof type },
       params
     ) as E

@@ -10,5 +10,5 @@ createTypeDocApp({
   githubPages: false,
   disableSources: true, // some links are in node_modules and it's ugly
   plugin: ['typedoc-plugin-markdown'],
-  entryPoints: [path.resolve(__dirname, '../router/src/index.ts')],
-}).then(app => app.build())
+  entryPoints: [path.resolve(__dirname, '../router/src/index.ts')]
+}).then((app) => app.build())

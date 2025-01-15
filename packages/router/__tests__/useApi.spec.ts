@@ -13,9 +13,9 @@ describe('use apis', () => {
       routes: [
         {
           path: '/:any(.*)',
-          component: {} as any,
-        },
-      ],
+          component: {} as any
+        }
+      ]
     })
 
     const wrapper = mount(
@@ -26,12 +26,12 @@ describe('use apis', () => {
           const q = computed(() => route.query.q)
 
           return { q }
-        },
+        }
       },
       {
         global: {
-          plugins: [router],
-        },
+          plugins: [router]
+        }
       }
     )
 

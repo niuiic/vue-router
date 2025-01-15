@@ -1,7 +1,7 @@
 import type {
   RouteLocation,
   RouteLocationNormalized,
-  RouteLocationRaw,
+  RouteLocationRaw
 } from './route-location'
 import type { RouteMap, RouteMapGeneric } from './route-map'
 

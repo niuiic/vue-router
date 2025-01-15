@@ -3,7 +3,7 @@ import {
   RouteComponent,
   RouteParamsRawGeneric,
   RouteParamValueRaw,
-  RawRouteComponent,
+  RawRouteComponent
 } from '../types'
 
 export * from './env'

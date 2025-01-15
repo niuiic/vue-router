@@ -26,10 +26,10 @@ module.exports = {
           `FooAsync: setup:update /foo-async - /foo-async?n=1`,
           `FooAsync: setup:leave /foo-async?n=1 - /foo`,
           `Foo: setup:update /foo - /foo?n=1`,
-          `Foo: setup:leave /foo?n=1 - /`,
+          `Foo: setup:leave /foo?n=1 - /`
         ].join('\n')
       )
 
     browser.end()
-  },
+  }
 }

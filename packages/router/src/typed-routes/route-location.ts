@@ -4,7 +4,7 @@ import type {
   _RouteLocationBase,
   RouteParamsGeneric,
   RouteLocationMatched,
-  RouteParamsRawGeneric,
+  RouteParamsRawGeneric
 } from '../types'
 import type { _LiteralUnion } from '../types/utils'
 // inlining the type as it avoids code splitting issues

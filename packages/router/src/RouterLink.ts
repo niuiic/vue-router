@@ -25,7 +25,7 @@ import {
   RendererNode,
   // @ts-ignore
   ComponentOptionsMixin,
-  MaybeRef,
+  MaybeRef
 } from 'vue'
 import { isSameRouteLocationParams, isSameRouteRecord } from './location'
 import { routerKey, routeLocationKey } from './injectionSymbols'
@@ -41,7 +41,7 @@ import {
   RouteLocationAsString,
   RouteLocationRaw,
   RouteLocationResolved,
-  RouteMap,
+  RouteMap
 } from './typed-routes'
 
 export interface RouterLinkOptions {
@@ -249,7 +249,7 @@ export function useLink<Name extends keyof RouteMap = keyof RouteMap>(
         route: route.value,
         isActive: isActive.value,
         isExactActive: isExactActive.value,
-        error: null,
+        error: null
       }
 
       // @ts-expect-error: this is internal
@@ -278,7 +278,7 @@ export function useLink<Name extends keyof RouteMap = keyof RouteMap>(
     href: computed(() => route.value.href),
     isActive,
     isExactActive,
-    navigate,
+    navigate
   }
 }
 
@@ -292,7 +292,7 @@ export const RouterLinkImpl = /*#__PURE__*/ defineComponent({
   props: {
     to: {
       type: [String, Object] as PropType<RouteLocationRaw>,
-      required: true,
+      required: true
     },
     replace: Boolean,
     activeClass: String,
@@ -301,8 +301,8 @@ export const RouterLinkImpl = /*#__PURE__*/ defineComponent({
     custom: Boolean,
     ariaCurrentValue: {
       type: String as PropType<RouterLinkProps['ariaCurrentValue']>,
-      default: 'page',
-    },
+      default: 'page'
+    }
   },
 
   useLink,
@@ -326,7 +326,7 @@ export const RouterLinkImpl = /*#__PURE__*/ defineComponent({
         props.exactActiveClass,
         options.linkExactActiveClass,
         'router-link-exact-active'
-      )]: link.isExactActive,
+      )]: link.isExactActive
     }))
 
     return () => {
@@ -343,12 +343,12 @@ export const RouterLinkImpl = /*#__PURE__*/ defineComponent({
               // this would override user added attrs but Vue will still add
               // the listener, so we end up triggering both
               onClick: link.navigate,
-              class: elClass.value,
+              class: elClass.value
             },
             children
           )
     }
-  },
+  }
 })
 
 // export the public type for h/tsx inference
@@ -377,7 +377,7 @@ export interface _RouterLinkI {
         href,
         isActive,
         isExactActive,
-        navigate,
+        navigate
       }: // TODO: How do we add the name generic
       UnwrapRef<UseLinkReturn>) => VNode[]
     }
@@ -455,5 +455,5 @@ const getLinkClass = (
   propClass != null
     ? propClass
     : globalClass != null
-    ? globalClass
-    : defaultClass
+      ? globalClass
+      : defaultClass

@@ -33,5 +33,5 @@ module.exports = {
       .assert.textContains('#leave-count', '1')
 
       .end()
-  },
+  }
 }

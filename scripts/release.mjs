@@ -21,7 +21,7 @@ let {
   dry: isDryRun,
   skipCleanCheck: skipCleanGitCheck,
   noDepsUpdate,
-  noPublish,
+  noPublish
 } = args
 
 if (args.h || args.help) {
@@ -47,7 +47,7 @@ Flags:
 //   (semver.prerelease(currentVersion) && semver.prerelease(currentVersion)[0])
 const EXPECTED_BRANCH = 'main'
 
-const bin = name => resolve(__dirname, '../node_modules/.bin/' + name)
+const bin = (name) => resolve(__dirname, '../node_modules/.bin/' + name)
 /**
  * @param bin {string}
  * @param args {string}
@@ -59,8 +59,8 @@ const run = (bin, args, opts = {}) =>
 const dryRun = (bin, args, opts = {}) =>
   console.log(chalk.blue(`[dryrun] ${bin} ${args.join(' ')}`), opts)
 const runIfNotDry = isDryRun ? dryRun : run
-const getPkgRoot = pkg => resolve(__dirname, '../packages/' + pkg)
-const step = msg => console.log(chalk.cyan(msg))
+const getPkgRoot = (pkg) => resolve(__dirname, '../packages/' + pkg)
+const step = (msg) => console.log(chalk.cyan(msg))
 
 async function main() {
   if (!skipCleanGitCheck) {
@@ -145,7 +145,7 @@ async function main() {
         'patch',
         'minor',
         'major',
-        ...(preId ? ['prepatch', 'preminor', 'premajor', 'prerelease'] : []),
+        ...(preId ? ['prepatch', 'preminor', 'premajor', 'prerelease'] : [])
       ]
 
       const { release } = await prompt({
@@ -153,7 +153,7 @@ async function main() {
         name: 'release',
         message: `Select release type for ${chalk.bold.white(name)}`,
         choices: versionIncrements
-          .map(i => `${i}: ${name} (${semver.inc(version, i, preId)})`)
+          .map((i) => `${i}: ${name} (${semver.inc(version, i, preId)})`)
           .concat(
             optionTag === 'edge'
               ? [
@@ -161,11 +161,11 @@ async function main() {
                     version,
                     'prerelease',
                     'alpha'
-                  )})`,
+                  )})`
                 ]
               : []
           )
-          .concat(['custom']),
+          .concat(['custom'])
       })
 
       if (release === 'custom') {
@@ -174,7 +174,7 @@ async function main() {
             type: 'input',
             name: 'version',
             message: `Input custom version (${chalk.bold.white(name)})`,
-            initial: version,
+            initial: version
           })
         ).version
       } else {
@@ -197,7 +197,7 @@ async function main() {
         ({ name, version }) =>
           `  · ${chalk.white(name)}: ${chalk.yellow.bold('v' + version)}`
       )
-      .join('\n')}\nConfirm?`,
+      .join('\n')}\nConfirm?`
   })
 
   if (!isReleaseConfirmed) {
@@ -215,7 +215,7 @@ async function main() {
     step(` -> ${pkg.name} (${pkg.path})`)
     await runIfNotDry(`pnpm`, ['run', 'changelog'], { cwd: pkg.path })
     await runIfNotDry(`pnpm`, ['exec', 'prettier', '--write', 'CHANGELOG.md'], {
-      cwd: pkg.path,
+      cwd: pkg.path
     })
     await fs.copyFile(
       resolve(__dirname, '../LICENSE'),
@@ -226,7 +226,7 @@ async function main() {
   const { yes: isChangelogCorrect } = await prompt({
     type: 'confirm',
     name: 'yes',
-    message: 'Are the changelogs correct?',
+    message: 'Are the changelogs correct?'
   })
 
   if (!isChangelogCorrect) {
@@ -248,14 +248,14 @@ async function main() {
       'add',
       'packages/*/CHANGELOG.md',
       'packages/*/package.json',
-      'pnpm-lock.yaml',
+      'pnpm-lock.yaml'
     ])
     await runIfNotDry('git', [
       'commit',
       '-m',
       `release: ${pkgWithVersions
         .map(({ name, version }) => `${name}@${version}`)
-        .join(' ')}`,
+        .join(' ')}`
     ])
   } else {
     console.log('No changes to commit.')
@@ -303,7 +303,7 @@ async function updateVersions(packageList) {
         ? dryRun('write', [name], {
             version: pkg.version,
             dependencies: pkg.dependencies,
-            peerDependencies: pkg.peerDependencies,
+            peerDependencies: pkg.peerDependencies
           })
         : fs.writeFile(join(path, 'package.json'), content)
     })
@@ -314,8 +314,8 @@ function updateDeps(pkg, depType, updatedPackages) {
   const deps = pkg[depType]
   if (!deps) return
   step(`Updating ${chalk.bold(depType)} for ${chalk.bold.white(pkg.name)}...`)
-  Object.keys(deps).forEach(dep => {
-    const updatedDep = updatedPackages.find(pkg => pkg.name === dep)
+  Object.keys(deps).forEach((dep) => {
+    const updatedDep = updatedPackages.find((pkg) => pkg.name === dep)
     // avoid updated peer deps that are external like @vue/devtools-api
     if (dep && updatedDep) {
       console.log(
@@ -341,11 +341,11 @@ async function publishPackage(pkg) {
         '--access',
         'public',
         '--publish-branch',
-        EXPECTED_BRANCH,
+        EXPECTED_BRANCH
       ],
       {
         cwd: pkg.path,
-        stdio: 'pipe',
+        stdio: 'pipe'
       }
     )
     console.log(
@@ -370,7 +370,7 @@ async function getChangedPackages() {
 
   try {
     const { stdout } = await run('git', ['describe', '--tags', '--abbrev=0'], {
-      stdio: 'pipe',
+      stdio: 'pipe'
     })
     lastTag = stdout
   } catch (error) {
@@ -387,12 +387,12 @@ async function getChangedPackages() {
   const folders = await globby(
     join(__dirname, '../packages/*').replace(/\\/g, '/'),
     {
-      onlyFiles: false,
+      onlyFiles: false
     }
   )
 
   const pkgs = await Promise.all(
-    folders.map(async folder => {
+    folders.map(async (folder) => {
       if (!(await fs.lstat(folder)).isDirectory()) return null
 
       const pkg = JSON.parse(await fs.readFile(join(folder, 'package.json')))
@@ -405,7 +405,7 @@ async function getChangedPackages() {
             '--',
             // apparently {src,package.json} doesn't work
             join(folder, 'src'),
-            join(folder, 'package.json'),
+            join(folder, 'package.json')
           ],
           { stdio: 'pipe' }
         )
@@ -415,7 +415,7 @@ async function getChangedPackages() {
             path: folder,
             name: pkg.name,
             version: pkg.version,
-            pkg,
+            pkg
           }
         } else {
           return null
@@ -424,10 +424,10 @@ async function getChangedPackages() {
     })
   )
 
-  return pkgs.filter(p => p)
+  return pkgs.filter((p) => p)
 }
 
-main().catch(error => {
+main().catch((error) => {
   console.error(error)
   process.exit(1)
 })

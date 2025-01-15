@@ -9,23 +9,23 @@ describe('createRouter', () => {
     props: {
       id: {
         type: String,
-        required: true,
-      },
-    },
+        required: true
+      }
+    }
   })
 
   const Foo = defineComponent({
     props: {
-      test: String,
+      test: String
     },
     setup() {
       return {
-        title: 'homepage',
+        title: 'homepage'
       }
     },
     render() {
       return h('div', `${this.title}: ${this.test}`)
-    },
+    }
   })
 
   it('works', () => {
@@ -34,14 +34,14 @@ describe('createRouter', () => {
       routes: [
         { path: '/', component },
         { path: '/foo', component: Foo },
-        { path: '/', component: WithProps },
+        { path: '/', component: WithProps }
       ],
-      parseQuery: search => ({}),
-      stringifyQuery: query => '',
+      parseQuery: (search) => ({}),
+      stringifyQuery: (query) => '',
       strict: true,
       end: true,
       sensitive: true,
-      scrollBehavior(to, from, savedPosition) {},
+      scrollBehavior(to, from, savedPosition) {}
     })
   })
 })

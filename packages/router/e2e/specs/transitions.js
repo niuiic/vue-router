@@ -59,5 +59,5 @@ module.exports = {
       .assert.textContains('.nested-view', 'foo')
 
       .end()
-  },
+  }
 }

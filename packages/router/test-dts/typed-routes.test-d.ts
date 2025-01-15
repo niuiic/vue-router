@@ -5,7 +5,7 @@ import {
   type ParamValueOneOrMore,
   type RouteLocationTyped,
   createRouter,
-  createWebHistory,
+  createWebHistory
 } from './index'
 
 // type is needed instead of an interface
@@ -41,7 +41,7 @@ declare module './index' {
 describe('RouterTyped', () => {
   const router = createRouter({
     history: createWebHistory(),
-    routes: [],
+    routes: []
   })
 
   it('resolve', () => {

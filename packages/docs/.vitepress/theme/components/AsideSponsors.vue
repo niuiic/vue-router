@@ -15,17 +15,19 @@ const asideSponsors = computed(() => {
   return [
     {
       size: 'mini',
-      items: sponsors.platinum.length ? sponsors.platinum.map((sponsor: Sponsor) => ({
-        name: sponsor.alt,
-        url: sponsor.href,
-        img: sponsor.imgSrcLight,
-      })) : [
-        {
-          name: 'Become a sponsor',
-          url: 'https://github.com/sponsors/posva',
-          img: '/your-logo-here.svg'
-        }
-      ],
+      items: sponsors.platinum.length
+        ? sponsors.platinum.map((sponsor: Sponsor) => ({
+            name: sponsor.alt,
+            url: sponsor.href,
+            img: sponsor.imgSrcLight
+          }))
+        : [
+            {
+              name: 'Become a sponsor',
+              url: 'https://github.com/sponsors/posva',
+              img: '/your-logo-here.svg'
+            }
+          ]
     },
     {
       size: 'xmini',
@@ -33,9 +35,9 @@ const asideSponsors = computed(() => {
       items: sponsors.silver.map((sponsor: Sponsor) => ({
         name: sponsor.alt,
         url: sponsor.href,
-        img: sponsor.imgSrcLight,
-      })),
-    },
+        img: sponsor.imgSrcLight
+      }))
+    }
   ]
 })
 </script>

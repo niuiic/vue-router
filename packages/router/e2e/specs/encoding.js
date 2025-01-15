@@ -60,5 +60,5 @@ module.exports = {
       // .assert.textContains('#params', JSON.stringify({ id: '€uro' }, null, 2))
 
       .end()
-  },
+  }
 }

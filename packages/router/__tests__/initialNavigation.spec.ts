@@ -7,7 +7,7 @@ import { describe, expect, it, beforeAll, vi, afterAll } from 'vitest'
 // override the value of isBrowser because the variable is created before JSDOM
 // is created
 vi.mock('../src/utils/env', () => ({
-  isBrowser: true,
+  isBrowser: true
 }))
 
 // generic component because we are not displaying anything so it doesn't matter
@@ -21,11 +21,11 @@ const routes: RouteRecordRaw[] = [
     component,
     beforeEnter: (to, from, next) => {
       next('/')
-    },
+    }
   },
   { path: '/bar', component },
   { path: '/foo', component, name: 'Foo' },
-  { path: '/to-foo', redirect: '/foo' },
+  { path: '/to-foo', redirect: '/foo' }
 ]
 
 describe('Initial Navigation', () => {

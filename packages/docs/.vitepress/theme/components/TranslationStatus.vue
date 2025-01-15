@@ -4,7 +4,7 @@ const i18nLabels: {
   [lang: string]: string
 } = {
   en: 'The translation is synced to the docs on ${date} of which the commit hash is <code>${hash}</code>.',
-  zh: '该翻译已同步到了 ${date} 的版本，其对应的 commit hash 是 <code>${hash}</code>。',
+  zh: '该翻译已同步到了 ${date} 的版本，其对应的 commit hash 是 <code>${hash}</code>。'
 }
 </script>
 

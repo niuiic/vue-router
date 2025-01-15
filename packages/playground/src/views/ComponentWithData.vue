@@ -23,16 +23,16 @@ export default defineComponent({
     data.fromApi = await getData()
 
     return {
-      ...toRefs(data),
+      ...toRefs(data)
     }
   },
   async beforeRouteEnter(to, from, next) {
     console.log('this in beforeRouteEnter', this)
     await delay(300)
-    next(vm => {
+    next((vm) => {
       console.log('got vm', vm)
       vm.other = 'Hola'
     })
-  },
+  }
 })
 </script>

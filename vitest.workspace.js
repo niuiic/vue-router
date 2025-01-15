@@ -5,7 +5,7 @@ export default defineWorkspace([
     extends: './packages/router/vitest.config.ts',
     test: {
       name: 'router',
-      root: './packages/router',
-    },
-  },
+      root: './packages/router'
+    }
+  }
 ])

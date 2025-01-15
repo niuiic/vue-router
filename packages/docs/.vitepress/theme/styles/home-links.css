@@ -11,11 +11,11 @@ a.cta:hover {
 }
 
 a.cta.vue-mastery::before {
-  content: '';
+  content: "";
   display: inline-block;
   width: 25px;
   height: 25px;
-  background-image: url('https://firebasestorage.googleapis.com/v0/b/vue-mastery.appspot.com/o/flamelink%2Fmedia%2Fvue-mastery-logo-small.png?alt=media&token=941fcc3a-2b6f-40e9-b4c8-56b3890da108');
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/vue-mastery.appspot.com/o/flamelink%2Fmedia%2Fvue-mastery-logo-small.png?alt=media&token=941fcc3a-2b6f-40e9-b4c8-56b3890da108");
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -28,7 +28,7 @@ a.cta.vueschool {
   padding-left: 38px !important;
 }
 a.cta.vueschool::before {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   width: 20px;
@@ -40,7 +40,7 @@ a.cta.vueschool::before {
 }
 
 a.cta.vueschool::after {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   width: 0;
